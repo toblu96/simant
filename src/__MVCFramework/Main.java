@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
-// Edited by Robin
+// Edited by Tobias
 public class Main extends Application {
 	
 	
