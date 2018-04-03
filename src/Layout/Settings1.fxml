@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="740.0" prefWidth="300.0" style="-fx-background-color: #E4E4E4;" stylesheets="@Layout.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Layout.Layout">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox maxWidth="300.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Form:">
+                     <font>
+                        <Font name="Segoe UI Bold" size="40.0" />
+                     </font>
+                  </Text>
+                  <JFXComboBox fx:id="cb_Form" accessibleHelp="help" accessibleText="text" focusColor="#0058cb" labelFloat="true" onAction="#manageButton" prefHeight="50.0" prefWidth="260.0" unFocusColor="#707070" />
+                  <Text layoutX="30.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Anzahl:">
+                     <font>
+                        <Font name="Segoe UI Bold" size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <JFXTextField fx:id="tf_Anzahl" focusColor="#0058cb" onKeyReleased="#FXSetAnzahl" prefHeight="50.0" text="1" unFocusColor="#707070">
+                     <font>
+                        <Font name="Segoe UI Bold" size="35.0" />
+                     </font>
+                  </JFXTextField>
+                  <Text layoutX="30.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="d / Lambda:">
+                     <font>
+                        <Font name="Segoe UI Bold" size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <JFXTextField fx:id="tf_Lambda" focusColor="#0058cb" layoutX="30.0" layoutY="198.0" onKeyReleased="#FXSetAnzahl" prefHeight="50.0" prefWidth="260.0" text="1" unFocusColor="#707070">
+                     <font>
+                        <Font name="Segoe UI Bold" size="35.0" />
+                     </font>
+                  </JFXTextField>
+                  <Text layoutX="30.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Richtung:">
+                     <font>
+                        <Font name="Segoe UI Bold" size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <JFXTextField fx:id="tf_Richtung" focusColor="#0058cb" layoutX="30.0" layoutY="323.0" onKeyReleased="#FXSetAnzahl" prefHeight="50.0" prefWidth="260.0" text="1" unFocusColor="#707070">
+                     <font>
+                        <Font name="Segoe UI Bold" size="35.0" />
+                     </font>
+                  </JFXTextField>
+                  <Text layoutX="30.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amplitude:">
+                     <font>
+                        <Font name="Segoe UI Bold" size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox>
+                     <children>
+                        <JFXTextField fx:id="tf_Amplitude" focusColor="#0058cb" onKeyReleased="#FXSetAnzahl" prefHeight="50.0" text="1" unFocusColor="#707070">
+                           <font>
+                              <Font name="Segoe UI Bold" size="35.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="bt_unity" defaultButton="true" ellipsisString="" onAction="#manageButton" prefHeight="67.0" style="-fx-background-color: #E4E4E4;" text="V" textFill="#707070" textOverrun="CLIP">
+                           <font>
+                              <Font name="Segoe UI Bold" size="35.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -1,3 +1,13 @@
-.menuButtonActive{
-        -fx-background-color: rgba(126, 182, 255, .5);
+.optionsComboBox{
+    -fx-font-size: 35px;
+    -fx-font-family: Segoe UI;
+    -fx-font-weight: bold;
+}
+
+.combo-box .cell, .jfx-text-field{
+    -fx-text-fill: #707070;
+}
+
+.tabButtonActive{
+    -fx-background-color: white
 }

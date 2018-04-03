@@ -1,54 +1,49 @@
 package XML;
 
+import java.io.File;
+
 import com.jfoenix.controls.*;
 
 import _Model.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class XML {
 	
 	// Local Elements declaration
-	@FXML 
-	JFXButton btn_antenna, btn_layout, btn_diagram, btn_xml, btn_help, btn_settings;
-	
-	@FXML
-	ColumnConstraints menuPaneWidth;
-	
 	private Utility util = new Utility();
 		
+	@FXML JFXButton bt_export, bt_import;
 	
 	public void initialize() {
-		// set width of menu panel
-		menuPaneWidth.setPrefWidth(util.getScreenWidthPercentage(15.5));
+		
 	}
 	
 	
 	// Local Calls from Elements
-	public void manageButton(ActionEvent e) { 
-
-        setBtnBackground((JFXButton)e.getTarget());
-    } 
+	@FXML protected void importFileChooser() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SimAnt files (*.simant)", "*.simant");
+		fileChooser.getExtensionFilters().add(extFilter);
+	    fileChooser.setTitle("Open Resource File"); 
+	    File file = fileChooser.showOpenDialog(null);
+	    System.out.println(file);
+	}
 	
+	@FXML protected void exportFileChooser() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SimAnt files (*.simant)", "*.simant");
+		fileChooser.getExtensionFilters().add(extFilter);
+	    fileChooser.setTitle("Save Resource File"); 
+	    File file = fileChooser.showSaveDialog(null);
+	    System.out.println(file);
+	}
 	
 	
 	// Local Calls
-	public void setBtnBackground(JFXButton btn) {
-		
-		// reset all backgrounds
-		btn_antenna.getStyleClass().removeIf(s -> s.contains("menuButtonActive"));
-		btn_layout.getStyleClass().removeIf(s -> s.contains("menuButtonActive"));
-		btn_diagram.getStyleClass().removeIf(s -> s.contains("menuButtonActive"));
-		btn_xml.getStyleClass().removeIf(s -> s.contains("menuButtonActive"));
-		btn_help.getStyleClass().removeIf(s -> s.contains("menuButtonActive"));
-		btn_settings.getStyleClass().removeIf(s -> s.contains("menuButtonActive"));
-		
-		
-		// set activated button background
-		btn.getStyleClass().add("menuButtonActive");
-		
-	}
 	
 	
 }

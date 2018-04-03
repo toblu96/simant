@@ -1,8 +1,11 @@
 package __MVCFramework;
 	
+import java.awt.Color;
+
 import _Model.Utility;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +35,7 @@ public class Main extends Application {
 			primaryStage.show();
 			primaryStage.setMinHeight(util.getScreenHeightPercentage(66));
 			primaryStage.setMinWidth(util.getScreenWidthPercentage(16.5));
-			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

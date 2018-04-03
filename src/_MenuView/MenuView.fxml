@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="_MenuView.MenuView">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="_MenuView.MenuView">
    <children>
       <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -45,7 +45,7 @@
                               <Image url="@../resources/Logo_weiss.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="btn_antenna" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="260.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="70.0" prefWidth="290.0" text="Antenna" textFill="WHITE" GridPane.rowIndex="2">
+                        <JFXButton fx:id="btn_antenna" alignment="BASELINE_LEFT" defaultButton="true" graphicTextGap="30.0" layoutX="10.0" layoutY="260.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="70.0" prefWidth="290.0" text="Antenna" textFill="WHITE" GridPane.rowIndex="2">
                            <font>
                               <Font name="Segoe UI Bold" size="30.0" />
                            </font>
@@ -136,7 +136,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <AnchorPane GridPane.columnIndex="1">
+            <AnchorPane GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
             	<fx:include fx:id="apn_Antenna" source="../Antenna/Antenna.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             	<fx:include fx:id="apn_Layout" source="../Layout/Layout.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             	<fx:include fx:id="apn_Diagram" source="../Diagram/Diagram.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

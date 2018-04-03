@@ -1,21 +1,27 @@
 package _MenuView;
 
 import java.net.URL;
-import java.util.Observable;
-import java.util.Observer;
+
+import Layout.Layout;
+
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.*;
 
 import _Model.Utility;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
-public class MenuView implements Initializable, Observer {
+public class MenuView implements Initializable {
 	
 	private Utility util = new Utility();
+	
+	// Initialize Screens
+	private Layout layout = new Layout();
 	
 	// Local Elements declaration
 	@FXML 
@@ -31,14 +37,13 @@ public class MenuView implements Initializable, Observer {
 	
 	
 	
-	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		// Achtung!: wird mehrmals initialisert da die einzelnen importierten Panels zuerst geladen werden müssen!
 		// _MenuView wird als letztes initialisiert!
 		if (menuPaneWidth != null) {
-			menuPaneWidth.setPrefWidth(util.getScreenWidthPercentage(15.5));
 			apn_Antenna.toFront();
+			btn_antenna.getStyleClass().add("menuButtonActive");
 			
 			arrButton[0] = btn_antenna;		arrAnchPane[0] = apn_Antenna;
 			arrButton[1] = btn_layout;		arrAnchPane[1] = apn_Layout;
@@ -55,7 +60,7 @@ public class MenuView implements Initializable, Observer {
 	// Local Calls from Elements
 	public void manageButton(ActionEvent e) { 
 
-		setBtnPanel((JFXButton)e.getTarget());
+		this.setBtnPanel((JFXButton)e.getTarget());
     } 
 	
 	
