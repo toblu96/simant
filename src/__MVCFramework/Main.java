@@ -1,11 +1,9 @@
 package __MVCFramework;
-	
-import java.awt.Color;
 
+import Settings.Settings;
 import _Model.Utility;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;

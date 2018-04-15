@@ -3,6 +3,7 @@ package _MenuView;
 import java.net.URL;
 
 import Layout.Layout;
+import Settings.Settings;
 
 import java.util.ResourceBundle;
 
@@ -22,6 +23,7 @@ public class MenuView implements Initializable {
 	
 	// Initialize Screens
 	private Layout layout = new Layout();
+	private Settings settings = new Settings();
 	
 	// Local Elements declaration
 	@FXML 

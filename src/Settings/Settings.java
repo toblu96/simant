@@ -1,22 +1,19 @@
 package Settings;
 
-import com.jfoenix.controls.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import _Model.Utility;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.layout.*;
+import _Model.Utility; 
+import javafx.fxml.Initializable;
 
-public class Settings {
+public class Settings implements Initializable {
 	
 	// Local Elements declaration
-	
-	
-	
-	private Utility util = new Utility();
+	private Utility util = new Utility();	
 		
 	
-	public void initialize() {
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 	}
 	
