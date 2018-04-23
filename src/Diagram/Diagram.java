@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
+import org.apache.commons.math3.complex.Complex;
 
-import _Model.Complex;
 import _Model.Matlab;
 import _Model.tblCharts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -84,12 +84,13 @@ public class Diagram implements Initializable {
 	// Local Calls	
 	private void drawCharts() {
 		for (int i = 0; i < winkel.size(); i++) {
-			Complex c = new Complex(0, 0);
+			
+			Complex c = new Complex(0.0, 0.0);
 			for (int j = 1; j < elements; j++) {
 				double real = Math.cos(	(j-1)*dLambda*2*Math.PI* (Math.cos(winkel.get(i)) ) );
 				double imag = Math.sin(	(j-1)*dLambda*2*Math.PI* (Math.cos(winkel.get(i)) ) );
 				Complex cmp = new Complex(real, imag);
-				c = c.plus(cmp.exp());
+				c = c.add(cmp.exp());
 			}
 			
 			betrag.add(c.abs());

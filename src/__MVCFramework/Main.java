@@ -1,5 +1,7 @@
 package __MVCFramework;
 
+import java.util.concurrent.SubmissionPublisher;
+
 import Settings.Settings;
 import _Model.Utility;
 import javafx.application.Application;
@@ -12,9 +14,7 @@ import javafx.fxml.FXMLLoader;
 // Edited by Tobias
 public class Main extends Application {
 	
-	
 	private Utility util = new Utility();
-	
 	
 	@Override
 	public void start(Stage primaryStage) {
