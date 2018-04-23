@@ -16,5 +16,7 @@
 	<classpathentry kind="lib" path="_libs/controlsfx-9.0.0.jar"/>
 	<classpathentry kind="lib" path="_libs/fontawesomefx-controls-9.1.2-sources.jar"/>
 	<classpathentry kind="lib" path="_libs/fontawesomefx-controls-9.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Robin Bobst/GitHub/Simant/simant/_libs/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Robin Bobst/GitHub/Simant/simant/_libs/commons-math3-3.6.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

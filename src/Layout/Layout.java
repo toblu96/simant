@@ -1,6 +1,8 @@
 package Layout;
 
 
+import java.util.concurrent.SubmissionPublisher;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,7 +11,9 @@ import org.controlsfx.control.PopOver;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 
+import _Controller.Publish;
 import _Model.Utility;
+import __MVCFramework.Main;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
@@ -27,7 +31,6 @@ import javafx.stage.Popup;
 
 public class Layout implements Initializable{
 	private Utility util = new Utility();
-	
 	
 	
 	
@@ -62,6 +65,7 @@ public class Layout implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		// Settings Menu
 		if (cc_MenuSettings != null) {
 			cc_MenuSettings.setPrefWidth(300);
@@ -74,10 +78,8 @@ public class Layout implements Initializable{
 			cb_Form.setItems(formOptions);
 			cb_Form.getStyleClass().add("optionsComboBox");
 			cb_Form.setValue("Reihe");
-		}
-	    
+		}    
 	} 
-	
 	
 	@FXML
 	private void toggleMenuSettings(ActionEvent e) {
@@ -92,13 +94,23 @@ public class Layout implements Initializable{
 		}
 	}
 	
-	
-	
 	// Local Calls from Elements
 	public void manageButton(ActionEvent e) { 
-		
+        
 		if (e.getSource().equals(cb_Form)) {
-			System.out.println(cb_Form.getValue());
+			Publish.Form(cb_Form.getValue());
+		}
+		if (e.getSource().equals(tf_Anzahl)) {
+			Publish.Anzahl(Integer.parseInt(tf_Anzahl.getText()));
+		}
+		if (e.getSource().equals(tf_Lambda)) {
+			Publish.dLambda(Integer.parseInt(tf_Lambda.getText()));
+		}
+		if (e.getSource().equals(tf_Richtung)) {
+			Publish.Richtung(Integer.parseInt(tf_Richtung.getText()));
+		}
+		if (e.getSource().equals(tf_Amplitude)) {
+			Publish.Amplitude(Integer.parseInt(tf_Amplitude.getText()));
 		}
 		if (e.getSource().equals(bt_unity)) {
 			unitsPopup(e);
@@ -109,6 +121,7 @@ public class Layout implements Initializable{
 	protected void FXSetAnzahl() {
 		// only Numbers validation
 		util.onlyNumber(tf_Anzahl, 1.0, 1.0);
+		
 	}
 	
 	@FXML
