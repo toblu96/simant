@@ -42,7 +42,7 @@
                </graphic>
             </JFXButton>
             <Pane fx:id="pn_LineChart" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
-            <JFXButton alignment="CENTER" ellipsisString="" onAction="#resizeLinear" prefHeight="50.0" prefWidth="40.0" style="-fx-background-color: #f0f0f0;" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <JFXButton ellipsisString="" onAction="#resizeLinear" prefHeight="50.0" prefWidth="40.0" style="-fx-background-color: #f0f0f0;" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="10.0" top="10.0" />
                </GridPane.margin>

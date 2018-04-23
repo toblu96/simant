@@ -12,6 +12,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Control;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -53,14 +54,12 @@ public class Diagram implements Initializable {
 	@FXML
 	protected void resizePolar() {
 		if (backGrid.getColumnConstraints().get(0).getPercentWidth() < 100) {
-			backGrid.getRowConstraints().get(1).setPercentHeight(90);
-			backGrid.getRowConstraints().get(2).setPercentHeight(0);
+			backGrid.getRowConstraints().get(2).setMaxHeight(0);
 			backGrid.getColumnConstraints().get(0).setPercentWidth(100);
 			resizePolIcon.setIcon(FontAwesomeIcon.TIMES);
 		} else {
-			backGrid.getRowConstraints().get(1).setPercentHeight(-1);
+			backGrid.getRowConstraints().get(2).setMaxHeight(Control.USE_COMPUTED_SIZE);
 			backGrid.getColumnConstraints().get(0).setPercentWidth(-1);
-			backGrid.getRowConstraints().get(2).setPercentHeight(-1);
 			resizePolIcon.setIcon(FontAwesomeIcon.EXPAND);
 		}
 		
@@ -69,14 +68,12 @@ public class Diagram implements Initializable {
 	@FXML
 	protected void resizeLinear() {
 		if (backGrid.getColumnConstraints().get(0).getPercentWidth() < 100) {
-			backGrid.getRowConstraints().get(1).setPercentHeight(0);
-			backGrid.getRowConstraints().get(2).setPercentHeight(90);
+			backGrid.getRowConstraints().get(1).setMaxHeight(0);
 			backGrid.getColumnConstraints().get(0).setPercentWidth(100);
 			resizeLinIcon.setIcon(FontAwesomeIcon.TIMES);
 		} else {
-			backGrid.getRowConstraints().get(2).setPercentHeight(-1);
+			backGrid.getRowConstraints().get(1).setMaxHeight(Control.USE_COMPUTED_SIZE);
 			backGrid.getColumnConstraints().get(0).setPercentWidth(-1);
-			backGrid.getRowConstraints().get(1).setPercentHeight(-1);
 			resizeLinIcon.setIcon(FontAwesomeIcon.EXPAND);
 		}
 	}

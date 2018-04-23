@@ -14,11 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="_libs/controlsfx-9.0.0-sources.jar"/>
 	<classpathentry kind="lib" path="_libs/controlsfx-9.0.0.jar"/>
-	<classpathentry kind="lib" path="_libs/jfreechart-fx-1.0.1.jar"/>
-	<classpathentry kind="lib" path="_libs/jfreechart-fx-1.0.1-sources.jar"/>
-	<classpathentry kind="lib" path="_libs/jfreechart-1.5.0.jar"/>
-	<classpathentry kind="lib" path="_libs/jfreechart-1.5.0-sources.jar"/>
-	<classpathentry kind="lib" path="_libs/fxgraphics2d-1.5.jar"/>
 	<classpathentry kind="lib" path="_libs/fontawesomefx-controls-9.1.2-sources.jar"/>
 	<classpathentry kind="lib" path="_libs/fontawesomefx-controls-9.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
