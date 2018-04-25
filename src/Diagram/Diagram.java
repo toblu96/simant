@@ -6,7 +6,13 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 import org.apache.commons.math3.complex.Complex;
 
+import _Model.Dipol;
+import _Model.Lambert;
+import _Model.Linear;
+import _Model.Circle;
 import _Model.Matlab;
+import _Model.Topology;
+import _Model.Yagi;
 import _Model.tblCharts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -19,16 +25,15 @@ public class Diagram implements Initializable {
 	
 	// Local Elements declaration	
 	private tblCharts chart = new tblCharts();
+	public Topology[] form = new Topology[2];
 	
-	int points = 800;
-	double dLambda = 0.5;
-	double phase = 0.3;
-	int elements = 5;
+	int points = 1000;
 	
-	ArrayList<Double> winkel = Matlab.linspace(0, 2*Math.PI, points);
+	ArrayList<Double> winkel = Matlab.linspace(0.0, 2*Math.PI, points);
 	
-	ArrayList<Double> betrag = new ArrayList<Double>();
 	ArrayList<Double> betragNorm = new ArrayList<Double>();
+	ArrayList<Double> test1 = new ArrayList<Double>();
+	ArrayList<Double> test2 = new ArrayList<Double>();
 	
 	@FXML
 	GridPane backGrid;
@@ -83,42 +88,22 @@ public class Diagram implements Initializable {
 	
 	// Local Calls	
 	private void drawCharts() {
-		for (int i = 0; i < winkel.size(); i++) {
-			
-			Complex c = new Complex(0.0, 0.0);
-			for (int j = 1; j < elements; j++) {
-				double real = Math.cos(	(j-1)*dLambda*2*Math.PI* (Math.cos(winkel.get(i)) ) );
-				double imag = Math.sin(	(j-1)*dLambda*2*Math.PI* (Math.cos(winkel.get(i)) ) );
-				Complex cmp = new Complex(real, imag);
-				c = c.add(cmp.exp());
-			}
-			
-			betrag.add(c.abs());
+		form[0] = new Dipol(2,0.5,0,1.0,points);
+		//form[0] = new Lambert(13,0.1,0,1.0,points);
+		test1.addAll(form[0].calculate());
+		form[1] = new Circle(5,0.9,90,1.0,points);
+		test2.addAll(form[1].calculate());
+		
+		for (int i = 0; i < points; i++) {
+			betragNorm.add(test1.get(i)*test2.get(i));
 		}
 		
-		System.out.println(betrag.get(1));
-		System.out.println(betrag.get(2));
-		System.out.println(betrag.get(3));
-		System.out.println(betrag.get(4));
-		System.out.println(betrag.get(5));
-		System.out.println(betrag.get(6));
-		System.out.println(betrag.size());
-		
-		for (int i = 0; i < winkel.size(); i++) {
-			double res = betrag.get(i) / Collections.max(betrag);
-			betragNorm.add(res);
-		}
-		
-		System.out.println(betragNorm.get(1));
-		System.out.println(betragNorm.get(2));
-		System.out.println(betragNorm.get(3));
-		System.out.println(betragNorm.get(4));
-		System.out.println(betragNorm.get(5));
-		System.out.println(betragNorm.get(6));
-		System.out.println(betragNorm.size());
-		
-		
-		
+		/*for (int i = 0; i < points; i++) {
+			double b = test1.get(i)*test2.get(i);
+			betragNorm.add(20*Math.log10(b));
+			System.out.println(Math.abs(20*Math.log10(b)));
+		}*/
+
 		// create polar chart
 		chart.createLineChart(pn_LineChart);
 		chart.createPolarChart(pn_PolarChart);

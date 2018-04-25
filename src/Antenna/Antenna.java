@@ -2,11 +2,17 @@ package Antenna;
 
 import java.io.FileInputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import org.apache.commons.math3.complex.Complex;
 
 import com.jfoenix.controls.*;
 
+import Diagram.Diagram;
 import _Controller.Publish;
+import _Model.Dipol;
+import _Model.Topology;
 import __MVCFramework.Main;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
-public class Antenna implements Initializable{
+public class Antenna implements Initializable {
 	
 	// Local Elements declaration
 	@FXML 
@@ -45,6 +51,7 @@ public class Antenna implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		if (pg_SelectedAntenna != null) {
 			//iv_Antenna.setImage(AbstrahlYagi);
 			GridPane.setRowIndex(pg_SelectedAntenna, 0);

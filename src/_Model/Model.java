@@ -5,7 +5,7 @@ import java.util.concurrent.Flow.Subscription;
 
 public class Model {
 	
-	Antenna antenna;
+	Topology topology;
 	public static int Antenne;
 	public static String Form = new String("");
 	public static int Anzahl;

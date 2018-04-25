@@ -12,6 +12,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 
 import _Controller.Publish;
+import _Model.Matlab;
 import _Model.Utility;
 import __MVCFramework.Main;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
