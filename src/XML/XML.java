@@ -1,25 +1,26 @@
 package XML;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.jfoenix.controls.*;
 
+import _MenuView.MenuView;
 import _Model.Utility;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 public class XML {
+	
+	MenuView view;
 	
 	// Local Elements declaration
 	private Utility util = new Utility();
 		
 	@FXML JFXButton bt_export, bt_import;
 	
-	public void initialize() {
-		
+	public void setParentView(MenuView view) {
+		this.view = view;
 	}
 	
 	
@@ -30,16 +31,18 @@ public class XML {
 		fileChooser.getExtensionFilters().add(extFilter);
 	    fileChooser.setTitle("Open Resource File"); 
 	    File file = fileChooser.showOpenDialog(null);
-	    System.out.println(file);
+
+//	    PublishOld.fileOpen(""+file);	    
 	}
 	
-	@FXML protected void exportFileChooser() {
+	@FXML protected void exportFileChooser() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SimAnt files (*.simant)", "*.simant");
 		fileChooser.getExtensionFilters().add(extFilter);
 	    fileChooser.setTitle("Save Resource File"); 
 	    File file = fileChooser.showSaveDialog(null);
-	    System.out.println(file);
+	    
+//	    PublishOld.fileSave(""+file);
 	}
 	
 	

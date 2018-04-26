@@ -2,11 +2,14 @@ package Help;
 
 import com.jfoenix.controls.*;
 
+import _MenuView.MenuView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
 public class Help {
+	
+	MenuView view;
 	
 	// Local Elements declaration
 	@FXML 
@@ -16,8 +19,8 @@ public class Help {
 	GridPane testPane;
 		
 	
-	public Help() {
-		
+	public void setParentView(MenuView view) {
+		this.view = view;
 	}
 	
 	

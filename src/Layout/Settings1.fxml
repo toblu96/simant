@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="740.0" prefWidth="300.0" style="-fx-background-color: #E4E4E4;" stylesheets="@Layout.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Layout.Layout">
+<AnchorPane prefHeight="740.0" prefWidth="300.0" style="-fx-background-color: #E4E4E4;" stylesheets="@Layout.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>

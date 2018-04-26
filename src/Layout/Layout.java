@@ -1,17 +1,14 @@
 package Layout;
 
-
-import java.util.concurrent.SubmissionPublisher;
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.PopOver;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 
-import _Controller.Publish;
+import _MenuView.MenuView;
 import _Model.Utility;
 import __MVCFramework.Main;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -20,21 +17,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 
 public class Layout implements Initializable{
+	
+	private MenuView view;
+	
+	// Layouts & Screens
+	FXMLLoader settingsLoader = new FXMLLoader(Main.class.getResource("/Layout/Settings1.fxml"));
+		
 	private Utility util = new Utility();
 	
 	
 	
 	// Local Elements declaration	
+	@FXML
+	GridPane gp_root;
+	
 	@FXML
 	ColumnConstraints cc_MenuSettings;
 	
@@ -58,13 +59,21 @@ public class Layout implements Initializable{
 		        "Kreis",
 		        "Matrix"	);
 	
-	ObservableList<String> unityOptions = FXCollections.observableArrayList(
-	        "uV",
-	        "mV",
-	        "V"	);
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		try {
+            // Load Layout
+			settingsLoader.setController(this);
+        	AnchorPane pane = (AnchorPane) settingsLoader.load();
+        	gp_root.add(pane, 2, 1, 1, 1);
+        	
+        	AnchorPane.setTopAnchor(pane, 0.0);
+        	AnchorPane.setBottomAnchor(pane, 0.0);
+        	AnchorPane.setLeftAnchor(pane, 0.0);
+        	AnchorPane.setRightAnchor(pane, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		
 		// Settings Menu
 		if (cc_MenuSettings != null) {
@@ -81,6 +90,11 @@ public class Layout implements Initializable{
 		}    
 	} 
 	
+	public void setParentView(MenuView view) {
+		this.view = view;
+	}
+	
+	
 	@FXML
 	private void toggleMenuSettings(ActionEvent e) {
 		
@@ -95,22 +109,23 @@ public class Layout implements Initializable{
 	}
 	
 	// Local Calls from Elements
-	public void manageButton(ActionEvent e) { 
-        
+	@FXML
+	private void manageButton(ActionEvent e) { 
+		
 		if (e.getSource().equals(cb_Form)) {
-			Publish.Form(cb_Form.getValue());
+			view.setForm(cb_Form.getValue());
 		}
 		if (e.getSource().equals(tf_Anzahl)) {
-			Publish.Anzahl(Integer.parseInt(tf_Anzahl.getText()));
+			view.setQuant(Double.parseDouble(tf_Anzahl.getText()));
 		}
 		if (e.getSource().equals(tf_Lambda)) {
-			Publish.dLambda(Integer.parseInt(tf_Lambda.getText()));
+			view.setDLambda(Double.parseDouble(tf_Lambda.getText()));
 		}
 		if (e.getSource().equals(tf_Richtung)) {
-			Publish.Richtung(Integer.parseInt(tf_Richtung.getText()));
+			view.setDir(Double.parseDouble(tf_Richtung.getText()));
 		}
 		if (e.getSource().equals(tf_Amplitude)) {
-			Publish.Amplitude(Integer.parseInt(tf_Amplitude.getText()));
+			view.setAmp(Double.parseDouble(tf_Amplitude.getText()));
 		}
 		if (e.getSource().equals(bt_unity)) {
 			unitsPopup(e);
