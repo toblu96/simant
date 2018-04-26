@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import _MenuView.MenuView;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Polygon;
 
-public class Antenna implements Initializable{
+public class Antenna implements Initializable {
 	
 	MenuView view;
 	
@@ -40,6 +41,7 @@ public class Antenna implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		if (pg_SelectedAntenna != null) {
 			//iv_Antenna.setImage(AbstrahlYagi);
 			GridPane.setRowIndex(pg_SelectedAntenna, 0);

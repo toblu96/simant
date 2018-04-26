@@ -14,7 +14,6 @@ public class Model {
 	
 	public void updateInputData(SimantInputData data) {
 		// Werte auseinandernehmen und Berechnung auslösen!!!!!!!!
-		
 		SimantData sD = new SimantData();
 		sD.setAmp(Matlab.linspace(0, 10, 10));
 		sD.setWinkel(Matlab.linspace(0, 10, 10));
