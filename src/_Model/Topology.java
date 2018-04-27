@@ -21,7 +21,6 @@ public abstract class Topology {
 	}
 	
 	public abstract ArrayList<Double> calculate();
-	public abstract void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points);
 }
 
 
