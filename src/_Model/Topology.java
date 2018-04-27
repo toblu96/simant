@@ -21,29 +21,5 @@ public abstract class Topology {
 	}
 	
 	public abstract ArrayList<Double> calculate();
-<<<<<<< HEAD
 	public abstract void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points);
-=======
-}
-
-
-
-class Matrix extends Topology {
-	public Matrix(int an_number, double An_Lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, An_Lambda, an_direction, an_amplitude, points);
-	}
-	
-	public ArrayList<Double> calculate() {
-		
-		return null;
-	}
-	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		this.an_number = an_number;
-		this.an_lambda = an_lambda;
-		this.an_direction = an_direction;
-		this.an_amplitude = an_amplitude;
-		this.points = points;
-	}
->>>>>>> refs/remotes/GitHub/master
 }
