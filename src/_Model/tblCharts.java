@@ -140,7 +140,7 @@ public class tblCharts {
 			Line line = new Line(calcHeight, linPane.getHeight()*0.05,calcHeight,linPane.getHeight()*0.95);
 			linGroup.getChildren().add(line);
 			
-			Label label = new Label("" + 180 / (vertLines-1) * i);
+			Label label = new Label("" + 360 / (vertLines-1) * i);
 			label.setLayoutX(calcHeight - 10);
 			label.setLayoutY(linPane.getHeight()-20);
 			linGroup.getChildren().add(label);
@@ -149,10 +149,11 @@ public class tblCharts {
 		// Shape from dataSet
 		for (int i = 0; i < this.x.size()-1; i++) {
 			double scaleFactor = linPane.getHeight()*0.9/this.maxRadius;	// Scale Factor
+			double offset = linPane.getHeight()*0.05/this.maxRadius;
 			double xStart = linPane.getWidth()*0.9 / this.maxWinkel*this.x.get(i) + linPane.getWidth()*0.05;
-			double yStart = scaleFactor*(this.y.get(i));
+			double yStart = linPane.getHeight() - offset - scaleFactor*(this.y.get(i));
 			double xEnd = linPane.getWidth()*0.9 / this.maxWinkel*this.x.get(i+1) + linPane.getWidth()*0.05;
-			double yEnd = scaleFactor*(this.y.get(i+1));
+			double yEnd = linPane.getHeight() - offset - scaleFactor*(this.y.get(i+1));
 			
 			Line line = new Line(xStart, yStart, xEnd, yEnd);
 			line.setStroke(getColorMap(jet, this.y.get(i)));

@@ -34,12 +34,14 @@ public class Circle extends Topology {
 		for (int k = 1; k <= n; k++) {
 			for (int i = 0; i < points; i++) {
 				if (k==1) {
-					Complex c = new Complex(Math.cos(d_L*2.0*Math.PI*(Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))), Math.sin(d_L*2.0*Math.PI* (Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))));
+					Complex c = new Complex(Math.cos(d_L*2.0*Math.PI*(Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))),
+											Math.sin(d_L*2.0*Math.PI* (Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))));
 					c = c.multiply(ak.get(k-1));
 					dipolr.add(c);
 					res.add(dipolr.get(i).abs());
 				} else {
-					Complex c = new Complex(Math.cos(d_L*2.0*Math.PI* (Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))), Math.sin(d_L*2.0*Math.PI* (Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))));
+					Complex c = new Complex(Math.cos(d_L*2.0*Math.PI* (Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))), 
+											Math.sin(d_L*2.0*Math.PI* (Math.cos(2.0*Math.PI*k/n)*Math.sin(phase)*Math.cos(psi_r.get(i)) + Math.sin(2.0*Math.PI*k/n)*Math.sin(phase)*Math.sin(psi_r.get(i)))));
 					c = c.multiply(ak.get(k-1));
 					dipolr.set(i, c.add(dipolr.get(i))); 
 					res.set(i, dipolr.get(i).abs());
