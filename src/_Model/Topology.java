@@ -21,6 +21,7 @@ public abstract class Topology {
 	}
 	
 	public abstract ArrayList<Double> calculate();
+	public abstract void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points);
 }
 
 
@@ -33,5 +34,13 @@ class Matrix extends Topology {
 	public ArrayList<Double> calculate() {
 		
 		return null;
+	}
+	
+	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
+		this.an_number = an_number;
+		this.an_lambda = an_lambda;
+		this.an_direction = an_direction;
+		this.an_amplitude = an_amplitude;
+		this.points = points;
 	}
 }

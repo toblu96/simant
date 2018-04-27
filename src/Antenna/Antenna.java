@@ -62,31 +62,23 @@ public class Antenna implements Initializable {
 		iv_Antenna.setImage(AbstrahlYagi);
 		iv_Antenna.setCache(true);
 		GridPane.setRowIndex(pg_SelectedAntenna, 0);
-//		menuView.inpData.setAmp(1.0);
-//		menuView.setInputData();
-//		PublishOld.antenna(1);
+		this.view.setAnt(0);
     } 
 	
 	public void manageButton2(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 1);
 		//iv_Antenna.setImage(Icon);
-//		menuView.inpData.setAmp(2.0);
-//		menuView.setInputData();
-//		PublishOld.antenna(2);
+		this.view.setAnt(1);
     } 
 	
 	public void manageButton3(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 2);
-//		menuView.inpData.setAmp(3.0);
-//		menuView.setInputData();
-//		PublishOld.antenna(3);
+		this.view.setAnt(2);
     } 
 	
 	public void manageButton4(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 3);
-//		menuView.inpData.setAmp(4.0);
-//		menuView.setInputData();
-//		PublishOld.antenna(4);
+		this.view.setAnt(3);
     }
 	
 }

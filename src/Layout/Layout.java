@@ -113,16 +113,20 @@ public class Layout implements Initializable{
 	private void manageButton(ActionEvent e) { 
 		
 		if (e.getSource().equals(cb_Form)) {
-			view.setForm(cb_Form.getValue());
+			switch (cb_Form.getValue()) {
+			case "Reihe": view.setForm(0); break;
+			case "Kreis": view.setForm(1); break;
+			case "Matrix": view.setForm(2); break;
+			}
 		}
 		if (e.getSource().equals(tf_Anzahl)) {
-			view.setQuant(Double.parseDouble(tf_Anzahl.getText()));
+			view.setQuant(Integer.parseInt(tf_Anzahl.getText()));
 		}
 		if (e.getSource().equals(tf_Lambda)) {
 			view.setDLambda(Double.parseDouble(tf_Lambda.getText()));
 		}
 		if (e.getSource().equals(tf_Richtung)) {
-			view.setDir(Double.parseDouble(tf_Richtung.getText()));
+			view.setDir(Integer.parseInt(tf_Richtung.getText()));
 		}
 		if (e.getSource().equals(tf_Amplitude)) {
 			view.setAmp(Double.parseDouble(tf_Amplitude.getText()));

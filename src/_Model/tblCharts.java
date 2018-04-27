@@ -50,7 +50,7 @@ public class tblCharts {
 		polGroup.getChildren().clear();
 		
 		// draw nothing if pane minimized
-		if (polPane.getHeight() < 1) {
+		if (polPane.getHeight() < 1 || this.x == null) {
 			return;
 		}
 		
@@ -112,7 +112,7 @@ public class tblCharts {
 		linGroup.getChildren().clear();
 		
 		// draw nothing if pane minimized
-		if (linPane.getHeight() < 1) {
+		if (linPane.getHeight() < 1 || this.x == null) {
 			return;
 		}
 		

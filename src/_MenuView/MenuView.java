@@ -21,6 +21,7 @@ import _Model.Model;
 import _Model.SimantData;
 import _Model.SimantInputData;
 import __MVCFramework.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,6 +87,12 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		inpData = new SimantInputData();
+		inpData.setAmp(1.0);
+		inpData.setAnt(0);
+		inpData.setDir(0);
+		inpData.setDLambda(1.0);
+		inpData.setForm(0);
+		inpData.setQuant(1);
 	
 		btn_antenna.getStyleClass().add("menuButtonActive");
 		
@@ -113,6 +120,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		this.help.setParentView(this);
 		this.settings.setParentView(this);
 		
+		this.controller.setInputData(this.inpData);
 		
 	}
 	
@@ -130,12 +138,12 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		controller.setInputData(inpData);
 	}
 	
-	public void setForm(String data) {
+	public void setForm(Integer data) {
 		this.inpData.setForm(data);
 		controller.setInputData(inpData);
 	}
 	
-	public void setQuant(Double data) {
+	public void setQuant(Integer data) {
 		this.inpData.setQuant(data);
 		controller.setInputData(inpData);
 	}
@@ -145,7 +153,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		controller.setInputData(inpData);
 	}
 	
-	public void setDir(Double data) {
+	public void setDir(Integer data) {
 		this.inpData.setDir(data);
 		controller.setInputData(inpData);
 	}
@@ -174,7 +182,9 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onComplete() {
-		// Plots aktualisieren!!
+//		diagram.drawCharts(this.sData);
+		Platform.runLater( () -> {  diagram.drawCharts(this.sData); System.out.println("redrawed with "+this.sData);});
+		
 		System.out.println("end "+this.sData.getAmp());
 	}
 
@@ -185,7 +195,9 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onNext(SimantData item) {
+		System.out.println("rec data");
 		this.sData = item;
+		
 	    subscription.request(1);
 	}
 

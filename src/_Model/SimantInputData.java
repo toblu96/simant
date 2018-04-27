@@ -4,10 +4,10 @@ public class SimantInputData {
 
 	// all Data
 	private int antenna;
-	private String form;
-	private Double quantity;
+	private int form;
+	private int quantity;
 	private Double dLambda;
-	private Double direction;
+	private Integer direction;
 	private Double amplitude;
 	
 	
@@ -20,19 +20,19 @@ public class SimantInputData {
 		return this.antenna;
 	}
 	
-	public void setForm(String data) {
+	public void setForm(Integer data) {
 		this.form = data;
 	}
 	
-	public String getForm() {
+	public Integer getForm() {
 		return this.form;
 	}
 	
-	public void setQuant(Double data) {
+	public void setQuant(Integer data) {
 		this.quantity = data;
 	}
 	
-	public Double getQuant() {
+	public Integer getQuant() {
 		return this.quantity;
 	}
 	
@@ -44,11 +44,11 @@ public class SimantInputData {
 		return this.dLambda;
 	}
 
-	public void setDir(Double data) {
+	public void setDir(Integer data) {
 		this.direction = data;
 	}
 	
-	public Double getDir() {
+	public Integer getDir() {
 		return this.direction;
 	}
 	

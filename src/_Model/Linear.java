@@ -10,6 +10,14 @@ public class Linear extends Topology {
 		super(an_number, an_lambda, an_direction, an_amplitude, points);
 	}
 	
+	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
+		this.an_number = an_number;
+		this.an_lambda = an_lambda;
+		this.an_direction = an_direction;
+		this.an_amplitude = an_amplitude;
+		this.points = points;
+	}
+	
 	public ArrayList<Double> calculate() {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
 		ArrayList<Complex> dipolr = new ArrayList<Complex>();

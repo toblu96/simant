@@ -1,19 +1,10 @@
 package Diagram;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
-import org.apache.commons.math3.complex.Complex;
 
 import _MenuView.MenuView;
-import _Model.Dipol;
-import _Model.Lambert;
-import _Model.Linear;
-import _Model.Circle;
-import _Model.Matlab;
-import _Model.Topology;
-import _Model.Yagi;
+import _Model.SimantData;
 import _Model.tblCharts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -29,16 +20,6 @@ public class Diagram implements Initializable {
 	
 	// Local Elements declaration	
 	private tblCharts chart = new tblCharts();
-	public Topology[] form = new Topology[2];
-	
-
-	int points = 1000;
-	
-	ArrayList<Double> winkel = Matlab.linspace(0.0, 2*Math.PI, points);
-	
-	ArrayList<Double> betragNorm = new ArrayList<Double>();
-	ArrayList<Double> test1 = new ArrayList<Double>();
-	ArrayList<Double> test2 = new ArrayList<Double>();
 	
 	@FXML
 	GridPane backGrid;
@@ -53,9 +34,9 @@ public class Diagram implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		if (pn_LineChart != null) {
-//			drawCharts();
-		}
+		// create polar chart
+		chart.createLineChart(pn_LineChart);
+		chart.createPolarChart(pn_PolarChart);
 	} 
 	
 	public void setParentView(MenuView view) {
@@ -91,27 +72,7 @@ public class Diagram implements Initializable {
 	}
 	
 	// Local Calls	
-	private void drawCharts() {
-		form[0] = new Dipol(2,0.5,0,1.0,points);
-		//form[0] = new Lambert(13,0.1,0,1.0,points);
-		test1.addAll(form[0].calculate());
-		form[1] = new Circle(5,0.9,90,1.0,points);
-		test2.addAll(form[1].calculate());
-		
-		for (int i = 0; i < points; i++) {
-			betragNorm.add(test1.get(i)*test2.get(i));
-		}
-		
-		/*for (int i = 0; i < points; i++) {
-			double b = test1.get(i)*test2.get(i);
-			betragNorm.add(20*Math.log10(b));
-			System.out.println(Math.abs(20*Math.log10(b)));
-		}*/
-
-		// create polar chart
-		chart.createLineChart(pn_LineChart);
-		chart.createPolarChart(pn_PolarChart);
-
-		chart.setDataSet(winkel, betragNorm);
+	public void drawCharts(SimantData sData) {
+		chart.setDataSet(sData.getWinkel(), sData.getAmp());
 	}
 }
