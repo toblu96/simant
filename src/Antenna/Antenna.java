@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import _MenuView.MenuView;
-
+import _Model.SimantInputData;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -45,14 +45,20 @@ public class Antenna implements Initializable {
 		if (pg_SelectedAntenna != null) {
 			//iv_Antenna.setImage(AbstrahlYagi);
 			GridPane.setRowIndex(pg_SelectedAntenna, 0);
-//			menuView.inpData.setAmp(1.0);
-//			menuView.setInputData();
-//			PublishOld.antenna(1);
 		}
 	} 
 	
 	public void setParentView(MenuView view) {
 		this.view = view;
+	}
+	
+	public void updateInputs(SimantInputData data) {
+		switch (data.getAnt()) {
+		case 0: manageButton1(null);	break;
+		case 1: manageButton2(null);	break;
+		case 2: manageButton3(null);	break;
+		case 3: manageButton4(null);	break;
+		}
 	}
 	
 	// Local Calls from Elements

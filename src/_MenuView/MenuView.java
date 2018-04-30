@@ -1,5 +1,6 @@
 package _MenuView;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -120,7 +121,9 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		this.help.setParentView(this);
 		this.settings.setParentView(this);
 		
-		this.controller.setInputData(this.inpData);
+
+		updateInputs(inpData);
+//		this.controller.setInputData(this.inpData);
 		
 	}
 	
@@ -163,6 +166,19 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		controller.setInputData(inpData);
 	}
 	
+	public void saveXML(File file) {
+		controller.exportData(file, this.inpData);
+	}
+	
+	public void loadXML(File file) {
+		controller.importData(file);
+	}
+	
+	public void updateInputs(SimantInputData data) {
+		layout.updateInputs(data);
+		antenna.updateInputs(data);
+	}
+	
 	
 	
 	public void setBtnPanel(JFXButton btn) {
@@ -186,6 +202,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		Platform.runLater( () -> {  diagram.drawCharts(this.sData); System.out.println("redrawed with "+this.sData);});
 		
 		System.out.println("end "+this.sData.getAmp());
+		System.out.println("value "+inpData.getAmp());
 	}
 
 	@Override

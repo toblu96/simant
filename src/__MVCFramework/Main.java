@@ -50,8 +50,8 @@ public class Main extends Application {
             scene.getStylesheets().add(Main.class.getResource("/_MenuView/application.css").toExternalForm());
             primaryStage.setScene(scene);
 			primaryStage.show();
-			primaryStage.setMinHeight(util.getScreenHeightPercentage(66));
-			primaryStage.setMinWidth(util.getScreenWidthPercentage(16.5));
+			primaryStage.setMinHeight(util.getScreenHeightPercentage(80));
+			primaryStage.setMinWidth(util.getScreenWidthPercentage(20));
 			
         } catch (IOException e) {
             e.printStackTrace();

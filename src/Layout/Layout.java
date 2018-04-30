@@ -9,6 +9,7 @@ import org.controlsfx.control.PopOver;
 import com.jfoenix.controls.*;
 
 import _MenuView.MenuView;
+import _Model.SimantInputData;
 import _Model.Utility;
 import __MVCFramework.Main;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -55,12 +56,12 @@ public class Layout implements Initializable{
 	JFXButton bt_tabAnt, bt_tab3D, bt_unity;
 	
 	ObservableList<String> formOptions = FXCollections.observableArrayList(
-		        "Reihe",
-		        "Kreis",
+		        "Row",
+		        "Circle",
 		        "Matrix"	);
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources) {		
 		try {
             // Load Layout
 			settingsLoader.setController(this);
@@ -114,17 +115,17 @@ public class Layout implements Initializable{
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Reihe": view.setForm(0); break;
-			case "Kreis": view.setForm(1); break;
+			case "Row": view.setForm(0); break;
+			case "Circle": view.setForm(1); break;
 			case "Matrix": view.setForm(2); break;
 			}
 		}
-		if (e.getSource().equals(tf_Anzahl)) {
-			view.setQuant(Integer.parseInt(tf_Anzahl.getText()));
-		}
-		if (e.getSource().equals(tf_Lambda)) {
-			view.setDLambda(Double.parseDouble(tf_Lambda.getText()));
-		}
+//		if (e.getSource().equals(tf_Anzahl)) {
+//			view.setQuant(Integer.parseInt(tf_Anzahl.getText()));
+//		}
+//		if (e.getSource().equals(tf_Lambda)) {
+//			view.setDLambda(Double.parseDouble(tf_Lambda.getText()));
+//		}
 		if (e.getSource().equals(tf_Richtung)) {
 			view.setDir(Integer.parseInt(tf_Richtung.getText()));
 		}
@@ -138,9 +139,12 @@ public class Layout implements Initializable{
 	
 	@FXML
 	protected void FXSetAnzahl() {
-		// only Numbers validation
-		util.onlyNumber(tf_Anzahl, 1.0, 1.0);
-		
+		view.setQuant(util.getInt(tf_Anzahl, 0, 10));
+	}
+	
+	@FXML
+	protected void FXSetDLambda() {
+		view.setDLambda(util.getDouble(tf_Lambda, 0.0, 10.0));	
 	}
 	
 	@FXML
@@ -154,7 +158,28 @@ public class Layout implements Initializable{
 	}
 
 	
-	
+	public void updateInputs(SimantInputData data) {
+		// Form
+		switch (data.getForm()) {
+		case 0: cb_Form.setValue("Row"); break;
+		case 1: cb_Form.setValue("Circle"); break;
+		case 2: cb_Form.setValue("Matrix"); break;
+		}
+		view.setForm(data.getForm());
+		// quantity
+		tf_Anzahl.setText(""+data.getQuant());
+		view.setQuant(data.getQuant());
+		// dLambda
+		tf_Lambda.setText(""+data.getDLambda());
+		view.setDLambda(data.getDLambda());
+		// direction
+		tf_Richtung.setText(""+data.getDir());
+		view.setDir(data.getDir());
+		// amplitude
+		tf_Amplitude.setText(String.format("%.0E", data.getAmp()));
+		view.setAmp(data.getAmp());
+		
+	}
 	
 	
 	// Local Calls
@@ -163,9 +188,9 @@ public class Layout implements Initializable{
 		JFXButton bt1 = new JFXButton("mV");
 		JFXButton bt2 = new JFXButton("V");
 		JFXButton bt3 = new JFXButton("kV");
-		bt1.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 35px;-fx-font-weight: bold;");
-		bt2.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 35px;-fx-font-weight: bold;");
-		bt3.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 35px;-fx-font-weight: bold;");
+		bt1.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 25px;-fx-font-weight: bold;");
+		bt2.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 25px;-fx-font-weight: bold;");
+		bt3.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 25px;-fx-font-weight: bold;");
 		bt2.setMinWidth(60);
 		bt1.setPadding(new Insets(10));
 		bt2.setPadding(new Insets(10));
@@ -178,9 +203,9 @@ public class Layout implements Initializable{
 	    PopOver popOver = new PopOver(hBox);
 	    popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
 	    popOver.setTitle("Unity");
-	    bt1.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("V");    });
+	    bt1.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("mV");    });
 	    bt2.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("V");    });
-	    bt3.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("V");    });
+	    bt3.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("kV");    });
 	    popOver.show(actionButton);
 	}
 	

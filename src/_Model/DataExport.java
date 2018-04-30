@@ -1,5 +1,6 @@
 package _Model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,7 +18,8 @@ import javax.xml.stream.XMLStreamWriter;
 // XML Writer DOM
 public class DataExport {
 	
-	static int antennaIndex = 0;
+	int antennaIndex = 0;
+	
 
     private void writeXML(String fileName, Map<String, String> elementsMap) {
         XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
@@ -68,13 +70,15 @@ public class DataExport {
 			smlSW.writeCharacters(elementsMap.get(element));
 	    	smlSW.writeEndElement();
 		} catch (XMLStreamException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
 	
-    private static Map<String, String> parseXML(String fileName) {
+    private SimantInputData parseXML(String fileName) {
+    	
     	XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+    	SimantInputData data = new SimantInputData();
+    	
         try {
             XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(new FileInputStream(fileName));
             int event = xmlStreamReader.getEventType();
@@ -84,28 +88,34 @@ public class DataExport {
                     if(xmlStreamReader.getLocalName().equals("Antenna")){
 //                        emp.setId(Integer.parseInt(xmlStreamReader.getAttributeValue(0)));
                     }else if(xmlStreamReader.getLocalName().equals("antenna")){
-                    	antennaIndex = 1;
+                    	this.antennaIndex = 1;
                     }else if(xmlStreamReader.getLocalName().equals("form")){
-                    	antennaIndex = 2;
+                    	this.antennaIndex = 2;
                     }else if(xmlStreamReader.getLocalName().equals("quantity")){
-                    	antennaIndex = 3;
+                    	this.antennaIndex = 3;
                     }else if(xmlStreamReader.getLocalName().equals("dLambda")){
-                    	antennaIndex = 4;
+                    	this.antennaIndex = 4;
                     }else if(xmlStreamReader.getLocalName().equals("direction")){
-                    	antennaIndex = 5;
+                    	this.antennaIndex = 5;
                     }else if(xmlStreamReader.getLocalName().equals("amplitude")){
-                    	antennaIndex = 6;
+                    	this.antennaIndex = 6;
                     }
                     break;
                     
                 case XMLStreamConstants.CHARACTERS:
                 	switch (antennaIndex) {
-					case 1:		System.out.println("antenna " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 2:		System.out.println("form " + (xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 3:		System.out.println("quantity " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 4:		System.out.println("dLambda " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 5:		System.out.println("direction " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 6:		System.out.println("amplitude " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 1:		data.setAnt(Integer.parseInt(xmlStreamReader.getText()));
+						System.out.println("antenna " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 2:		data.setForm(Integer.parseInt(xmlStreamReader.getText()));
+						System.out.println("form " + (xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 3:		data.setQuant(Integer.parseInt(xmlStreamReader.getText()));
+						System.out.println("quantity " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 4:		data.setDLambda(Double.parseDouble(xmlStreamReader.getText()));
+						System.out.println("dLambda " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 5:		data.setDir(Integer.parseInt(xmlStreamReader.getText()));
+						System.out.println("direction " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 6:		data.setAmp(Double.parseDouble(xmlStreamReader.getText()));
+						System.out.println("amplitude " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
 							
 					}
                     break;
@@ -126,31 +136,31 @@ public class DataExport {
         } catch (FileNotFoundException | XMLStreamException e) {
             e.printStackTrace();
         }
-        return null;
+        return data;
     }
 	
     /**
      * Creates a XML File and saves its content
      * 
+     * @param file	-> Save File to this Data Path
+     * @param data	-> Data to save
      * @throws IOException
      */
-    public static void saveXML() throws IOException {
+    public void saveXML(File file, SimantInputData data) throws IOException {
 		
-		String fileName = ""+				null;
-        
-        DataExport xmlWriter = new DataExport();
+		DataExport xmlWriter = new DataExport();
         
         Map<String,String> elementsMap = new HashMap<String, String>();
         
         elementsMap.put("id", "1");
-//        elementsMap.put("antenna", ""+ 		SubscribeOld.antenna.get());
-//        elementsMap.put("form", ""+ 		SubscribeOld.form.get());
-//        elementsMap.put("quantity", ""+ 	SubscribeOld.quantity.get());
-//        elementsMap.put("dLambda", ""+ 		SubscribeOld.dLambda.get());
-//        elementsMap.put("direction", ""+ 	SubscribeOld.direction.get());
-//        elementsMap.put("amplitude", ""+ 	SubscribeOld.amplitude.get());
+        elementsMap.put("antenna", ""+ 		data.getAnt());
+        elementsMap.put("form", ""+ 		data.getForm());
+        elementsMap.put("quantity", ""+ 	data.getQuant());
+        elementsMap.put("dLambda", ""+ 		data.getDLambda());
+        elementsMap.put("direction", ""+ 	data.getDir());
+        elementsMap.put("amplitude", ""+ 	data.getAmp());
         
-        xmlWriter.writeXML(fileName, elementsMap);
+        xmlWriter.writeXML(file.toString(), elementsMap);
 	}
 
     /**
@@ -158,10 +168,7 @@ public class DataExport {
      * 
      * @throws IOException
      */
-    public static void openXML() throws IOException {
-    	
-		String fileName = ""+				null;
-		
-        parseXML(fileName);
+    public SimantInputData openXML(File file) throws IOException {		
+        return parseXML(file.toString());
 	}
 }

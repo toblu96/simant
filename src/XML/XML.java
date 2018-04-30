@@ -32,7 +32,7 @@ public class XML {
 	    fileChooser.setTitle("Open Resource File"); 
 	    File file = fileChooser.showOpenDialog(null);
 
-//	    PublishOld.fileOpen(""+file);	    
+	    view.loadXML(file);
 	}
 	
 	@FXML protected void exportFileChooser() throws IOException {
@@ -42,7 +42,7 @@ public class XML {
 	    fileChooser.setTitle("Save Resource File"); 
 	    File file = fileChooser.showSaveDialog(null);
 	    
-//	    PublishOld.fileSave(""+file);
+	    view.saveXML(file);
 	}
 	
 	
