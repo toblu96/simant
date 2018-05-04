@@ -1,6 +1,7 @@
 package _Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.SubmissionPublisher;
 
 import _MenuView.MenuView;
@@ -11,8 +12,8 @@ public class Model {
 	
 	SimantData sData = new SimantData();
 	
-	private Topology[] form = new Topology[3];
-	private Topology[] abstrahl = new Topology[4];
+	private Form[] form = new Form[3];
+	private Characteristic[] charact = new Characteristic[4];
 	
 	private int points = 1000;
 	
@@ -26,10 +27,10 @@ public class Model {
 		this.view = view;
 		
 		// Antenna
-		abstrahl[0] = new Lambert(13,0.1,0,1.0,points);
-		abstrahl[1] = new Dipol(1,0.5,0,1.0,points);		// entspricht Isotrop!
-		abstrahl[2] = new Yagi(0,0,0,0,points);
-		abstrahl[3] = new Dipol(2,0.5,0,1.0,points);
+		charact[0] = new Lambert(0,points);
+		charact[1] = new Isotrop(0,points);
+		charact[2] = new Yagi(0,points);
+		charact[3] = new Dipol(0,points);
 		
 		// Layout
 		form[0] = new Linear(1,1,1,1,points);
@@ -58,7 +59,7 @@ public class Model {
 		
 		// Antenna
 		characteristic.clear();
-		characteristic.addAll(abstrahl[data.getAnt()].calculate());
+		characteristic.addAll(charact[data.getAnt()].calculate());
 		System.out.println("ant"+data.getAnt());
 		
 		// Layout		
@@ -71,6 +72,11 @@ public class Model {
 		betragNorm.clear();
 		for (int i = 0; i < points; i++) {
 			betragNorm.add(characteristic.get(i)*layout.get(i));
+		}
+		
+		double maxVal = Collections.max(betragNorm);
+		for (int k = 0; k < points; k++) {
+			betragNorm.set(k, betragNorm.get(k)/maxVal);
 		}
 		return betragNorm;
 		
