@@ -45,9 +45,9 @@
                               <Image url="@../resources/Logo_weiss.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="btn_antenna" alignment="BASELINE_LEFT" defaultButton="true" graphicTextGap="30.0" layoutX="10.0" layoutY="260.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Antenna" textFill="WHITE" GridPane.rowIndex="2">
+                        <JFXButton fx:id="btn_antenna" alignment="BASELINE_LEFT" defaultButton="true" graphicTextGap="30.0" layoutX="10.0" layoutY="260.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Antenne" textFill="WHITE" GridPane.rowIndex="2">
                            <font>
-                              <Font name="Segoe UI Bold" size="25.0" />
+                              <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="SIGNAL" size="35" />
@@ -61,7 +61,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btn_layout" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="190.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Layout" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
-                              <Font name="Segoe UI Bold" size="25.0" />
+                              <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="TH_LARGE" size="35" />
@@ -73,9 +73,9 @@
                               <Insets left="20.0" />
                            </padding>
                         </JFXButton>
-                        <JFXButton fx:id="btn_diagram" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="260.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Diagram" textFill="WHITE" GridPane.rowIndex="4">
+                        <JFXButton fx:id="btn_diagram" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="260.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Diagramm" textFill="WHITE" GridPane.rowIndex="4">
                            <font>
-                              <Font name="Segoe UI Bold" size="25.0" />
+                              <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="AREA_CHART" size="35" />
@@ -92,7 +92,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btn_xml" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="330.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="XML" textFill="WHITE" GridPane.rowIndex="5">
                            <font>
-                              <Font name="Segoe UI Bold" size="25.0" />
+                              <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD" size="35" />
@@ -104,9 +104,9 @@
                               <Insets left="20.0" />
                            </padding>
                         </JFXButton>
-                        <JFXButton fx:id="btn_help" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="400.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Help" textFill="WHITE" GridPane.rowIndex="7">
+                        <JFXButton fx:id="btn_help" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="400.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Hilfe" textFill="WHITE" GridPane.rowIndex="7">
                            <font>
-                              <Font name="Segoe UI Bold" size="25.0" />
+                              <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE" size="35" />
@@ -120,7 +120,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btn_settings" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="670.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Settings" textFill="WHITE" GridPane.rowIndex="8">
                            <font>
-                              <Font name="Segoe UI Bold" size="25.0" />
+                              <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                            <opaqueInsets>
                               <Insets />

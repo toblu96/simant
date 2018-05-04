@@ -30,12 +30,12 @@ public class Antenna implements Initializable {
 	@FXML
 	//ImageView iv_Antenna; file:src/resources/
 	
-	Image AbstrahlYagi = new Image(getClass().getResourceAsStream("/resources/AbstrahlYagi.png"));
+//	Image AbstrahlYagi = new Image(getClass().getResourceAsStream("/resources/AbstrahlYagi.png"));
 	//Image Icon = new Image("resources/Icon.png");
 	
 	private ObjectProperty<javafx.scene.image.Image> imageProperty = new SimpleObjectProperty<>();
-	@FXML
-	ImageView iv_Antenna = new ImageView(AbstrahlYagi);
+//	@FXML
+//	ImageView iv_Antenna = new ImageView(AbstrahlYagi);
 	//Bindings.bindBidirectional(this.iv_Antenna.imageProperty(), GlobalModel.getInstance().getProject().getImageProperty());
 	
 	
@@ -63,10 +63,10 @@ public class Antenna implements Initializable {
 	
 	// Local Calls from Elements
 	public void manageButton1(ActionEvent e) {
-		System.out.println(AbstrahlYagi);
+//		System.out.println(AbstrahlYagi);
 		//iv_Antenna.imageProperty();
-		iv_Antenna.setImage(AbstrahlYagi);
-		iv_Antenna.setCache(true);
+//		iv_Antenna.setImage(AbstrahlYagi);
+//		iv_Antenna.setCache(true);
 		GridPane.setRowIndex(pg_SelectedAntenna, 0);
 		this.view.setAnt(0);
     } 

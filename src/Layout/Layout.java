@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -55,6 +57,18 @@ public class Layout implements Initializable{
 	@FXML
 	JFXButton bt_tabAnt, bt_tab3D, bt_unity;
 	
+	@FXML
+	ImageView img_form, img_ant;
+	
+	static Image imgDipolHoriz = new Image("/resources/Java_Dipol_Horiz.png", true);
+	static Image imgDipolVert = new Image("/resources/Java_Dipol_Vert.png", true);
+	static Image imgCircle = new Image("/resources/Java_Kreis.png", true);
+	static Image imgRow = new Image("/resources/Java_Linie.png", true);
+	static Image imgMatrix = new Image("/resources/Java_Matrix.png", true);
+	static Image imgYagiHoriz = new Image("/resources/Java_Yagi_Horiz.png", true);
+	static Image imgYagiVert = new Image("/resources/Java_Yagi_Vert.png", true);
+	
+	
 	ObservableList<String> formOptions = FXCollections.observableArrayList(
 		        "Row",
 		        "Circle",
@@ -72,6 +86,10 @@ public class Layout implements Initializable{
         	AnchorPane.setBottomAnchor(pane, 0.0);
         	AnchorPane.setLeftAnchor(pane, 0.0);
         	AnchorPane.setRightAnchor(pane, 0.0);
+        	
+        	img_ant.setImage(imgDipolHoriz);
+        	img_form.setImage(imgRow);
+        	
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +97,7 @@ public class Layout implements Initializable{
 		// Settings Menu
 		if (cc_MenuSettings != null) {
 			cc_MenuSettings.setPrefWidth(300);
-			tf_TitleSettings.setText("Antenna Array");
+			tf_TitleSettings.setText("Group Settings");
 
 			bt_tabAnt.setStyle("-fx-background-color: white");
 		}
@@ -109,15 +127,27 @@ public class Layout implements Initializable{
 		}
 	}
 	
+	public void updatePicture(int index) {
+		switch (index) {
+		case 0: img_ant.setImage(imgDipolHoriz); break;
+		case 1: img_ant.setImage(imgDipolHoriz); break;
+		case 2: img_ant.setImage(imgYagiHoriz); break;
+		case 3: img_ant.setImage(imgDipolHoriz); break;
+		case 4: img_ant.setImage(imgDipolHoriz); break;
+		case 5: img_ant.setImage(imgDipolHoriz); break;
+		}
+		
+	}
+	
 	// Local Calls from Elements
 	@FXML
 	private void manageButton(ActionEvent e) { 
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Row": view.setForm(0); break;
-			case "Circle": view.setForm(1); break;
-			case "Matrix": view.setForm(2); break;
+			case "Row": view.setForm(0); img_form.setImage(imgRow); break;
+			case "Circle": view.setForm(1); img_form.setImage(imgCircle); break;
+			case "Matrix": view.setForm(2); img_form.setImage(imgMatrix); break;
 			}
 		}
 //		if (e.getSource().equals(tf_Anzahl)) {
@@ -128,6 +158,7 @@ public class Layout implements Initializable{
 //		}
 		if (e.getSource().equals(tf_Richtung)) {
 			view.setDir(Integer.parseInt(tf_Richtung.getText()));
+			System.out.println("wikel "+tf_Richtung.getText());
 		}
 		if (e.getSource().equals(tf_Amplitude)) {
 			view.setAmp(Double.parseDouble(tf_Amplitude.getText()));

@@ -139,6 +139,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	public void setAnt(Integer data) {
 		this.inpData.setAnt(data);
 		controller.setInputData(inpData);
+		this.layout.updatePicture(data);
 	}
 	
 	public void setForm(Integer data) {
@@ -158,6 +159,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	
 	public void setDir(Integer data) {
 		this.inpData.setDir(data);
+		System.out.println("wikel "+this.inpData.getDir());
 		controller.setInputData(inpData);
 	}
 	

@@ -102,7 +102,7 @@ public class tblCharts {
 			
 			Line line = new Line(xStart, yStart, xEnd, yEnd);
 			line.setStroke(getColorMap(jet, this.y.get(i)));
-			line.setStrokeWidth(5);
+			line.setStrokeWidth(3);
 			polGroup.getChildren().add(line);
 		}
 	}
@@ -157,7 +157,7 @@ public class tblCharts {
 			
 			Line line = new Line(xStart, yStart, xEnd, yEnd);
 			line.setStroke(getColorMap(jet, this.y.get(i)));
-			line.setStrokeWidth(5);
+			line.setStrokeWidth(3);
 			linGroup.getChildren().add(line);
 		}
 	}
