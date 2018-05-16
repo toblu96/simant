@@ -1,5 +1,7 @@
 package _Model;
 
+import java.util.ArrayList;
+
 public class SimantInputData {
 
 	// all Data
@@ -9,6 +11,8 @@ public class SimantInputData {
 	private Double dLambda;
 	private Integer direction;
 	private Double amplitude;
+	private ArrayList<Double> ampArray;
+	private Double ampPercent;
 	
 	
 	
@@ -58,6 +62,22 @@ public class SimantInputData {
 	
 	public Double getAmp() {
 		return this.amplitude;
+	}
+	
+	public void setAmpArray(ArrayList<Double> data) {
+		this.ampArray = data;
+	}
+	
+	public ArrayList<Double> getAmpArray() {
+		return this.ampArray;
+	}
+	
+	public void setAmpPercent(Double data) {
+		this.ampPercent = data;
+	}
+	
+	public Double getAmpPercent() {
+		return this.ampPercent;
 	}
 	
 	

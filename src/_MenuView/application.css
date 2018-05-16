@@ -1,3 +1,21 @@
 .menuButtonActive{
         -fx-background-color: rgba(126, 182, 255, .5);
 }
+
+.jfx-slider .colored-track {
+    -fx-background-color: #0058CB;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+}
+
+.jfx-slider .thumb{
+    -fx-background-color: #0058CB;
+}
+
+.jfx-slider .animated-thumb {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-background-color: #0058CB;
+    -fx-background-radius: 50% 50% 50% 0%;
+    -fx-background-insets: 0;
+}

@@ -7,7 +7,12 @@ public class Matlab {
 	public static ArrayList<Double> linspace(double start, double end, int n) {
 		ArrayList<Double> arl = new ArrayList<Double>();
 		for (int i = 0; i < n; i++) {
-			arl.add(start + (i*(end-start))/(n-1));
+			if (n > 1) {
+				arl.add(start + (i*(end-start))/(n-1));
+			} else {
+				arl.add(start + (end-start));
+			}
+			
 		}
 		return arl;
 		

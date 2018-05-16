@@ -9,6 +9,7 @@ import Settings.Settings;
 import XML.XML;
 import _Controller.Controller;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.Flow.Subscription;
@@ -94,8 +95,10 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		inpData.setDLambda(1.0);
 		inpData.setForm(0);
 		inpData.setQuant(1);
-	
-		btn_antenna.getStyleClass().add("menuButtonActive");
+		ArrayList<Double> temp = new ArrayList<Double>(); temp.add(1.0);
+		inpData.setAmpArray(temp);
+		temp = null;
+		inpData.setAmpPercent(0.0);
 		
 		arrButton[0] = btn_antenna;		arrAnchPane[0] = createStageSection(this.antennaLoader);
 		arrButton[1] = btn_layout;		arrAnchPane[1] = createStageSection(this.layoutLoader);
@@ -104,7 +107,8 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		arrButton[4] = btn_help;		arrAnchPane[4] = createStageSection(this.helpLoader);
 		arrButton[5] = btn_settings;	arrAnchPane[5] = createStageSection(this.settingsLoader);
 		
-		arrAnchPane[0].toFront();
+		arrAnchPane[1].toFront();
+		btn_layout.getStyleClass().add("menuButtonActive");
 		
 		// get references from fxml		
 		this.antenna = this.antennaLoader.getController();
@@ -139,7 +143,6 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	public void setAnt(Integer data) {
 		this.inpData.setAnt(data);
 		controller.setInputData(inpData);
-		this.layout.updatePicture(data);
 	}
 	
 	public void setForm(Integer data) {
@@ -159,12 +162,17 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	
 	public void setDir(Integer data) {
 		this.inpData.setDir(data);
-		System.out.println("wikel "+this.inpData.getDir());
 		controller.setInputData(inpData);
 	}
 	
 	public void setAmp(Double data) {
 		this.inpData.setAmp(data);
+		controller.setInputData(inpData);
+	}
+	
+	public void setAmpArray(ArrayList<Double> data, Double sliderPercent) {
+		this.inpData.setAmpArray(data);
+		this.inpData.setAmpPercent(sliderPercent);
 		controller.setInputData(inpData);
 	}
 	
@@ -200,11 +208,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onComplete() {
-//		diagram.drawCharts(this.sData);
-		Platform.runLater( () -> {  diagram.drawCharts(this.sData); System.out.println("redrawed with "+this.sData);});
-		
-		System.out.println("end "+this.sData.getAmp());
-		System.out.println("value "+inpData.getAmp());
+		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient());});
 	}
 
 	@Override
@@ -214,7 +218,6 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onNext(SimantData item) {
-		System.out.println("rec data");
 		this.sData = item;
 		
 	    subscription.request(1);

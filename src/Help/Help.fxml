@@ -20,34 +20,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="135.0" prefWidth="464.0" text="Antenna" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Segoe UI Italic" size="96.0" />
-               </font>
-            </Label>
             <Label layoutX="10.0" layoutY="343.0" prefHeight="135.0" prefWidth="464.0" text="Help" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <font>
                   <Font name="Segoe UI Bold" size="96.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="76.0" prefHeight="135.0" prefWidth="464.0" text="Antenna" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Segoe UI Italic" size="96.0" />
-               </font>
-            </Label>
             <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="610.0" prefHeight="135.0" prefWidth="464.0" text="Help" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <font>
                   <Font name="Segoe UI Bold" size="96.0" />
-               </font>
-            </Label>
-            <Label layoutX="10.0" layoutY="76.0" prefHeight="135.0" prefWidth="464.0" text="Antenna" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Segoe UI Italic" size="96.0" />
-               </font>
-            </Label>
-            <Label layoutX="10.0" layoutY="76.0" prefHeight="135.0" prefWidth="464.0" text="Antenna" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Segoe UI Italic" size="96.0" />
                </font>
             </Label>
          </children>

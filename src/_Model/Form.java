@@ -11,35 +11,23 @@ public abstract class Form {
 	
 	protected int an_number, an_direction, points;
 	protected double an_lambda, an_amplitude;
+	protected ArrayList<Double> an_amp;
 	
-	public Form(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		this.an_amplitude = an_amplitude;
+	public void updateData(int an_number, double an_lambda, int an_direction, ArrayList<Double> an_amplitude, int points) {
 		this.an_number = an_number;
 		this.an_lambda = an_lambda;
 		this.an_direction = an_direction;
+		this.an_amp = an_amplitude;
 		this.points = points;
 	}
 	
 	public abstract ArrayList<Double> calculate();
-	public abstract void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points);
 	public abstract Image getImage(boolean reflector);
 }
 
 
 
 class Linear extends Form {
-	public Linear(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, an_lambda, an_direction, an_amplitude, points);
-	}
-	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		this.an_number = an_number;
-		this.an_lambda = an_lambda;
-		this.an_direction = an_direction;
-		this.an_amplitude = an_amplitude;
-		this.points = points;
-	}
-	
 	
 	public ArrayList<Double> calculate() {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
@@ -48,10 +36,9 @@ class Linear extends Form {
 		double richtd = Matlab.deg2rad(an_direction);
 		double d_L = an_lambda;
 		int n = an_number;
-
 		ArrayList<Double> ak = new ArrayList<Double>();
-		for (int i = 1; i <= n; i++) {
-			ak.add(an_amplitude);
+		for (int i = 0; i < n; i++) {
+			ak.add(an_amp.get(i));
 		}
 		
 		for (int k = 1; k <= n; k++) {
@@ -91,17 +78,6 @@ class Linear extends Form {
 
 
 class Circle extends Form {
-	public Circle(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, an_lambda, an_direction, an_amplitude, points);
-	}
-	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		this.an_number = an_number;
-		this.an_lambda = an_lambda;
-		this.an_direction = an_direction;
-		this.an_amplitude = an_amplitude;
-		this.points = points;
-	}
 	
 	public ArrayList<Double> calculate() {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
@@ -113,7 +89,7 @@ class Circle extends Form {
 
 		ArrayList<Double> ak = new ArrayList<Double>();
 		for (int i = 0; i < n; i++) {
-			ak.add(an_amplitude);
+			ak.add(an_amp.get(i+1));
 		}
 		
 		for (int k = 1; k <= n; k++) {
@@ -153,17 +129,6 @@ class Circle extends Form {
 
 
 class Matrix extends Form {
-	public Matrix(int an_number, double An_Lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, An_Lambda, an_direction, an_amplitude, points);
-	}
-	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		this.an_number = an_number;
-		this.an_lambda = an_lambda;
-		this.an_direction = an_direction;
-		this.an_amplitude = an_amplitude;
-		this.points = points;
-	}
 	
 	public ArrayList<Double> calculate() {
 		
@@ -178,8 +143,8 @@ class Matrix extends Form {
 		int n = 3; // Antenne x richtung
 		int m = 6; // Antenne y richtung
 		
-		for (int i = 1; i <= n; i++) {
-			ak.add(an_amplitude);
+		for (int i = 0; i < n; i++) {
+			ak.add(an_amp.get(i+1));
 		}
 		
 		for (int k = 0; k < n; k++) {

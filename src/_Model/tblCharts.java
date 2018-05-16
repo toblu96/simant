@@ -78,7 +78,7 @@ public class tblCharts {
 		// Lines with Label (Degrees)
 		int lines = 12;
 		for (int i = 0; i < lines; i++) {
-			double angle = 2* Math.PI / 12 * i; 
+			double angle = 2* Math.PI / lines * i; 
 			Line line = new Line();
 			line.setLayoutX(middleX);
 			line.setLayoutY(middleY);

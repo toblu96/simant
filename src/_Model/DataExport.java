@@ -43,6 +43,7 @@ public class DataExport {
             writeElement(xmlStreamWriter, "quantity", elementsMap);
             writeElement(xmlStreamWriter, "direction", elementsMap);
             writeElement(xmlStreamWriter, "amplitude", elementsMap);
+            writeElement(xmlStreamWriter, "sliderPercent", elementsMap);
             
             //write end tag of Employee element
             xmlStreamWriter.writeCharacters("\n\t");
@@ -99,6 +100,8 @@ public class DataExport {
                     	this.antennaIndex = 5;
                     }else if(xmlStreamReader.getLocalName().equals("amplitude")){
                     	this.antennaIndex = 6;
+                    }else if(xmlStreamReader.getLocalName().equals("sliderPercent")){
+                    	this.antennaIndex = 7;
                     }
                     break;
                     
@@ -116,7 +119,7 @@ public class DataExport {
 						System.out.println("direction " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
 					case 6:		data.setAmp(Double.parseDouble(xmlStreamReader.getText()));
 						System.out.println("amplitude " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-							
+					case 7:		data.setAmpPercent(Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
 					}
                     break;
                     
@@ -153,12 +156,13 @@ public class DataExport {
         Map<String,String> elementsMap = new HashMap<String, String>();
         
         elementsMap.put("id", "1");
-        elementsMap.put("antenna", ""+ 		data.getAnt());
-        elementsMap.put("form", ""+ 		data.getForm());
-        elementsMap.put("quantity", ""+ 	data.getQuant());
-        elementsMap.put("dLambda", ""+ 		data.getDLambda());
-        elementsMap.put("direction", ""+ 	data.getDir());
-        elementsMap.put("amplitude", ""+ 	data.getAmp());
+        elementsMap.put("antenna", ""+ 			data.getAnt());
+        elementsMap.put("form", ""+ 			data.getForm());
+        elementsMap.put("quantity", ""+ 		data.getQuant());
+        elementsMap.put("dLambda", ""+ 			data.getDLambda());
+        elementsMap.put("direction", ""+ 		data.getDir());
+        elementsMap.put("amplitude", ""+ 		data.getAmp());
+        elementsMap.put("sliderPercent", ""+ 	data.getAmpPercent());
         
         xmlWriter.writeXML(file.toString(), elementsMap);
 	}

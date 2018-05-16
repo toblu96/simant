@@ -33,14 +33,18 @@ public class Model {
 		charact[3] = new Dipol(0,points);
 		
 		// Layout
-		form[0] = new Linear(1,1,1,1,points);
-		form[1] = new Circle(1,1,1,1,points);
-		form[2] = new Matrix(1,1,1,1,points);
+		form[0] = new Linear();
+		form[1] = new Circle();
+		form[2] = new Matrix();
 		
 	}
 	
 	public void updateInputData(SimantInputData data) {
 
+		// get Images
+		sData.setImgForm(form[data.getForm()].getImage(true));
+		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(true));
+		
 		sData.setAmp(calculateTopology(data));
 		sData.setWinkel(this.winkel);
 		
@@ -60,13 +64,11 @@ public class Model {
 		// Antenna
 		characteristic.clear();
 		characteristic.addAll(charact[data.getAnt()].calculate());
-		System.out.println("ant"+data.getAnt());
 		
 		// Layout		
-		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmp(),points);
+		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmpArray(),points);
 		layout.clear();
 		layout.addAll(form[data.getForm()].calculate());
-		System.out.println("form"+data.getForm());
 		
 		// calculate Betrag
 		betragNorm.clear();

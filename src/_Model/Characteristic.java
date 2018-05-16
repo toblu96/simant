@@ -241,9 +241,9 @@ class Lambert extends Characteristic {
 	@Override
 	public Image getImageOrientation(boolean direction) {
 		if (direction) {
-			return new Image("/resources/Java_Lampert_Horizontal.png", true);
+			return new Image("/resources/Java_Lampert_Horiz.png", true);
 		} else {
-			return new Image("/resources/Java_Lampert_Vertikal.png", true);
+			return new Image("/resources/Java_Lampert_Vert.png", true);
 		}
 	}
 

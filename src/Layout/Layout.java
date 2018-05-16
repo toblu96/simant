@@ -9,18 +9,22 @@ import org.controlsfx.control.PopOver;
 import com.jfoenix.controls.*;
 
 import _MenuView.MenuView;
+import _Model.AmplitudePlot;
+import _Model.FormPlot;
 import _Model.SimantInputData;
 import _Model.Utility;
-import __MVCFramework.Main;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -29,15 +33,21 @@ public class Layout implements Initializable{
 	private MenuView view;
 	
 	// Layouts & Screens
-	FXMLLoader settingsLoader = new FXMLLoader(Main.class.getResource("/Layout/Settings1.fxml"));
+	FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/Layout/Settings1.fxml"));
 		
 	private Utility util = new Utility();
+	
+	FormPlot fplot = new FormPlot();
+	AmplitudePlot ampPlot = new AmplitudePlot();
 	
 	
 	
 	// Local Elements declaration	
 	@FXML
 	GridPane gp_root;
+	
+	@FXML
+	Pane pn_form, pn_amplitude;
 	
 	@FXML
 	ColumnConstraints cc_MenuSettings;
@@ -60,6 +70,9 @@ public class Layout implements Initializable{
 	@FXML
 	ImageView img_form, img_ant;
 	
+	@FXML
+	JFXSlider sl_percent;
+	
 	static Image imgDipolHoriz = new Image("/resources/Java_Dipol_Horiz.png", true);
 	static Image imgDipolVert = new Image("/resources/Java_Dipol_Vert.png", true);
 	static Image imgCircle = new Image("/resources/Java_Kreis.png", true);
@@ -75,7 +88,7 @@ public class Layout implements Initializable{
 		        "Matrix"	);
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {		
+	public void initialize(URL location, ResourceBundle resources) {	
 		try {
             // Load Layout
 			settingsLoader.setController(this);
@@ -111,6 +124,17 @@ public class Layout implements Initializable{
 	
 	public void setParentView(MenuView view) {
 		this.view = view;
+		
+		// hier weil initialize 2x ausgeführt wird.. wird noch geändert!!
+		fplot.createForm(pn_form);
+		ampPlot.initPane(pn_amplitude);
+		sl_percent.valueProperty().addListener((obs, oldVal, newVal) -> {		FXSetPercentage();	});
+		sl_percent.setOnMouseReleased(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent event) {
+		    	FXCalculatePercentage();
+		    }
+		});
 	}
 	
 	
@@ -127,16 +151,8 @@ public class Layout implements Initializable{
 		}
 	}
 	
-	public void updatePicture(int index) {
-		switch (index) {
-		case 0: img_ant.setImage(imgDipolHoriz); break;
-		case 1: img_ant.setImage(imgDipolHoriz); break;
-		case 2: img_ant.setImage(imgYagiHoriz); break;
-		case 3: img_ant.setImage(imgDipolHoriz); break;
-		case 4: img_ant.setImage(imgDipolHoriz); break;
-		case 5: img_ant.setImage(imgDipolHoriz); break;
-		}
-		
+	public void updatePicture(Image img) {
+		img_ant.setImage(img);		
 	}
 	
 	// Local Calls from Elements
@@ -145,9 +161,9 @@ public class Layout implements Initializable{
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Row": view.setForm(0); img_form.setImage(imgRow); break;
-			case "Circle": view.setForm(1); img_form.setImage(imgCircle); break;
-			case "Matrix": view.setForm(2); img_form.setImage(imgMatrix); break;
+			case "Row": view.setForm(0); img_form.setImage(imgRow); fplot.setForm(0); break;
+			case "Circle": view.setForm(1); img_form.setImage(imgCircle); fplot.setForm(1); break;
+			case "Matrix": view.setForm(2); img_form.setImage(imgMatrix); fplot.setForm(2); break;
 			}
 		}
 //		if (e.getSource().equals(tf_Anzahl)) {
@@ -157,8 +173,9 @@ public class Layout implements Initializable{
 //			view.setDLambda(Double.parseDouble(tf_Lambda.getText()));
 //		}
 		if (e.getSource().equals(tf_Richtung)) {
-			view.setDir(Integer.parseInt(tf_Richtung.getText()));
-			System.out.println("wikel "+tf_Richtung.getText());
+			int data = Integer.parseInt(tf_Richtung.getText());
+			view.setDir(data);
+			fplot.setAngle(data);
 		}
 		if (e.getSource().equals(tf_Amplitude)) {
 			view.setAmp(Double.parseDouble(tf_Amplitude.getText()));
@@ -170,7 +187,14 @@ public class Layout implements Initializable{
 	
 	@FXML
 	protected void FXSetAnzahl() {
-		view.setQuant(util.getInt(tf_Anzahl, 0, 10));
+		int data = util.getInt(tf_Anzahl, 0, 10);
+		ampPlot.setAntQuant(data);
+		FXSetPercentage();
+		FXCalculatePercentage();
+		view.setQuant(data);
+		fplot.setAntCount(data);
+		
+		
 	}
 	
 	@FXML
@@ -186,6 +210,15 @@ public class Layout implements Initializable{
 		bt_tab3D.setStyle("");
 		// set activated button background
 		btn.setStyle("-fx-background-color: white");	
+	}
+	
+	@FXML
+	protected void FXSetPercentage() {
+		ampPlot.setPercentage((int) sl_percent.getValue());
+	}
+	
+	protected void FXCalculatePercentage() {
+		view.setAmpArray(ampPlot.getAmp(), sl_percent.getValue());
 	}
 
 	
@@ -209,6 +242,13 @@ public class Layout implements Initializable{
 		// amplitude
 		tf_Amplitude.setText(String.format("%.0E", data.getAmp()));
 		view.setAmp(data.getAmp());
+		
+		fplot.setForm(data.getForm());
+		fplot.setAntCount(data.getQuant());
+		fplot.setAngle(data.getDir());
+		
+		sl_percent.setValue(data.getAmpPercent());
+		ampPlot.setAntQuant(data.getQuant());
 		
 	}
 	

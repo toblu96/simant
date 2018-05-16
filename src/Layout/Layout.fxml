@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
@@ -70,18 +71,23 @@
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="470.0" minHeight="10.0" prefHeight="287.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="396.0" minHeight="10.0" prefHeight="276.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <VBox alignment="CENTER" spacing="10.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <VBox spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <Text fill="#707070" strokeType="OUTSIDE" strokeWidth="0.0" text="Antenna Orientation">
+                        <Text fill="#707070" strokeType="OUTSIDE" strokeWidth="0.0" text="Abstrahlung">
                            <font>
                               <Font name="Segoe UI Bold" size="25.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </Text>
                         <ImageView fx:id="img_ant" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
@@ -89,15 +95,54 @@
                         <Insets />
                      </opaqueInsets>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
                      <children>
                         <Text fill="#707070" strokeType="OUTSIDE" strokeWidth="0.0" text="Array Form">
                            <font>
                               <Font name="Segoe UI Bold" size="25.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </Text>
                         <ImageView fx:id="img_form" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="480.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                     <children>
+                        <Text fill="#707070" strokeType="OUTSIDE" strokeWidth="0.0" text="Array Form Draufsicht">
+                           <font>
+                              <Font name="Segoe UI Bold" size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Pane fx:id="pn_form" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin></Pane>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                     <children>
+                        <Text fill="#707070" strokeType="OUTSIDE" strokeWidth="0.0" text="Amplituden Einstellung">
+                           <font>
+                              <Font name="Segoe UI Bold" size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Pane fx:id="pn_amplitude" prefHeight="120.0" style="-fx-background-color: #F0F0F0;" />
+                        <JFXSlider fx:id="sl_percent" blockIncrement="1.0" majorTickUnit="1.0" minorTickCount="1" prefHeight="20.0" prefWidth="729.0" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
                   </VBox>
                </children>
             </GridPane>
