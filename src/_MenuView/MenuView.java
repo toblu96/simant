@@ -209,7 +209,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onComplete() {
-		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient()); this.antenna.updateView(this.sData);});
+		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm()); this.antenna.updateView(this.sData);});
 	}
 
 	@Override

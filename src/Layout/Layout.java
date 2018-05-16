@@ -23,7 +23,6 @@ import javafx.fxml.*;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -73,15 +72,7 @@ public class Layout implements Initializable{
 	@FXML
 	JFXSlider sl_percent;
 	
-	static Image imgDipolHoriz = new Image("/resources/Java_Dipol_Horiz.png", true);
-	static Image imgDipolVert = new Image("/resources/Java_Dipol_Vert.png", true);
-	static Image imgCircle = new Image("/resources/Java_Kreis.png", true);
-	static Image imgRow = new Image("/resources/Java_Linie.png", true);
-	static Image imgMatrix = new Image("/resources/Java_Matrix.png", true);
-	static Image imgYagiHoriz = new Image("/resources/Java_Yagi_Horiz.png", true);
-	static Image imgYagiVert = new Image("/resources/Java_Yagi_Vert.png", true);
-	
-	
+
 	ObservableList<String> formOptions = FXCollections.observableArrayList(
 		        "Row",
 		        "Circle",
@@ -100,8 +91,6 @@ public class Layout implements Initializable{
         	AnchorPane.setLeftAnchor(pane, 0.0);
         	AnchorPane.setRightAnchor(pane, 0.0);
         	
-        	img_ant.setImage(imgDipolHoriz);
-        	img_form.setImage(imgRow);
         	
         } catch (IOException e) {
             e.printStackTrace();
@@ -151,8 +140,9 @@ public class Layout implements Initializable{
 		}
 	}
 	
-	public void updatePicture(Image img) {
-		img_ant.setImage(img);		
+	public void updatePicture(Image imgOrient, Image imgForm) {
+		img_ant.setImage(imgOrient);
+		img_form.setImage(imgForm);
 	}
 	
 	// Local Calls from Elements
@@ -161,24 +151,10 @@ public class Layout implements Initializable{
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Row": view.setForm(0); img_form.setImage(imgRow); fplot.setForm(0); break;
-			case "Circle": view.setForm(1); img_form.setImage(imgCircle); fplot.setForm(1); break;
-			case "Matrix": view.setForm(2); img_form.setImage(imgMatrix); fplot.setForm(2); break;
+			case "Row": view.setForm(0); fplot.setForm(0); break;
+			case "Circle": view.setForm(1); fplot.setForm(1); break;
+			case "Matrix": view.setForm(2); fplot.setForm(2); break;
 			}
-		}
-//		if (e.getSource().equals(tf_Anzahl)) {
-//			view.setQuant(Integer.parseInt(tf_Anzahl.getText()));
-//		}
-//		if (e.getSource().equals(tf_Lambda)) {
-//			view.setDLambda(Double.parseDouble(tf_Lambda.getText()));
-//		}
-		if (e.getSource().equals(tf_Richtung)) {
-			int data = Integer.parseInt(tf_Richtung.getText());
-			view.setDir(data);
-			fplot.setAngle(data);
-		}
-		if (e.getSource().equals(tf_Amplitude)) {
-			view.setAmp(Double.parseDouble(tf_Amplitude.getText()));
 		}
 		if (e.getSource().equals(bt_unity)) {
 			unitsPopup(e);
@@ -192,9 +168,19 @@ public class Layout implements Initializable{
 		FXSetPercentage();
 		FXCalculatePercentage();
 		view.setQuant(data);
-		fplot.setAntCount(data);
-		
-		
+		fplot.setAntCount(data);		
+	}
+	
+	@FXML
+	protected void FXSetDirection() {
+		int data = util.getInt(tf_Richtung, -360, 360);
+		view.setDir(data);
+		fplot.setAngle(data);	
+	}
+	
+	@FXML
+	protected void FXSetAmplitude() {
+		view.setAmp(util.getDouble(tf_Amplitude, 0.0, 10.0));	
 	}
 	
 	@FXML

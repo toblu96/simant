@@ -57,11 +57,20 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Text>
-                  <JFXTextField fx:id="tf_Richtung" focusColor="#0058cb" layoutX="30.0" layoutY="323.0" onAction="#manageButton" prefWidth="260.0" unFocusColor="#707070">
-                     <font>
-                        <Font name="Segoe UI Bold" size="25.0" />
-                     </font>
-                  </JFXTextField>
+                  <HBox>
+                     <children>
+                        <JFXTextField fx:id="tf_Richtung" focusColor="#0058cb" onKeyReleased="#FXSetDirection" prefWidth="260.0" unFocusColor="#707070">
+                           <font>
+                              <Font name="Segoe UI Bold" size="25.0" />
+                           </font>
+                        </JFXTextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" °">
+                           <font>
+                              <Font name="Segoe UI" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
                   <Text layoutX="30.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amplitude:">
                      <font>
                         <Font name="Segoe UI Bold" size="25.0" />
@@ -72,7 +81,7 @@
                   </Text>
                   <HBox alignment="CENTER">
                      <children>
-                        <JFXTextField fx:id="tf_Amplitude" focusColor="#0058cb" onAction="#manageButton" unFocusColor="#707070" HBox.hgrow="SOMETIMES">
+                        <JFXTextField fx:id="tf_Amplitude" focusColor="#0058cb" onKeyReleased="#FXSetAmplitude" unFocusColor="#707070" HBox.hgrow="SOMETIMES">
                            <font>
                               <Font name="Segoe UI Bold" size="25.0" />
                            </font>

@@ -41,8 +41,8 @@ public class Model {
 	public void updateInputData(SimantInputData data) {
 
 		// get Images
-		sData.setImgForm(form[data.getForm()].getImage(true));
-		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(true));
+		sData.setImgForm(form[data.getForm()].getImage(false));					// set true if reflector!
+		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(true));	// set false if antenna orientation vertical
 		
 		sData.setAmp(calculateTopology(data));
 		sData.setWinkel(this.winkel);
