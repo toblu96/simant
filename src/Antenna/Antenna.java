@@ -4,15 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import _MenuView.MenuView;
+import _Model.SimantData;
 import _Model.SimantInputData;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Polygon;
 
@@ -24,26 +22,16 @@ public class Antenna implements Initializable {
 	@FXML 
 	Polygon pg_SelectedAntenna;
 	
-	@FXML 
-	AnchorPane apn_AntennaInfo;
+	@FXML
+	ImageView img_ant;
 	
 	@FXML
-	//ImageView iv_Antenna; file:src/resources/
-	
-//	Image AbstrahlYagi = new Image(getClass().getResourceAsStream("/resources/AbstrahlYagi.png"));
-	//Image Icon = new Image("resources/Icon.png");
-	
-	private ObjectProperty<javafx.scene.image.Image> imageProperty = new SimpleObjectProperty<>();
-//	@FXML
-//	ImageView iv_Antenna = new ImageView(AbstrahlYagi);
-	//Bindings.bindBidirectional(this.iv_Antenna.imageProperty(), GlobalModel.getInstance().getProject().getImageProperty());
-	
+	Label txt_ant;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		if (pg_SelectedAntenna != null) {
-			//iv_Antenna.setImage(AbstrahlYagi);
 			GridPane.setRowIndex(pg_SelectedAntenna, 0);
 		}
 	} 
@@ -61,19 +49,19 @@ public class Antenna implements Initializable {
 		}
 	}
 	
+	public void updateView(SimantData data) {
+		img_ant.setImage(data.getImgCharac());
+		txt_ant.setText(data.getTxCharac());
+	}
+	
 	// Local Calls from Elements
 	public void manageButton1(ActionEvent e) {
-//		System.out.println(AbstrahlYagi);
-		//iv_Antenna.imageProperty();
-//		iv_Antenna.setImage(AbstrahlYagi);
-//		iv_Antenna.setCache(true);
 		GridPane.setRowIndex(pg_SelectedAntenna, 0);
 		this.view.setAnt(0);
     } 
 	
 	public void manageButton2(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 1);
-		//iv_Antenna.setImage(Icon);
 		this.view.setAnt(1);
     } 
 	

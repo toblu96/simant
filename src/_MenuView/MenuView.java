@@ -95,6 +95,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		inpData.setDLambda(1.0);
 		inpData.setForm(0);
 		inpData.setQuant(1);
+		inpData.setDist(0.0);
 		ArrayList<Double> temp = new ArrayList<Double>(); temp.add(1.0);
 		inpData.setAmpArray(temp);
 		temp = null;
@@ -208,7 +209,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onComplete() {
-		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient());});
+		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient()); this.antenna.updateView(this.sData);});
 	}
 
 	@Override

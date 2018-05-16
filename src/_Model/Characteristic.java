@@ -249,7 +249,7 @@ class Lambert extends Characteristic {
 
 	@Override
 	public Image getImageCharacterictic() {
-		return new Image("/resources/Java_Lambert_Final.png", true);
+		return new Image("/resources/Java_Lampert_Final.png", true);
 	}
 }
 

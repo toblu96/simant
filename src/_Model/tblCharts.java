@@ -164,6 +164,9 @@ public class tblCharts {
 	
 	private Paint getColorMap(double[][] map, double radius) {
 		int index = (int) (map[0].length/this.maxRadius*radius - 1);		// calculate index of ColorMap
+		if (index <= 0) {
+			index = 0;
+		}
 		return Color.rgb((int)(255 * map[0][index]), (int)(255 * map[1][index]), (int)(255 * map[2][index]));
 	}
 	

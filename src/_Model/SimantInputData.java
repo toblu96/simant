@@ -13,6 +13,7 @@ public class SimantInputData {
 	private Double amplitude;
 	private ArrayList<Double> ampArray;
 	private Double ampPercent;
+	private Double distance;
 	
 	
 	
@@ -80,6 +81,12 @@ public class SimantInputData {
 		return this.ampPercent;
 	}
 	
+	public void setDist(Double data) {
+		this.distance = data;
+	}
 	
+	public Double getDist() {
+		return this.distance;
+	}
 	
 }

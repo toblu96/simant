@@ -36,7 +36,6 @@ public class Model {
 		form[0] = new Linear();
 		form[1] = new Circle();
 		form[2] = new Matrix();
-		
 	}
 	
 	public void updateInputData(SimantInputData data) {
@@ -47,6 +46,8 @@ public class Model {
 		
 		sData.setAmp(calculateTopology(data));
 		sData.setWinkel(this.winkel);
+		sData.setImgCharac(charact[data.getAnt()].getImageCharacterictic());
+		sData.setTxCharac(charact[data.getAnt()].getText());
 		
 		updateView(this.sData);
 		
@@ -65,8 +66,8 @@ public class Model {
 		characteristic.clear();
 		characteristic.addAll(charact[data.getAnt()].calculate());
 		
-		// Layout		
-		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmpArray(),points);
+		// Layout
+		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmpArray(), data.getDist(),points);
 		layout.clear();
 		layout.addAll(form[data.getForm()].calculate());
 		

@@ -10,6 +10,8 @@ public class SimantData {
 	private ArrayList<Double> amplitude = new ArrayList<>();
 	private Image imgOrientation = null;
 	private Image imgForm = null;
+	private Image imgCharac;
+	private String txCharac;
 	
 	public void setWinkel(ArrayList<Double> data) {
 		this.winkel = data;
@@ -43,5 +45,19 @@ public class SimantData {
 		return this.imgForm;
 	}
 	
+	public void setImgCharac(Image data) {
+		this.imgCharac = data;
+	}
 	
+	public Image getImgCharac() {
+		return this.imgCharac;
+	}
+	
+	public void setTxCharac(String data) {
+		this.txCharac = data;
+	}
+	
+	public String getTxCharac() {
+		return this.txCharac;
+	}
 }
