@@ -33,9 +33,9 @@ public class Model {
 		charact[3] = new Dipol(0,points);
 		
 		// Layout
-		form[0] = new Linear(1,1,1,1,points);
-		form[1] = new Circle(1,1,1,1,points);
-		form[2] = new Matrix(1,1,1,1,points);
+		form[0] = new Linear(1,1,1,1,0,points);
+		form[1] = new Circle(1,1,1,1,0,points);
+		form[2] = new Matrix(1,1,1,1,0,points);
 		
 	}
 	
@@ -43,6 +43,8 @@ public class Model {
 
 		sData.setAmp(calculateTopology(data));
 		sData.setWinkel(this.winkel);
+		sData.setImgCharac(charact[data.getAnt()].getImageCharacterictic());
+		sData.setTxCharac(charact[data.getAnt()].getText());
 		
 		updateView(this.sData);
 		
@@ -63,7 +65,7 @@ public class Model {
 		System.out.println("ant"+data.getAnt());
 		
 		// Layout		
-		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmp(),points);
+		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmp(),0,points);
 		layout.clear();
 		layout.addAll(form[data.getForm()].calculate());
 		System.out.println("form"+data.getForm());

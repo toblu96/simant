@@ -201,7 +201,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	@Override
 	public void onComplete() {
 //		diagram.drawCharts(this.sData);
-		Platform.runLater( () -> {  diagram.drawCharts(this.sData); System.out.println("redrawed with "+this.sData);});
+		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.antenna.updateView(this.sData); System.out.println("redrawed with "+this.sData);});
 		
 		System.out.println("end "+this.sData.getAmp());
 		System.out.println("value "+inpData.getAmp());

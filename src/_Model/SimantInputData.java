@@ -9,6 +9,7 @@ public class SimantInputData {
 	private Double dLambda;
 	private Integer direction;
 	private Double amplitude;
+	private Double distance;
 	
 	
 	
@@ -60,6 +61,12 @@ public class SimantInputData {
 		return this.amplitude;
 	}
 	
+	public Double setDist() {
+		return this.distance;
+	}
 	
+	public Double getDist() {
+		return this.distance;
+	}
 	
 }

@@ -10,29 +10,30 @@ import javafx.scene.image.Image;
 public abstract class Form {
 	
 	protected int an_number, an_direction, points;
-	protected double an_lambda, an_amplitude;
+	protected double an_lambda, an_amplitude, rf_distance;
 	
-	public Form(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
+	public Form(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
 		this.an_amplitude = an_amplitude;
 		this.an_number = an_number;
 		this.an_lambda = an_lambda;
 		this.an_direction = an_direction;
+		this.rf_distance = rf_distance;
 		this.points = points;
 	}
 	
 	public abstract ArrayList<Double> calculate();
-	public abstract void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points);
+	public abstract void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points);
 	public abstract Image getImage(boolean reflector);
 }
 
 
 
 class Linear extends Form {
-	public Linear(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, an_lambda, an_direction, an_amplitude, points);
+	public Linear(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
+		super(an_number, an_lambda, an_direction, an_amplitude, rf_distance, points);
 	}
 	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
+	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
 		this.an_number = an_number;
 		this.an_lambda = an_lambda;
 		this.an_direction = an_direction;
@@ -91,11 +92,11 @@ class Linear extends Form {
 
 
 class Circle extends Form {
-	public Circle(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, an_lambda, an_direction, an_amplitude, points);
+	public Circle(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
+		super(an_number, an_lambda, an_direction, an_amplitude, rf_distance, points);
 	}
 	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
+	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
 		this.an_number = an_number;
 		this.an_lambda = an_lambda;
 		this.an_direction = an_direction;
@@ -153,11 +154,11 @@ class Circle extends Form {
 
 
 class Matrix extends Form {
-	public Matrix(int an_number, double An_Lambda, int an_direction, double an_amplitude, int points) {
-		super(an_number, An_Lambda, an_direction, an_amplitude, points);
+	public Matrix(int an_number, double An_Lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
+		super(an_number, An_Lambda, an_direction, an_amplitude, rf_distance, points);
 	}
 	
-	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, int points) {
+	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
 		this.an_number = an_number;
 		this.an_lambda = an_lambda;
 		this.an_direction = an_direction;
@@ -243,5 +244,83 @@ class Matrix extends Form {
 		} else {
 			return new Image("/resources/Java_Matrix.png", true);
 		}
+	}
+}
+
+class Reflector extends Form {
+	public Reflector(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
+		super(an_number, an_lambda, an_direction, an_amplitude, rf_distance, points);
+	}
+	
+	public void updateData(int an_number, double an_lambda, int an_direction, double an_amplitude, double rf_distance, int points) {
+		this.an_number = an_number;
+		this.an_lambda = an_lambda;
+		this.an_direction = an_direction;
+		this.an_amplitude = an_amplitude;
+		this.rf_distance = rf_distance;
+		this.points = points;
+	}
+	
+	
+	public ArrayList<Double> calculate() {
+		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
+		ArrayList<Double> res = new ArrayList<Double>();
+		ArrayList<Complex> res1 = new ArrayList<Complex>();
+		ArrayList<Complex> res2 = new ArrayList<Complex>();
+		double h = rf_distance;
+		double d_L = an_lambda;
+		int n = an_number;
+		
+		for (int k = 1; k <= n; k++) {
+			for (int i = 0; i < points; i++) {
+				if (k==1) {
+					Complex c = new Complex(Math.cos(d_L*2.0*Math.PI*Math.cos(psi_r.get(i))*(k-1)), 
+											Math.sin(d_L*2.0*Math.PI*Math.cos(psi_r.get(i))*(k-1)));
+					res1.add(c);
+					//res1.add(sumr.get(i).abs());
+				} else {
+					Complex c = new Complex(Math.cos(d_L*2.0*Math.PI*Math.cos(psi_r.get(i))*(k-1)), 
+											Math.sin(d_L*2.0*Math.PI*Math.cos(psi_r.get(i))*(k-1)));
+					res1.set(i, c.add(res1.get(i))); 
+					//res1.set(i, sumr.get(i).abs());
+				}
+			}
+		}
+		
+		for (int k = 1; k <= n; k++) {
+			for (int i = 0; i < points; i++) {
+				if (k==1) {
+					Complex c = new Complex(Math.cos((k-1)*d_L*2.0*Math.PI*(Math.cos(psi_r.get(i))+2.0*h*Math.sin(psi_r.get(i)))), 
+											Math.sin((k-1)*d_L*2.0*Math.PI*(Math.cos(psi_r.get(i))+2.0*h*Math.sin(psi_r.get(i)))));
+					res2.add(c);
+					//res2.add(sumr.get(i).abs());
+				} else {
+					Complex c = new Complex(Math.cos((k-1)*d_L*2.0*Math.PI*(Math.cos(psi_r.get(i))+2.0*h*Math.sin(psi_r.get(i)))), 
+											Math.sin((k-1)*d_L*2.0*Math.PI*(Math.cos(psi_r.get(i))+2.0*h*Math.sin(psi_r.get(i)))));
+					res2.set(i, c.add(res2.get(i))); 
+					//res2.set(i, sumr.get(i).abs());
+				}
+			}
+		}
+		
+		for (int i = 0; i < points; i++) {
+			res.add(res1.get(i).subtract(res2.get(i)).abs());
+		}
+		
+		double maxVal = Collections.max(res);
+		for (int k = 0; k < points; k++) {
+			res.set(k, res.get(k)/maxVal);
+		}
+		return res;
+	}
+
+	@Override
+	public Image getImage(boolean reflector) {
+		/*if (reflector) {
+			return new Image("/resources/.png", true);
+		} else {
+			return new Image("/resources/.png", true);
+		}*/
+		return null;
 	}
 }
