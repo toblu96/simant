@@ -90,7 +90,7 @@ class Circle extends Form {
 
 		ArrayList<Double> ak = new ArrayList<Double>();
 		for (int i = 0; i < n; i++) {
-			ak.add(an_amp.get(i+1));
+			ak.add(an_amp.get(i));
 		}
 		
 		for (int k = 1; k <= n; k++) {
@@ -141,11 +141,11 @@ class Matrix extends Form {
 		ArrayList<Double> ak = new ArrayList<Double>();
 		double richtd = Matlab.deg2rad((double)(an_direction));
 		double d_L = an_lambda;
-		int n = 3; // Antenne x richtung
-		int m = 6; // Antenne y richtung
+		int n = an_number; // Antenne x richtung
+		int m = an_number; // Antenne y richtung
 		
 		for (int i = 0; i < n; i++) {
-			ak.add(an_amp.get(i+1));
+			ak.add(an_amp.get(i));
 		}
 		
 		for (int k = 0; k < n; k++) {
