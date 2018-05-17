@@ -35,27 +35,25 @@ public class XML {
 	// Local Calls from Elements
 	@FXML protected void importFileChooser() {
 		
-	    fileChooser.setTitle("Open Resource File");
+	    fileChooser.setTitle("Öffne Einstellungs Datei");
 	    
-    	File existDirectory = file.getParentFile();
-    	fileChooser.setInitialDirectory(existDirectory);
 	    file = fileChooser.showOpenDialog(null);
 	    if (file != null) {
 	    	view.loadXML(file);
+	    	fileChooser.setInitialDirectory(file.getParentFile());
 		}
 	    
 	}
 	
 	@FXML protected void exportFileChooser() throws IOException {
 		
-	    fileChooser.setTitle("Save Resource File"); 
+	    fileChooser.setTitle("Speichere Einstellungs Datei"); 
 
-    	File existDirectory = file.getParentFile();
-    	fileChooser.setInitialDirectory(existDirectory);
     	// only if sucessful!
 	    file = fileChooser.showSaveDialog(null);
 	    if (file != null) {
 	    	view.saveXML(file);
+	    	fileChooser.setInitialDirectory(file.getParentFile());
 		}
 	    
 	}

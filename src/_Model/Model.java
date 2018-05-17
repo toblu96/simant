@@ -41,8 +41,8 @@ public class Model {
 	public void updateInputData(SimantInputData data) {
 
 		// get Images
-		sData.setImgForm(form[data.getForm()].getImage(false));					// set true if reflector!
-		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(true));	// set false if antenna orientation vertical
+		sData.setImgForm(form[data.getForm()].getImage(data.getReflektor()));	// set true if reflector!
+		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(!data.getAntVertikal()));	// set false if antenna orientation vertical
 		
 		sData.setAmp(calculateTopology(data));
 		sData.setWinkel(this.winkel);
@@ -50,7 +50,6 @@ public class Model {
 		sData.setTxCharac(charact[data.getAnt()].getText());
 		
 		updateView(this.sData);
-		
 	}
 	
 	public void updateView(SimantData data) {
@@ -67,7 +66,7 @@ public class Model {
 		characteristic.addAll(charact[data.getAnt()].calculate());
 		
 		// Layout
-		form[data.getForm()].updateData(data.getQuant(),data.getDLambda(),data.getDir(),data.getAmpArray(), data.getDist(),points);
+		form[data.getForm()].updateData(data.getDLambda(),data.getDir(),data.getAmpArray(), data.getDist(),points);
 		layout.clear();
 		layout.addAll(form[data.getForm()].calculate());
 		

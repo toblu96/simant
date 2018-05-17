@@ -107,18 +107,12 @@ public class DataExport {
                     
                 case XMLStreamConstants.CHARACTERS:
                 	switch (antennaIndex) {
-					case 1:		data.setAnt(Integer.parseInt(xmlStreamReader.getText()));
-						System.out.println("antenna " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 2:		data.setForm(Integer.parseInt(xmlStreamReader.getText()));
-						System.out.println("form " + (xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 3:		data.setQuant(Integer.parseInt(xmlStreamReader.getText()));
-						System.out.println("quantity " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 4:		data.setDLambda(Double.parseDouble(xmlStreamReader.getText()));
-						System.out.println("dLambda " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 5:		data.setDir(Integer.parseInt(xmlStreamReader.getText()));
-						System.out.println("direction " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
-					case 6:		data.setAmp(Double.parseDouble(xmlStreamReader.getText()));
-						System.out.println("amplitude " + Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 1:		data.setAnt(Integer.parseInt(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 2:		data.setForm(Integer.parseInt(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 3:		
+					case 4:		data.setDLambda(Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 5:		data.setDir(Integer.parseInt(xmlStreamReader.getText())); antennaIndex = 0;	break;
+					case 6:		data.setAmp(Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
 					case 7:		data.setAmpPercent(Double.parseDouble(xmlStreamReader.getText())); antennaIndex = 0;	break;
 					}
                     break;
@@ -158,7 +152,7 @@ public class DataExport {
         elementsMap.put("id", "1");
         elementsMap.put("antenna", ""+ 			data.getAnt());
         elementsMap.put("form", ""+ 			data.getForm());
-        elementsMap.put("quantity", ""+ 		data.getQuant());
+        elementsMap.put("quantity", ""+ 		0);
         elementsMap.put("dLambda", ""+ 			data.getDLambda());
         elementsMap.put("direction", ""+ 		data.getDir());
         elementsMap.put("amplitude", ""+ 		data.getAmp());

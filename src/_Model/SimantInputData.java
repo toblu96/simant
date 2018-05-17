@@ -1,19 +1,20 @@
 package _Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SimantInputData {
 
 	// all Data
 	private int antenna;
 	private int form;
-	private int quantity;
 	private Double dLambda;
-	private Integer direction;
+	private Integer direction, dirHauptkaeule;
 	private Double amplitude;
-	private ArrayList<Double> ampArray;
+	List<List<Double>> ampArray = new ArrayList<>();
 	private Double ampPercent;
 	private Double distance;
+	private boolean reflektor, antVertikal;
 	
 	
 	
@@ -33,14 +34,6 @@ public class SimantInputData {
 		return this.form;
 	}
 	
-	public void setQuant(Integer data) {
-		this.quantity = data;
-	}
-	
-	public Integer getQuant() {
-		return this.quantity;
-	}
-	
 	public void setDLambda(Double data) {
 		this.dLambda = data;
 	}
@@ -57,6 +50,14 @@ public class SimantInputData {
 		return this.direction;
 	}
 	
+	public void setDirHauptk(Integer data) {
+		this.dirHauptkaeule = data;
+	}
+	
+	public Integer getDirHauptk() {
+		return this.dirHauptkaeule;
+	}
+	
 	public void setAmp(Double data) {
 		this.amplitude = data;
 	}
@@ -65,11 +66,11 @@ public class SimantInputData {
 		return this.amplitude;
 	}
 	
-	public void setAmpArray(ArrayList<Double> data) {
+	public void setAmpArray(List<List<Double>> data) {
 		this.ampArray = data;
 	}
 	
-	public ArrayList<Double> getAmpArray() {
+	public List<List<Double>> getAmpArray() {
 		return this.ampArray;
 	}
 	
@@ -87,6 +88,22 @@ public class SimantInputData {
 	
 	public Double getDist() {
 		return this.distance;
+	}
+	
+	public void setReflektor(boolean data) {
+		this.reflektor = data;
+	}
+	
+	public boolean getReflektor() {
+		return this.reflektor;
+	}
+	
+	public void setAntVertikal(boolean data) {
+		this.antVertikal = data;
+	}
+	
+	public boolean getAntVertikal() {
+		return this.antVertikal;
 	}
 	
 }

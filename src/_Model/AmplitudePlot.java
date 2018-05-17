@@ -1,6 +1,7 @@
 package _Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
@@ -12,9 +13,10 @@ public class AmplitudePlot {
 	private Group ampGroup = new Group();
 	private Pane ampPane;
 	
-	private int antQuant;
-	private double percent;
-	private ArrayList<Double> amp;
+	private int antQuantX = 1;
+	private int antQuantY = 1;
+	private double percent = 0.0;
+	private List<List<Double>> amp;
 	
 	
 	public void initPane(Pane pane) {
@@ -23,31 +25,24 @@ public class AmplitudePlot {
 		this.ampPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	redraw();	});
 	}
 	
-	public void setAntQuant(int quant) {
-		this.antQuant = quant;
+	public List<List<Double>> setAntQuant(int x, int y) {
+		this.antQuantX = x;
+		this.antQuantY = y;
 		redraw();
-	}
-
-	public void setPercentage(int percent) {
-		this.percent = (100.0 - percent) / 100.0;
-		redraw();
-	}
-	
-	public ArrayList<Double> getAmp() {
 		return amp;
 	}
-	
+
+	public List<List<Double>> setPercentage(double percent) {
+		this.percent = (100.0 - (int)(percent)) / 100.0;
+		redraw();
+		return amp;
+	}
 	
 	private void redraw() {
 		
 		// clear all existing elements
 		ampGroup.getChildren().clear();
 		ampPane.getChildren().clear();
-		
-		// draw nothing if pane minimized
-		if (ampPane.getHeight() < 1) {
-			return;
-		}
 		
 		// draw content
 		drawShape();
@@ -71,17 +66,17 @@ public class AmplitudePlot {
 		
 		amp = calculateAmp();
 		
-		for (int i = 0; i < this.antQuant; i++) {
+		for (int i = 0; i < this.antQuantX; i++) {
 			Line ampline = new Line();
-			if (this.antQuant > 1) {
-				ampline.setLayoutX((ampPane.getWidth() - 80) / (this.antQuant-1) * i + 40);
+			if (this.antQuantX > 1) {
+				ampline.setLayoutX((ampPane.getWidth() - 80) / (this.antQuantX-1) * i + 40);
 			} else {
 				ampline.setLayoutX(40);
 			}
 
 			ampline.setLayoutY(ampPane.getHeight() - 20);
 			ampline.setEndX(0);
-			ampline.setEndY(-amp.get(i)*50 + 20);
+			ampline.setEndY(-amp.get(0).get(i)*50 + 20);
 			ampline.setStroke(Color.RED);
 			ampline.setStrokeWidth(2);
 			
@@ -89,14 +84,18 @@ public class AmplitudePlot {
 		}		
 	}
 	
-	private ArrayList<Double> calculateAmp() {
-		ArrayList<Double> x = Matlab.linspace(0, Math.PI, this.antQuant);
-		ArrayList<Double> res = new ArrayList<Double>();
+	private List<List<Double>> calculateAmp() {
+		ArrayList<Double> x = Matlab.linspace(0, Math.PI, this.antQuantX);
+		List<List<Double>> res = new ArrayList<>();
 		double a = 1.0;	//offset
 		double t = this.percent;
-		for (int i = 0; i < x.size(); i++) {
-			res.add(a+t+(1.0-t)*Math.pow(Math.cos(x.get(i)-Math.PI/2.0),2.0));
+		for (int j = 0; j < antQuantY; j++) {
+			res.add(new ArrayList<>());
+			for (int i = 0; i < x.size(); i++) {
+				res.get(j).add(a+t+(1.0-t)*Math.pow(Math.cos(x.get(i)-Math.PI/2.0),2.0));
+			}
 		}
+		
 		return res;
 		
 	}

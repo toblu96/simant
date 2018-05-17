@@ -2,6 +2,7 @@ package _Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
@@ -9,13 +10,12 @@ import javafx.scene.image.Image;
 
 public abstract class Form {
 	
-	protected int an_number, an_direction, points;
+	protected int an_direction, points;
 	protected double an_lambda, an_amplitude, rf_distance;
-	protected ArrayList<Double> an_amp;
+	protected List<List<Double>> an_amp;
 	
-	public void updateData(int an_number, double an_lambda, int an_direction, ArrayList<Double> an_amplitude, double rf_distance, int points) {
+	public void updateData(double an_lambda, int an_direction, List<List<Double>> an_amplitude, double rf_distance, int points) {
 		this.an_amp = an_amplitude;
-		this.an_number = an_number;
 		this.an_lambda = an_lambda;
 		this.an_direction = an_direction;
 		this.rf_distance = rf_distance;
@@ -36,10 +36,11 @@ class Linear extends Form {
 		ArrayList<Double> res = new ArrayList<Double>();
 		double richtd = Matlab.deg2rad(an_direction);
 		double d_L = an_lambda;
-		int n = an_number;
-		ArrayList<Double> ak = new ArrayList<Double>();
+		int n = an_amp.get(0).size();	// x achse des amp array
+		ArrayList<Double> ak = new ArrayList<>();
+		ak.clear();
 		for (int i = 0; i < n; i++) {
-			ak.add(an_amp.get(i));
+			ak.add(an_amp.get(0).get(i));
 		}
 		
 		for (int k = 1; k <= n; k++) {
@@ -86,11 +87,11 @@ class Circle extends Form {
 		ArrayList<Double> res = new ArrayList<Double>();
 		double phase = Matlab.deg2rad((double)(an_direction));
 		double d_L = an_lambda;
-		int n = an_number;
+		int n = an_amp.get(0).size();	// x achse des amp array
 
-		ArrayList<Double> ak = new ArrayList<Double>();
+		ArrayList<Double> ak = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
-			ak.add(an_amp.get(i));
+			ak.add(an_amp.get(0).get(i));
 		}
 		
 		for (int k = 1; k <= n; k++) {
@@ -138,28 +139,26 @@ class Matrix extends Form {
 		ArrayList<Double> res = new ArrayList<Double>();
 		ArrayList<Double> res1 = new ArrayList<Double>();
 		ArrayList<Double> res2 = new ArrayList<Double>();
-		ArrayList<Double> ak = new ArrayList<Double>();
+		List<List<Double>> ak = new ArrayList<>();
 		double richtd = Matlab.deg2rad((double)(an_direction));
 		double d_L = an_lambda;
-		int n = an_number; // Antenne x richtung
-		int m = an_number; // Antenne y richtung
 		
-		for (int i = 0; i < n; i++) {
-			ak.add(an_amp.get(i));
-		}
+		ak = an_amp;
+		int n = ak.get(0).size(); // Antenne x richtung
+		int m = ak.size(); // Antenne y richtung
 		
 		for (int k = 0; k < n; k++) {
 			for (int i = 0; i < points; i++) {
 				if (k==0) {
 					Complex c = new Complex(Math.cos(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))), 
 			 								Math.sin(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))));
-					c = c.multiply(ak.get(k));
+					c = c.multiply(ak.get(0).get(k));
 					sumr.add(c);
 					res1.add(sumr.get(i).abs());	
 				} else {
 					Complex c = new Complex(Math.cos(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))), 
 			 								Math.sin(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))));
-					c = c.multiply(ak.get(k));
+					c = c.multiply(ak.get(0).get(k));
 					sumr.set(i, c.add(sumr.get(i))); 
 					res1.set(i, sumr.get(i).abs());
 				}
@@ -168,22 +167,18 @@ class Matrix extends Form {
 		
 		sumr.clear();
 		
-		for (int i = 1; i <= m; i++) {
-			ak.add(an_amplitude);
-		}
-		
 		for (int k = 0; k < m; k++) {
 			for (int i = 0; i < points; i++) {
 				if (k==0) {
 					Complex c = new Complex(Math.cos(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))), 
 							 				Math.sin(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))));
-					c = c.multiply(ak.get(k));
+					c = c.multiply(ak.get(k).get(0));
 					sumr.add(c);
 					res2.add(sumr.get(i).abs());	
 				} else {
 					Complex c = new Complex(Math.cos(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))), 
 			 								Math.sin(2.0*Math.PI*(k*d_L*Math.cos(psi_r.get(i)-richtd))));
-					c = c.multiply(ak.get(k));
+					c = c.multiply(ak.get(k).get(0));
 					sumr.set(i, c.add(sumr.get(i))); 
 					res2.set(i, sumr.get(i).abs());
 				}
@@ -221,7 +216,7 @@ class Reflector extends Form {
 		ArrayList<Complex> res2 = new ArrayList<Complex>();
 		double h = rf_distance;
 		double d_L = an_lambda;
-		int n = an_number;
+		int n = an_amp.get(0).size();	// x achse des amp array
 		
 		for (int k = 1; k <= n; k++) {
 			for (int i = 0; i < points; i++) {

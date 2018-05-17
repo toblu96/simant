@@ -64,7 +64,7 @@ public class Utility {
 		return res;
 	}
 	
-	public int getInt(JFXTextField tf, int min, int max) {
+	public Integer getInt(JFXTextField tf, Integer min, Integer max) {
 		int caret = tf.getCaretPosition();
 		String text = tf.getText();
 			
@@ -74,15 +74,15 @@ public class Utility {
 		tf.setText(text);
 		tf.positionCaret(caret);
 		
-		int res = 0;
+		Integer res = 0;
 		try {
 			res = Integer.parseInt(text);
+			if (res > max) {	tf.setText(""+max);	tf.positionCaret(caret); return max;	}
+			if (res < min) {	tf.setText(""+min); tf.positionCaret(caret); return min; }
 		} catch (Exception e) {
-			// NaN
+			res = null;
 		}
 		
-		if (res > max) {	tf.setText(""+max);	return max;	}
-		if (res < min) {	tf.setText(""+min); return min; }
 		return res;
 	}
 }

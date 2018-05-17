@@ -10,6 +10,7 @@ import XML.XML;
 import _Controller.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.Flow.Subscription;
@@ -92,13 +93,12 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		inpData.setAmp(1.0);
 		inpData.setAnt(0);
 		inpData.setDir(0);
+		inpData.setDirHauptk(0);
 		inpData.setDLambda(1.0);
 		inpData.setForm(0);
-		inpData.setQuant(1);
 		inpData.setDist(0.0);
-		ArrayList<Double> temp = new ArrayList<Double>(); temp.add(1.0);
+		List<List<Double>> temp = new ArrayList<>(); temp.add(new ArrayList<Double>()); temp.get(0).add(1.0);
 		inpData.setAmpArray(temp);
-		temp = null;
 		inpData.setAmpPercent(0.0);
 		
 		arrButton[0] = btn_antenna;		arrAnchPane[0] = createStageSection(this.antennaLoader);
@@ -151,11 +151,6 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		controller.setInputData(inpData);
 	}
 	
-	public void setQuant(Integer data) {
-		this.inpData.setQuant(data);
-		controller.setInputData(inpData);
-	}
-	
 	public void setDLambda(Double data) {
 		this.inpData.setDLambda(data);
 		controller.setInputData(inpData);
@@ -166,14 +161,29 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		controller.setInputData(inpData);
 	}
 	
+	public void setDirHauptk(Integer data) {
+		this.inpData.setDirHauptk(data);
+		controller.setInputData(inpData);
+	}
+	
 	public void setAmp(Double data) {
 		this.inpData.setAmp(data);
 		controller.setInputData(inpData);
 	}
 	
-	public void setAmpArray(ArrayList<Double> data, Double sliderPercent) {
+	public void setAmpArray(List<List<Double>> data, Double sliderPercent) {
 		this.inpData.setAmpArray(data);
 		this.inpData.setAmpPercent(sliderPercent);
+		controller.setInputData(inpData);
+	}
+	
+	public void setReflektor(boolean data) {
+		this.inpData.setReflektor(data);
+		controller.setInputData(inpData);
+	}
+	
+	public void setAntVertikal(boolean data) {
+		this.inpData.setAntVertikal(data);
 		controller.setInputData(inpData);
 	}
 	

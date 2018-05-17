@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -55,13 +56,19 @@ public class Layout implements Initializable{
 	FontAwesomeIconView ToggleMenuIcon;
 	
 	@FXML
-	Text tf_TitleSettings;
+	Text txt_amp, txt_dlambda, txt_richtAnt;
+	
+	@FXML
+	HBox hb_amp, hb_richtAnt;
+	
+	@FXML
+	VBox vb_ScrollPane;
 	
 	@FXML
 	JFXComboBox<String> cb_Form;
 	
 	@FXML
-	JFXTextField tf_Anzahl, tf_Lambda, tf_Richtung, tf_Amplitude;
+	JFXTextField tf_AnzahlRow, tf_AnzahlCol, tf_Lambda, tf_Richtung, tf_RichtHauptkaeule, tf_Amplitude;
 	
 	@FXML
 	JFXButton bt_tabAnt, bt_tab3D, bt_unity;
@@ -72,6 +79,11 @@ public class Layout implements Initializable{
 	@FXML
 	JFXSlider sl_percent;
 	
+	@FXML
+	JFXCheckBox cb_advanced, cb_reflektor, cb_AntVert;
+	
+	@FXML
+	ScrollPane sp_Einst;
 
 	ObservableList<String> formOptions = FXCollections.observableArrayList(
 		        "Row",
@@ -98,8 +110,7 @@ public class Layout implements Initializable{
 		
 		// Settings Menu
 		if (cc_MenuSettings != null) {
-			cc_MenuSettings.setPrefWidth(300);
-			tf_TitleSettings.setText("Group Settings");
+			cc_MenuSettings.setMinWidth(317);
 
 			bt_tabAnt.setStyle("-fx-background-color: white");
 		}
@@ -151,9 +162,9 @@ public class Layout implements Initializable{
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Row": view.setForm(0); fplot.setForm(0); break;
-			case "Circle": view.setForm(1); fplot.setForm(1); break;
-			case "Matrix": view.setForm(2); fplot.setForm(2); break;
+			case "Row": view.setForm(0); fplot.setForm(0); tf_AnzahlCol.setDisable(true); break;
+			case "Circle": view.setForm(1); fplot.setForm(1); tf_AnzahlCol.setDisable(true); break;
+			case "Matrix": view.setForm(2); fplot.setForm(2); tf_AnzahlCol.setDisable(false); break;
 			}
 		}
 		if (e.getSource().equals(bt_unity)) {
@@ -163,19 +174,30 @@ public class Layout implements Initializable{
 	
 	@FXML
 	protected void FXSetAnzahl() {
-		int data = util.getInt(tf_Anzahl, 0, 10);
-		ampPlot.setAntQuant(data);
-		FXSetPercentage();
-		FXCalculatePercentage();
-		view.setQuant(data);
-		fplot.setAntCount(data);		
+		Integer x = util.getInt(tf_AnzahlRow, 1, 10);
+		Integer y = util.getInt(tf_AnzahlCol, 1, 10);
+		if (x != null && y != null) {
+			view.setAmpArray(ampPlot.setAntQuant(x,y), sl_percent.getValue());
+			fplot.setAntCount(x);
+		}
+				
 	}
 	
 	@FXML
 	protected void FXSetDirection() {
-		int data = util.getInt(tf_Richtung, -360, 360);
-		view.setDir(data);
-		fplot.setAngle(data);	
+		Integer data = util.getInt(tf_Richtung, -360, 360);
+		if (data != null) {
+			view.setDir(data);
+			fplot.setAngle(data);
+		}
+	}
+	
+	@FXML
+	protected void FXSetDirHauptk() {
+		Integer data = util.getInt(tf_RichtHauptkaeule, -360, 360);
+		if (data != null) {
+			view.setDirHauptk(data);
+		}
 	}
 	
 	@FXML
@@ -199,42 +221,77 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
+	protected void FXSetReflektor() {
+		view.setReflektor(cb_reflektor.isSelected());
+	}
+	
+	@FXML
+	protected void FXSetAntVertikal() {
+		view.setAntVertikal(cb_AntVert.isSelected());
+	}
+	
+	@FXML
+	protected void FXSetAdvanced() {
+		boolean visible = cb_advanced.isSelected();
+		txt_richtAnt.setVisible(visible);
+		hb_richtAnt.setVisible(visible);
+		txt_dlambda.setVisible(visible);
+		tf_Lambda.setVisible(visible);
+		txt_amp.setVisible(visible);
+		hb_amp.setVisible(visible);
+		cb_reflektor.setVisible(visible);
+		cb_AntVert.setVisible(visible);
+		
+	}
+	
+	// nur Plot aktualisieren
+	@FXML
 	protected void FXSetPercentage() {
 		ampPlot.setPercentage((int) sl_percent.getValue());
 	}
 	
+	// Berechnungen aktualiseren
 	protected void FXCalculatePercentage() {
-		view.setAmpArray(ampPlot.getAmp(), sl_percent.getValue());
+		view.setAmpArray(ampPlot.setPercentage(sl_percent.getValue()), sl_percent.getValue());
 	}
 
 	
 	public void updateInputs(SimantInputData data) {
 		// Form
 		switch (data.getForm()) {
-		case 0: cb_Form.setValue("Row"); break;
-		case 1: cb_Form.setValue("Circle"); break;
-		case 2: cb_Form.setValue("Matrix"); break;
+		case 0: cb_Form.setValue("Row"); tf_AnzahlCol.setDisable(true); break;
+		case 1: cb_Form.setValue("Circle"); tf_AnzahlCol.setDisable(true); break;
+		case 2: cb_Form.setValue("Matrix"); tf_AnzahlCol.setDisable(false); break;
 		}
 		view.setForm(data.getForm());
 		// quantity
-		tf_Anzahl.setText(""+data.getQuant());
-		view.setQuant(data.getQuant());
+		tf_AnzahlRow.setText(""+data.getAmpArray().get(0).size());
+		tf_AnzahlCol.setText(""+data.getAmpArray().size());
+		view.setAmpArray(ampPlot.setAntQuant(data.getAmpArray().get(0).size(), data.getAmpArray().size()), sl_percent.getValue());
 		// dLambda
 		tf_Lambda.setText(""+data.getDLambda());
 		view.setDLambda(data.getDLambda());
 		// direction
 		tf_Richtung.setText(""+data.getDir());
 		view.setDir(data.getDir());
+		tf_RichtHauptkaeule.setText(""+data.getDirHauptk());
+		view.setDirHauptk(data.getDirHauptk());
 		// amplitude
-		tf_Amplitude.setText(String.format("%.0E", data.getAmp()));
+		tf_Amplitude.setText(""+data.getAmp());
 		view.setAmp(data.getAmp());
 		
 		fplot.setForm(data.getForm());
-		fplot.setAntCount(data.getQuant());
+		fplot.setAntCount(data.getAmpArray().size());
 		fplot.setAngle(data.getDir());
 		
 		sl_percent.setValue(data.getAmpPercent());
-		ampPlot.setAntQuant(data.getQuant());
+		ampPlot.setAntQuant(data.getAmpArray().get(0).size(), data.getAmpArray().size());
+		
+		cb_reflektor.setSelected(data.getReflektor());
+		cb_AntVert.setSelected(data.getAntVertikal());
+		
+		// hide advanced mode if programm has started..
+		FXSetAdvanced();
 		
 	}
 	

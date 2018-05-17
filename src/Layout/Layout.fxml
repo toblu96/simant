@@ -30,7 +30,7 @@
          <children>
             <Pane minHeight="50.0" style="-fx-background-color: #0058CB;" GridPane.columnIndex="2">
                <children>
-                  <Text fx:id="tf_TitleSettings" fill="WHITE" layoutX="10.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Array Settings" wrappingWidth="280.734375">
+                  <Text fx:id="tf_TitleSettings" fill="WHITE" layoutX="10.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Array Einstellungen" wrappingWidth="280.734375">
                      <font>
                         <Font name="Segoe UI Bold" size="25.0" />
                      </font>
