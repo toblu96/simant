@@ -68,7 +68,7 @@ public class Layout implements Initializable{
 	JFXComboBox<String> cb_Form;
 	
 	@FXML
-	JFXTextField tf_AnzahlRow, tf_AnzahlCol, tf_Lambda, tf_Richtung, tf_RichtHauptkaeule, tf_Amplitude;
+	JFXTextField tf_AnzahlRow, tf_AnzahlCol, tf_Lambda, tf_Richtung, tf_RichtHauptkaeule, tf_Amplitude, tf_Reflector;
 	
 	@FXML
 	JFXButton bt_tabAnt, bt_tab3D, bt_unity;
@@ -211,6 +211,11 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
+	protected void FXSetDist() {
+		view.setDist(util.getDouble(tf_Reflector, 0.0, 10.0));	
+	}
+	
+	@FXML
 	protected void manageTab(ActionEvent e) {
 		JFXButton btn = (JFXButton)e.getTarget();
 		// reset all backgrounds, bring panel to front
@@ -222,7 +227,9 @@ public class Layout implements Initializable{
 	
 	@FXML
 	protected void FXSetReflektor() {
+		boolean visible = cb_reflektor.isSelected();
 		view.setReflektor(cb_reflektor.isSelected());
+		tf_Reflector.setVisible(visible);
 	}
 	
 	@FXML
@@ -241,7 +248,6 @@ public class Layout implements Initializable{
 		hb_amp.setVisible(visible);
 		cb_reflektor.setVisible(visible);
 		cb_AntVert.setVisible(visible);
-		
 	}
 	
 	// nur Plot aktualisieren
@@ -280,6 +286,10 @@ public class Layout implements Initializable{
 		tf_Amplitude.setText(""+data.getAmp());
 		view.setAmp(data.getAmp());
 		
+		// reflector
+		tf_Reflector.setText(""+data.getDist());
+		view.setDist(data.getDist());
+		
 		fplot.setForm(data.getForm());
 		fplot.setAntCount(data.getAmpArray().size());
 		fplot.setAngle(data.getDir());
@@ -292,7 +302,7 @@ public class Layout implements Initializable{
 		
 		// hide advanced mode if programm has started..
 		FXSetAdvanced();
-		
+		FXSetReflektor();
 	}
 	
 	
