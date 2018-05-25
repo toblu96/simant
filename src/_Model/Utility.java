@@ -2,13 +2,14 @@ package _Model;
 
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 
 public class Utility {
 
 	private static final double height = Screen.getPrimary().getVisualBounds().getHeight(); // Screen resolution height
 	private static final double width = Screen.getPrimary().getVisualBounds().getWidth();	// Screen resolution width
-	
+	private static AnchorPane rootPane;
 	// get height percentage from screen resolution
 	public double getScreenHeightPercentage(double per) {
 		return height / 100 * per;
@@ -59,8 +60,8 @@ public class Utility {
 			res = 2.1%0;		// NaN
 		}
 		
-		if (res > max) {	tf.setText(""+max);	return max;	}
-		if (res < min) {	tf.setText(""+min); return min; }
+		if (res > max) {	tf.setText(""+max);	Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return max;	}
+		if (res < min) {	tf.setText(""+min); Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return min; }
 		return res;
 	}
 	
@@ -77,8 +78,8 @@ public class Utility {
 		Integer res = 0;
 		try {
 			res = Integer.parseInt(text);
-			if (res > max) {	tf.setText(""+max);	tf.positionCaret(caret); return max;	}
-			if (res < min) {	tf.setText(""+min); tf.positionCaret(caret); return min; }
+			if (res > max) {	tf.setText(""+max);	tf.positionCaret(caret); Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return max;	}
+			if (res < min) {	tf.setText(""+min); tf.positionCaret(caret); Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return min; }
 		} catch (Exception e) {
 			res = null;
 		}

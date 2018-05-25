@@ -21,8 +21,8 @@ public class AmplitudePlot {
 	
 	public void initPane(Pane pane) {
 		this.ampPane = pane;
-		this.ampPane.widthProperty().addListener((obs, oldVal, newVal) -> {		redraw();	});
-		this.ampPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	redraw();	});
+		this.ampPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) redraw();	});
+		this.ampPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) redraw();	});
 	}
 	
 	public List<List<Double>> setAntQuant(int x, int y) {

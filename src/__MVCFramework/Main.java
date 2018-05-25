@@ -3,6 +3,7 @@ package __MVCFramework;
 import java.io.IOException;
 
 import _MenuView.MenuView;
+import _Model.Notification;
 import _Model.Utility;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -42,6 +43,8 @@ public class Main extends Application {
 			menuViewLoader.setController(menuViewController);
 			
 			menuPane = (AnchorPane) menuViewLoader.load();
+			
+			Notification.setRootPane(menuPane);
 			
             // Show the scene containing the root layout.
 			double height = util.getScreenHeightPercentage(80);

@@ -186,8 +186,8 @@ public class tblCharts {
     public void createPolarChart(Pane pane) {
     	this.polPane = pane;
     	// detect resizing from Pane
-		this.polPane.widthProperty().addListener((obs, oldVal, newVal) -> {		drawPolar();	});
-		this.polPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	drawPolar();	});
+		this.polPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawPolar();	});
+		this.polPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawPolar();	});
     	
 		// add group to pane
     	this.polPane.getChildren().add(polGroup);
@@ -201,8 +201,8 @@ public class tblCharts {
     public void createLineChart(Pane pane) {
     	this.linPane = pane;
     	// detect resizing from Pane
-		this.linPane.widthProperty().addListener((obs, oldVal, newVal) -> {		drawLin();	});
-		this.linPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	drawLin();	});
+		this.linPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawLin();	});
+		this.linPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawLin();	});
 
 		// add group to pane
     	this.linPane.getChildren().add(linGroup);

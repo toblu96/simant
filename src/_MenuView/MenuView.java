@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import Layout.Layout;
-import Settings.Settings;
 import XML.XML;
 import _Controller.Controller;
 
@@ -49,23 +48,21 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	FXMLLoader diagramLoader = new FXMLLoader(Main.class.getResource("/Diagram/Diagram.fxml"));
 	FXMLLoader xmlLoader = new FXMLLoader(Main.class.getResource("/XML/XML.fxml"));
 	FXMLLoader helpLoader = new FXMLLoader(Main.class.getResource("/Help/Help.fxml"));
-	FXMLLoader settingsLoader = new FXMLLoader(Main.class.getResource("/Settings/Settings.fxml"));
 	private Antenna antenna;
 	private Layout layout;
 	private Diagram diagram;
 	private XML xml;
 	private Help help;
-	private Settings settings;
 	
 	
 	// Local Elements declaration
 	@FXML 
-	JFXButton btn_antenna, btn_layout, btn_diagram, btn_xml, btn_help, btn_settings;
-	private JFXButton[] arrButton = new JFXButton[6];
+	JFXButton btn_antenna, btn_layout, btn_diagram, btn_xml, btn_help;
+	private JFXButton[] arrButton = new JFXButton[5];
 	
 	@FXML
 	AnchorPane apn_Content;
-	private AnchorPane[] arrAnchPane = new AnchorPane[6];
+	private AnchorPane[] arrAnchPane = new AnchorPane[5];
 	
 	@FXML
 	ColumnConstraints menuPaneWidth;
@@ -106,7 +103,6 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		arrButton[2] = btn_diagram;		arrAnchPane[2] = createStageSection(this.diagramLoader);
 		arrButton[3] = btn_xml;			arrAnchPane[3] = createStageSection(this.xmlLoader);
 		arrButton[4] = btn_help;		arrAnchPane[4] = createStageSection(this.helpLoader);
-		arrButton[5] = btn_settings;	arrAnchPane[5] = createStageSection(this.settingsLoader);
 		
 		arrAnchPane[1].toFront();
 		btn_layout.getStyleClass().add("menuButtonActive");
@@ -117,18 +113,14 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		this.diagram = this.diagramLoader.getController();
 		this.xml = this.xmlLoader.getController();
 		this.help = this.helpLoader.getController();
-		this.settings = this.settingsLoader.getController();
 		
 		this.antenna.setParentView(this);
 		this.layout.setParentView(this);
 		this.diagram.setParentView(this);
 		this.xml.setParentView(this);
 		this.help.setParentView(this);
-		this.settings.setParentView(this);
 		
-
 		updateInputs(inpData);
-//		this.controller.setInputData(this.inpData);
 		
 	}
 	
@@ -219,7 +211,12 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 
 	@Override
 	public void onComplete() {
-		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm()); this.antenna.updateView(this.sData);});
+		Platform.runLater( () -> {  layout.drawCharts(sData); 
+									diagram.drawCharts(this.sData); 
+									diagram.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm());
+									layout.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm()); 
+									antenna.updateView(this.sData);
+									});
 	}
 
 	@Override

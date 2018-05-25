@@ -61,6 +61,7 @@ public class DataExport {
             
         }catch(XMLStreamException | FileNotFoundException e){
             e.printStackTrace();
+            Notification.error("Fehler beim Schreiben der Datei");
         }
     }
     
@@ -124,7 +125,7 @@ public class DataExport {
                     break;
                 }
                 
-                if (!xmlStreamReader.hasNext()) { break; }
+                if (!xmlStreamReader.hasNext()) { Notification.success("Einstellungen wurden eingelesen"); break; }
                 	
 
               event = xmlStreamReader.next();
@@ -132,6 +133,7 @@ public class DataExport {
             
         } catch (FileNotFoundException | XMLStreamException e) {
             e.printStackTrace();
+            Notification.error("Fehler beim Einlesen der Datei");
         }
         return data;
     }
@@ -159,6 +161,8 @@ public class DataExport {
         elementsMap.put("sliderPercent", ""+ 	data.getAmpPercent());
         
         xmlWriter.writeXML(file.toString(), elementsMap);
+        
+        Notification.success("Einstellungen erfolgreich gespeichert");
 	}
 
     /**

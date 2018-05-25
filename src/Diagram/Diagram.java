@@ -11,6 +11,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -29,6 +31,9 @@ public class Diagram implements Initializable {
 	
 	@FXML 
 	FontAwesomeIconView resizePolIcon, resizeLinIcon;
+	
+	@FXML
+	ImageView img_form, img_ant;
 		
 	
 	
@@ -74,5 +79,10 @@ public class Diagram implements Initializable {
 	// Local Calls	
 	public void drawCharts(SimantData sData) {
 		chart.setDataSet(sData.getWinkel(), sData.getAmp());
+	}
+	
+	public void updatePicture(Image imgOrient, Image imgForm) {
+		img_ant.setImage(imgOrient);
+		img_form.setImage(imgForm);
 	}
 }

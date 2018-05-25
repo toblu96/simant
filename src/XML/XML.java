@@ -57,9 +57,4 @@ public class XML {
 		}
 	    
 	}
-	
-	
-	// Local Calls
-	
-	
 }

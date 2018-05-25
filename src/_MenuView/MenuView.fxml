@@ -37,7 +37,6 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -117,20 +116,6 @@
                            <padding>
                               <Insets left="20.0" />
                            </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_settings" alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="10.0" layoutY="670.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#manageButton" prefHeight="60.0" prefWidth="200.0" text="Settings" textFill="WHITE" GridPane.rowIndex="8">
-                           <font>
-                              <Font name="Segoe UI Bold" size="20.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="COG" size="35" />
-                           </graphic>
                         </JFXButton>
                      </children>
                   </GridPane>
