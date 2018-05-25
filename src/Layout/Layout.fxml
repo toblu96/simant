@@ -286,6 +286,20 @@
                                     <Insets top="30.0" />
                                  </VBox.margin>
                               </JFXCheckBox>
+                              <HBox fx:id="hb_Reflector" layoutX="30.0" layoutY="350.0">
+                                 <children>
+                                    <JFXTextField fx:id="tf_Reflector" focusColor="#0058cb" onKeyReleased="#FXSetReflektor" unFocusColor="#707070">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="20.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Text fx:id="txt_EinhRef" strokeType="OUTSIDE" strokeWidth="0.0" text="m" translateY="8.0" wrappingWidth="21.533203125">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="25.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
                               <JFXCheckBox fx:id="cb_AntVert" checkedColor="#0058cb" disable="true" layoutX="30.0" layoutY="676.0" onAction="#FXSetAntVertikal" text="Antenne Vertikal" visible="false" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="Segoe UI" size="20.0" />

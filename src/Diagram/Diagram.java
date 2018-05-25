@@ -78,7 +78,7 @@ public class Diagram implements Initializable {
 	
 	// Local Calls	
 	public void drawCharts(SimantData sData) {
-		chart.setDataSet(sData.getWinkel(), sData.getAmp());
+		chart.setDataSet(sData.getWinkel(), sData.getAmp(), 40);
 	}
 	
 	public void updatePicture(Image imgOrient, Image imgForm) {

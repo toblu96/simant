@@ -93,7 +93,7 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		inpData.setDirHauptk(0);
 		inpData.setDLambda(1.0);
 		inpData.setForm(0);
-		inpData.setDist(0.0);
+		inpData.setDist(0.8);
 		List<List<Double>> temp = new ArrayList<>(); temp.add(new ArrayList<Double>()); temp.get(0).add(1.0);
 		inpData.setAmpArray(temp);
 		inpData.setAmpPercent(0.0);
@@ -122,6 +122,10 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		
 		updateInputs(inpData);
 		
+	}
+	
+	public double getAmpReal() {
+		return inpData.getAmp();
 	}
 	
 	
@@ -171,6 +175,11 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	
 	public void setReflektor(boolean data) {
 		this.inpData.setReflektor(data);
+		controller.setInputData(inpData);
+	}
+	
+	public void setDist(Double data) {
+		this.inpData.setDist(data);
 		controller.setInputData(inpData);
 	}
 	

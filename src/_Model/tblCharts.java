@@ -42,6 +42,7 @@ public class tblCharts {
 	private double maxWinkel;
 	private double middleX;
 	private double middleY;
+	private double ampReal;
 	
 	
 	
@@ -62,7 +63,7 @@ public class tblCharts {
 		// Circles with label
 		int circles = 6;
 		for (int i = 0; i < circles; i++) {
-			double amp = this.maxRadius / (circles-1) * (circles -1 -i); // replace with maxAmp from ChartInput!
+			double amp = ampReal / (circles-1) * (circles -1 -i); // replace with maxAmp from ChartInput!
 			
 			Circle circ = new Circle(middleX,middleY,radius/(circles-1)*i);
 			circ.setStroke(Color.BLACK);
@@ -119,7 +120,7 @@ public class tblCharts {
 		// draw horizontal lines
 		int horLines = 9;
 		for (int i = 0; i < horLines; i++) {
-			double amp = this.maxRadius / (horLines-1) * (horLines -1 -i);
+			double amp = ampReal / (horLines-1) * (horLines -1 -i);
 			double calcHeight = linPane.getHeight()/(horLines-1)*i*0.9 + linPane.getHeight()*0.05;
 			
 			Line line = new Line(linPane.getWidth()*0.05,calcHeight,linPane.getWidth()*0.95,calcHeight);
@@ -134,7 +135,6 @@ public class tblCharts {
 		// draw vertical lines
 		int vertLines = 10;
 		for (int i = 0; i < vertLines; i++) {
-//			double amp = this.maxRadius / (vertLines-1) * (vertLines -1 -i);
 			double calcHeight = linPane.getWidth()/(vertLines-1)*i*0.9 + linPane.getWidth()*0.05;
 			
 			Line line = new Line(calcHeight, linPane.getHeight()*0.05,calcHeight,linPane.getHeight()*0.95);
@@ -215,11 +215,12 @@ public class tblCharts {
      * @param angle -> ArrayList of angle
      * @param norm 	-> ArrayList of norm value
      */
-    public void setDataSet(ArrayList<Double> angle, ArrayList<Double> norm) {
+    public void setDataSet(ArrayList<Double> angle, ArrayList<Double> norm, double ampReal) {
     	this.x = angle;
     	this.y = norm;
     	this.maxRadius = Collections.max(y);
     	this.maxWinkel = Collections.max(x);
+    	this.ampReal = ampReal;
     	// redraw with new values
     	if (polPane != null) {
     		drawPolar();

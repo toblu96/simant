@@ -8,6 +8,7 @@ public class SimantData {
 	// all Data
 	private ArrayList<Double> winkel = new ArrayList<>();
 	private ArrayList<Double> amplitude = new ArrayList<>();
+	private ArrayList<Double> amplitudeLog = new ArrayList<>();
 	private Image imgOrientation = null;
 	private Image imgForm = null;
 	private Image imgCharac;
@@ -27,6 +28,14 @@ public class SimantData {
 	
 	public ArrayList<Double> getAmp() {
 		return this.amplitude;
+	}
+	
+	public void setAmpLog(ArrayList<Double> data) {
+		this.amplitudeLog = data;
+	}
+	
+	public ArrayList<Double> getAmpLog() {
+		return this.amplitudeLog;
 	}
 	
 	public void setImgOrient(Image data) {
