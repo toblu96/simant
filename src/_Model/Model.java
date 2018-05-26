@@ -47,12 +47,15 @@ public class Model {
 	}
 	
 	public void updateInputData(SimantInputData data) {
-
+		ArrayList<ArrayList<Double> > Amp = new ArrayList<ArrayList<Double> >();
+		
 		// get Images
 		sData.setImgForm(form[data.getForm()].getImage(data.getReflektor()));	// set true if reflector!
 		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(!data.getAntVertikal()));	// set false if antenna orientation vertical
-		sData.setAmp(calculateTopology(data).get(0));
-		sData.setAmpLog(calculateTopology(data).get(1));
+		
+		Amp.addAll(calculateTopology(data));
+		sData.setAmp(Amp.get(0));
+		sData.setAmpLog(Amp.get(1));
 		sData.setWinkel(this.winkel);
 		sData.setImgCharac(charact[data.getAnt()].getImageCharacterictic());
 		sData.setTxCharac(charact[data.getAnt()].getText());
@@ -95,6 +98,7 @@ public class Model {
 			}
 		}
 		
+		betragNormLog.clear();
 		for (int i = 0; i < points; i++) {
 			double b = betragNorm.get(i);
 			betragNormLog.add((20*Math.log10(b)));
@@ -102,10 +106,10 @@ public class Model {
 		
 		double maxVal = Collections.max(betragNorm);
 		double minValLog = Collections.min(betragNormLog);
+		sData.setAmpLogReal(Math.abs(minValLog));
 		for (int k = 0; k < points; k++) {
 			betragNorm.set(k, betragNorm.get(k)/maxVal);
 			betragNormLog.set(k, betragNormLog.get(k)/minValLog);
-			//System.out.println(betragNormLog.get(k));
 		}
 		
 		res.add(0, betragNorm);
