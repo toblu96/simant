@@ -1,5 +1,8 @@
 package _Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +21,14 @@ public class Utility {
 	// get width percentage from screen resolution
 	public double getScreenWidthPercentage(double per) {
 		return width / 100 * per;
+	}
+	
+	public static List<Double> getDoubleList(List<String> list) {
+		List<Double> temp = new ArrayList<>();
+		for(int i=0; i<list.size(); i++) {
+		    temp.add(Double.parseDouble(list.get(i)));
+		}
+		return temp;
 	}
 	
 	// only number input from text-field (double)

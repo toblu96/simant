@@ -67,9 +67,9 @@ public class FormPlot {
 		this.middleY = this.formPane.getHeight()/2;
 				
 		// draw Arrow for Matrix direciton
-		Image imgPfeil = new Image("/resources/right-arrow.png", middleX, middleY, false, false); 
+		Image imgPfeil = new Image("/resources/right-arrow.png", middleY, middleY, false, false); 
 		ImageView imgView = new ImageView();
-		imgView.setX(middleX/2);
+		imgView.setX(middleX - middleY/2);
 		imgView.setY(middleY/2);
 		imgView.setRotate(-this.arrayDirection);
 		imgView.setImage(imgPfeil);

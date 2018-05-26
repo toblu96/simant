@@ -234,7 +234,6 @@ public class Layout implements Initializable{
 		txt_amp.setVisible(visible);
 		cb_reflektor.setVisible(visible);
 		tf_Amplitude.setVisible(visible);
-//		cb_AntVert.setVisible(visible);
 		hb_Reflector.setVisible(visible);
 	}
 	
