@@ -18,13 +18,27 @@ public class AmplitudePlot {
 	private double percent = 0.0;
 	private List<List<Double>> amp;
 	
-	
+	/**
+	 * - Übergibt Referenz auf Panel, um AmpPlot darauf zu zeichnen
+	 * - erstellt Listener, welche Grössenänderungen des Panels detektieren
+	 * 
+	 * @param pane	-> Referenz des darauf zu zeichnenden Panels
+	 */
 	public void initPane(Pane pane) {
 		this.ampPane = pane;
-		this.ampPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) redraw();	});
-		this.ampPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) redraw();	});
+		this.ampPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) redraw();	});
+		this.ampPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) redraw();	});
 	}
 	
+	/**
+	 * - übergibt Array-Grösse von Eingabefeldern
+	 * - setzt Attribute
+	 * - berechnet und zeichnet neu
+	 * 
+	 * @param x	-> Anzahl Antennen in X-Richtung
+	 * @param y	-> Anzahl Antennen in Y-Richtung
+	 * @return	-> gerechnetes cos^2 Array
+	 */
 	public List<List<Double>> setAntQuant(int x, int y) {
 		this.antQuantX = x;
 		this.antQuantY = y;
@@ -32,6 +46,14 @@ public class AmplitudePlot {
 		return amp;
 	}
 
+	/**
+	 * - liest Prozentwert des Sliders
+	 * - setzt Attribute
+	 * - berechnet und zeichnet neu
+	 * 
+	 * @param percent	-> Sliderwert von Eingabefelder
+	 * @return	-> gerechnetes cos^2 Array
+	 */
 	public List<List<Double>> setPercentage(double percent) {
 		this.percent = (100.0 - (int)(percent)) / 100.0;
 		redraw();

@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 public class Matlab {
 
+	/**
+	 * - erzeugt eine ArrayList mit linearen Abständen
+	 * @param start	-> Startwert der Liste
+	 * @param end	-> Endwert der Liste
+	 * @param n		-> Anzahl Punkte
+	 * @return		-> ArrayListe mit linearisierten Werten 
+	 */
 	public static ArrayList<Double> linspace(double start, double end, int n) {
 		ArrayList<Double> arl = new ArrayList<Double>();
 		for (int i = 0; i < n; i++) {
@@ -16,11 +23,5 @@ public class Matlab {
 		}
 		return arl;
 		
-	}
-	
-	public static double deg2rad(double deg) {
-		double rad;
-		rad = (deg*Math.PI)/180;
-		return rad;
 	}
 }

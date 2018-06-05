@@ -2,27 +2,40 @@ package _Model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.jfoenix.controls.JFXTextField;
-
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 
 public class Utility {
 
 	private static final double height = Screen.getPrimary().getVisualBounds().getHeight(); // Screen resolution height
 	private static final double width = Screen.getPrimary().getVisualBounds().getWidth();	// Screen resolution width
-	private static AnchorPane rootPane;
-	// get height percentage from screen resolution
+
+	/**
+	 * - rechnet prozentuale Höhe der Bildschirmauflösung
+	 * 
+	 * @param per	-> Prozent der Bildschirmhöhe
+	 * @return	-> Prozent in Pixel
+	 */
 	public double getScreenHeightPercentage(double per) {
 		return height / 100 * per;
 	}
 	
-	// get width percentage from screen resolution
+	/**
+	 * - rechnet prozentuale Breite der Bildschirmauflösung
+	 * 
+	 * @param per	-> Prozent der Bildschirmbreite
+	 * @return		-> Prozent in Pixel
+	 */
 	public double getScreenWidthPercentage(double per) {
 		return width / 100 * per;
 	}
 	
+	/**
+	 * - erzeugt aus ArrayList<String> eine ArrayList<Double>
+	 * 
+	 * @param list	-> zu wandelnde ArrayList
+	 * @return		-> ArrayList mit Double-Werten
+	 */
 	public static List<Double> getDoubleList(List<String> list) {
 		List<Double> temp = new ArrayList<>();
 		for(int i=0; i<list.size(); i++) {
@@ -31,7 +44,16 @@ public class Utility {
 		return temp;
 	}
 	
-	// only number input from text-field (double)
+	/**
+	 * - wandelt Textfield Eingabe in Double
+	 * - löscht unerlaubte Eingabewerte
+	 * - Begrenzt Eingabemöglichkeit (Meldung)
+	 * 
+	 * @param tf	-> Referenz auf JFXTextField
+	 * @param min	-> erlaubter Minimalwert
+	 * @param max	-> erlaubter Maximalwert
+	 * @return		-> Eingabewert in Double
+	 */
 	public double getDouble(JFXTextField tf, double min, double max) {
 		int caret = tf.getCaretPosition();
 		String text = tf.getText();
@@ -76,6 +98,16 @@ public class Utility {
 		return res;
 	}
 	
+	/**
+	 * - wandelt Textfield Eingabe in Integer
+	 * - löscht unerlaubte Eingabewerte
+	 * - Begrenzt Eingabemöglichkeit (Meldung)
+	 * 
+	 * @param tf	-> Referenz auf JFXTextField
+	 * @param min	-> erlaubter Minimalwert
+	 * @param max	-> erlaubter Maximalwert
+	 * @return		-> Eingabewert in Integer
+	 */
 	public Integer getInt(JFXTextField tf, Integer min, Integer max) {
 		int caret = tf.getCaretPosition();
 		String text = tf.getText();

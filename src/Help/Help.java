@@ -1,39 +1,40 @@
 package Help;
 
-import com.jfoenix.controls.*;
-
 import _MenuView.MenuView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class Help {
 	
 	MenuView view;
 	
-	// Local Elements declaration
-	@FXML 
-	JFXButton btn_1;
+	@FXML
+	AnchorPane ap_hintergrund;
 	
 	@FXML
-	GridPane testPane;
+	ImageView img_1, img_2, img_3, img_4, img_5, img_6;
 		
 	
+	/**
+	 * - setzt Referenz der Hauptview in Attribut
+	 * 
+	 * @param view	-> Referenz auf HauptView
+	 */
 	public void setParentView(MenuView view) {
 		this.view = view;
+		
+		ap_hintergrund.widthProperty().addListener((obs, oldVal, newVal) -> {		
+			if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) redraw();	});
+		
 	}
 	
-	
-	
-	// Local Calls from Elements
-	public void manageButton(ActionEvent e) { 
-		
-    } 
-	
-	
-	
-	// Local Calls
-	
-	
-	
+	private void redraw() {
+		img_1.setFitWidth(ap_hintergrund.getWidth()*0.95);
+		img_2.setFitWidth(ap_hintergrund.getWidth()*0.95);
+		img_3.setFitWidth(ap_hintergrund.getWidth()*0.95);
+		img_4.setFitWidth(ap_hintergrund.getWidth()*0.95);
+		img_5.setFitWidth(ap_hintergrund.getWidth()*0.95);
+		img_6.setFitWidth(ap_hintergrund.getWidth()*0.95);
+	}
 }

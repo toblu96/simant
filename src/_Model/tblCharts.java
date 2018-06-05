@@ -87,7 +87,7 @@ public class tblCharts {
 			line.setEndY(-(radius)*Math.sin(angle));
 			polGroup.getChildren().add(line);
 			
-			Label label = new Label(""+(int)Math.ceil(Math.toDegrees(angle)));
+			Label label = new Label(""+(int)Math.ceil(Math.toDegrees(angle))+" °");
 			label.setLayoutX(middleX - 5 + (radius+30)*Math.cos(angle));
 			label.setLayoutY(middleY - 5 - (radius+20)*Math.sin(angle));
 			polGroup.getChildren().add(label);
@@ -120,13 +120,13 @@ public class tblCharts {
 		// draw horizontal lines
 		int horLines = 9;
 		for (int i = 0; i < horLines; i++) {
-			double amp = ampReal / (horLines-1) * (horLines -1 -i);
+			double amp = ampReal - ampReal / (horLines-1) * (horLines -1 -i);
 			double calcHeight = linPane.getHeight()/(horLines-1)*i*0.9 + linPane.getHeight()*0.05;
 			
 			Line line = new Line(linPane.getWidth()*0.05,calcHeight,linPane.getWidth()*0.95,calcHeight);
 			linGroup.getChildren().add(line);
 			
-			Label label = new Label("-"+(int)amp);
+			Label label = new Label("-"+(int)amp+" dB");
 			label.setLayoutX(10);
 			label.setLayoutY(calcHeight-10);
 			linGroup.getChildren().add(label);
@@ -140,7 +140,7 @@ public class tblCharts {
 			Line line = new Line(calcHeight, linPane.getHeight()*0.05,calcHeight,linPane.getHeight()*0.95);
 			linGroup.getChildren().add(line);
 			
-			Label label = new Label("" + 360 / (vertLines-1) * i);
+			Label label = new Label("" + 360 / (vertLines-1) * i+" °");
 			label.setLayoutX(calcHeight - 10);
 			label.setLayoutY(linPane.getHeight()-20);
 			linGroup.getChildren().add(label);
@@ -179,30 +179,30 @@ public class tblCharts {
 	}
 	
 	/**
-	 * Places the PolarChart to a specific pane
+	 * - übergibt Referenz auf Panel
 	 * 
-	 * @param pane -> Panel, on which polarChart will be placed
+	 * @param pane -> Panel, auf welchem der PolarPlot gezeichnet wird
 	 */
     public void createPolarChart(Pane pane) {
     	this.polPane = pane;
     	// detect resizing from Pane
-		this.polPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawPolar();	});
-		this.polPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawPolar();	});
+		this.polPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) drawPolar();	});
+		this.polPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) drawPolar();	});
     	
 		// add group to pane
     	this.polPane.getChildren().add(polGroup);
     }
     
     /**
-     * Places the LineChart to a specific pane
+     * - übergibt Referenz auf Panel
      * 
-     * @param pane -> Panel, on which lineChart will be placed
+     * @param pane -> Panel, auf welchem der LinePlot gezeichnet wird
      */
     public void createLineChart(Pane pane) {
     	this.linPane = pane;
     	// detect resizing from Pane
-		this.linPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawLin();	});
-		this.linPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) drawLin();	});
+		this.linPane.widthProperty().addListener((obs, oldVal, newVal) -> {		if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) drawLin();	});
+		this.linPane.heightProperty().addListener((obs, oldVal, newVal) -> {   	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) drawLin();	});
 
 		// add group to pane
     	this.linPane.getChildren().add(linGroup);
@@ -210,10 +210,13 @@ public class tblCharts {
     
     
     /**
-     * Set Parameters for all Charts, draws/redraws Chart
+     * - übergibt Parameter für die Plots
+     * - setzt Attribute
+     * - löst neuzeichnen aus
      * 
-     * @param angle -> ArrayList of angle
-     * @param norm 	-> ArrayList of norm value
+     * @param angle -> ArrayList Winkel
+     * @param norm 	-> ArrayList normierte Amplituden
+     * @param ampReal	-> Maximalwert für Skala
      */
     public void setDataSet(ArrayList<Double> angle, ArrayList<Double> norm, double ampReal) {
     	this.x = angle;

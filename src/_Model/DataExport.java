@@ -185,10 +185,11 @@ public class DataExport {
     }
 	
     /**
-     * Creates a XML File and saves its content
+     * - Erstellt neue XML-Datei
+     * - Speichert alle Eingabeparameter in die Datei
      * 
-     * @param file	-> Save File to this Data Path
-     * @param data	-> Data to save
+     * @param file	-> Dateipfad
+     * @param data	-> Eingabeparameter
      * @throws IOException
      */
     public void saveXML(File file, SimantInputData data) throws IOException {
@@ -219,8 +220,10 @@ public class DataExport {
 	}
 
     /**
-     * Opens a XML File and reads out its values
+     * - liest alle gespeicherten Eingabeparameter aus XML-Datei aus
      * 
+     * @param file	-> Dateipfad
+     * @return	-> alle Eingabeparameter
      * @throws IOException
      */
     public SimantInputData openXML(File file) throws IOException {		

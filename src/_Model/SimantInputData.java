@@ -6,17 +6,10 @@ import java.util.List;
 public class SimantInputData {
 
 	// all Data
-	private int antenna;
-	private int form;
-	private Double dLambda;
-	private Integer direction, dirHauptkaeule;
-	private Double amplitude;
-	List<List<Double>> ampArray = new ArrayList<>();
-	private Double ampPercent;
-	private Double distance;
+	private Double dLambda, amplitude, ampPercent, distance;
+	private Integer direction, dirHauptkaeule, antenna, form;
 	private boolean reflektor, antVertikal;
-	
-	
+	List<List<Double>> ampArray = new ArrayList<>();
 	
 	public void setAnt(int data) {
 		this.antenna = data;

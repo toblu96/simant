@@ -12,7 +12,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
-// Edited by Tobias
+/**
+ * - setzt Icon und Name des Programms
+ * - ruft initMenuLayout() auf
+ * 
+ * @author tobia
+ *
+ */
 public class Main extends Application {
 	
 	private Utility util = new Utility();
@@ -33,7 +39,14 @@ public class Main extends Application {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * - lädt MenuView (FXML und CSS)
+	 * - setzt die Grösse des Fensters auf 80% x 80% von Bildschirmgrösse
+	 * - setzt Minimalgrösse des Fensters auf 80% x 20%
+	 * - setzt Notification-Panel auf Menupanel (Notifications können auf allen Seiten im Programm angezeigt werden..)
+	 * 
+	 */
 	public void initMenuLayout() {
         try {
             // Load menu layout from fxml file.

@@ -20,6 +20,11 @@ public class Notification {
 	private static VBox vBox = new VBox();
 	static Pane tempPane;
 	
+	/**
+	 * - setzt Referenz für das Notification-Pane
+	 * 
+	 * @param pane	-> Panel, auf welchem Notifications ausgegeben werden
+	 */
 	public static void setRootPane(AnchorPane pane) {
 		rootPane = pane;
 		AnchorPane.setRightAnchor(vBox, 20.0);
@@ -28,6 +33,11 @@ public class Notification {
 		rootPane.getChildren().add(vBox);
 	}
 	
+	/**
+	 * - erzeugt neue Fehlermeldung für 5 Sekunden
+	 * 
+	 * @param msg	-> Meldungstext
+	 */
 	public static void error(String msg) {
 		Pane pane = new Pane();
 		tempPane = pane;
@@ -74,6 +84,11 @@ public class Notification {
 		vBox.getChildren().add(pane);
 	}
 	
+	/**
+	 *  - erzeugt neue Informationsmeldung für 5 Sekunden
+	 * 
+	 * @param msg	-> Meldungstext
+	 */
 	public static void info(String msg) {
 		Pane pane = new Pane();
 		tempPane = pane;
@@ -120,6 +135,11 @@ public class Notification {
 		vBox.getChildren().add(pane);
 	}
 	
+	/**
+	 *  - erzeugt neue Bestätigungsmeldung für 5 Sekunden
+	 * 
+	 * @param msg	-> Meldungstext
+	 */
 	public static void success(String msg) {
 		Pane pane = new Pane();
 		tempPane = pane;

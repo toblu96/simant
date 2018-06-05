@@ -18,7 +18,6 @@ public class Antenna implements Initializable {
 	
 	MenuView view;
 	
-	// Local Elements declaration
 	@FXML 
 	Polygon pg_SelectedAntenna;
 	
@@ -28,18 +27,28 @@ public class Antenna implements Initializable {
 	@FXML
 	Label txt_ant;
 	
+	/**
+	 * - setzt Pfeil der Ausgewählten Antenne nach initialisierung
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		if (pg_SelectedAntenna != null) {
-			GridPane.setRowIndex(pg_SelectedAntenna, 0);
-		}
+		GridPane.setRowIndex(pg_SelectedAntenna, 0);
 	} 
 	
+	/**
+	 * - setzt Attribut der Hauptview
+	 * 
+	 * @param view	-> Referenz auf Hauptview
+	 */
 	public void setParentView(MenuView view) {
 		this.view = view;
 	}
 	
+	/**
+	 * - aktualisiert alle Eingabefelder
+	 * 
+	 * @param data	-> Datentyp Eingabeparameter
+	 */	
 	public void updateInputs(SimantInputData data) {
 		switch (data.getAnt()) {
 		case 0: manageButton1(null);	break;
@@ -49,28 +58,36 @@ public class Antenna implements Initializable {
 		}
 	}
 	
+	/**
+	 * - aktualisiert Bild und Text in Informationspanel
+	 * 
+	 * @param data	-> Daten von Model
+	 */
 	public void updateView(SimantData data) {
 		img_ant.setImage(data.getImgCharac());
 		txt_ant.setText(data.getTxCharac());
 	}
 	
-	// Local Calls from Elements
-	public void manageButton1(ActionEvent e) {
+	@FXML
+	private void manageButton1(ActionEvent e) {
 		GridPane.setRowIndex(pg_SelectedAntenna, 0);
 		this.view.setAnt(0);
     } 
 	
-	public void manageButton2(ActionEvent e) { 
+	@FXML
+	private void manageButton2(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 1);
 		this.view.setAnt(1);
     } 
 	
-	public void manageButton3(ActionEvent e) { 
+	@FXML
+	private void manageButton3(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 2);
 		this.view.setAnt(2);
     } 
 	
-	public void manageButton4(ActionEvent e) { 
+	@FXML
+	private void manageButton4(ActionEvent e) { 
 		GridPane.setRowIndex(pg_SelectedAntenna, 3);
 		this.view.setAnt(3);
     }

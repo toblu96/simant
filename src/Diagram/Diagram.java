@@ -36,21 +36,26 @@ public class Diagram implements Initializable {
 	ImageView img_form, img_ant;
 		
 	
-	
+	/**
+	 * - erzeugt Plots nach Initilisierung
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// create polar chart
 		chart.createLineChart(pn_LineChart);
 		chart.createPolarChart(pn_PolarChart);
 	} 
 	
+	/**
+	 * - setzt Referenz der Hauptview in Attribut
+	 * 
+	 * @param view	-> Referenz auf HauptView
+	 */
 	public void setParentView(MenuView view) {
 		this.view = view;
 	}
 	
-	// Local Calls from Elements
 	@FXML
-	protected void resizePolar() {
+	private void resizePolar() {
 		if (backGrid.getColumnConstraints().get(0).getPercentWidth() < 100) {
 			backGrid.getRowConstraints().get(2).setMaxHeight(0);
 			backGrid.getColumnConstraints().get(0).setPercentWidth(100);
@@ -64,7 +69,7 @@ public class Diagram implements Initializable {
 	}
 	
 	@FXML
-	protected void resizeLinear() {
+	private void resizeLinear() {
 		if (backGrid.getColumnConstraints().get(0).getPercentWidth() < 100) {
 			backGrid.getRowConstraints().get(1).setMaxHeight(0);
 			backGrid.getColumnConstraints().get(0).setPercentWidth(100);
@@ -76,11 +81,21 @@ public class Diagram implements Initializable {
 		}
 	}
 	
-	// Local Calls	
+	/**
+	 * - aktualisiert Daten für Plots
+	 * 
+	 * @param sData	-> gerechnete Daten aus Model
+	 */
 	public void drawCharts(SimantData sData) {
-		chart.setDataSet(sData.getWinkel(), sData.getAmp(), 40);
+		chart.setDataSet(sData.getWinkel(), sData.getAmp(), sData.getAmpLogReal());
 	}
 	
+	/**
+	 * - aktualisiert Bilder der Antennenausrichtungen
+	 * 
+	 * @param imgOrient	-> Bild der Antennenausrichtung
+	 * @param imgForm	-> Bild der Array-Form
+	 */
 	public void updatePicture(Image imgOrient, Image imgForm) {
 		img_ant.setImage(imgOrient);
 		img_form.setImage(imgForm);

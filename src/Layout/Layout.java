@@ -82,31 +82,27 @@ public class Layout implements Initializable{
 	ScrollPane sp_Einst;
 
 	ObservableList<String> formOptions = FXCollections.observableArrayList(
-		        "Row",
-		        "Circle",
+		        "Reihe",
+		        "Kreis",
 		        "Matrix"	);
 	
+	/**
+	 * - erzeugt Plots nach Initilisierung
+	 * - erstellt Combo-Box
+	 * - setzt cos^2 Plot
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 		
-		// Settings Menu
-		if (cc_MenuSettings != null) {
-			cc_MenuSettings.setMaxWidth(317);
-
-			bt_tabAnt.setStyle("-fx-background-color: #F0F0F0");
-		}
-		// init ComboBox
-		if (cb_Form != null) {
-			cb_Form.setItems(formOptions);
-			cb_Form.getStyleClass().add("optionsComboBox");
-			cb_Form.setValue("Reihe");
-		}    
-	} 
-	
-	public void setParentView(MenuView view) {
-		this.view = view;
+		cc_MenuSettings.setMaxWidth(317);
+		bt_tabAnt.setStyle("-fx-background-color: #F0F0F0");
 		
-		// hier weil initialize 2x ausgeführt wird.. wird noch geändert!!
+		// init ComboBox
+		cb_Form.setItems(formOptions);
+		cb_Form.getStyleClass().add("optionsComboBox");
+		cb_Form.setValue("Reihe");   
+		
 		chart.createLineChart(pn_vorschau);
 		fplot.createForm(pn_form);
 		ampPlot.initPane(pn_amplitude);
@@ -117,6 +113,15 @@ public class Layout implements Initializable{
 		    	FXCalculatePercentage();
 		    }
 		});
+	} 
+	
+	/**
+	 * - setzt Referenz der Hauptview in Attribut
+	 * 
+	 * @param view	-> Referenz auf HauptView
+	 */
+	public void setParentView(MenuView view) {
+		this.view = view;
 	}
 	
 	
@@ -133,26 +138,31 @@ public class Layout implements Initializable{
 		}
 	}
 	
+	/**
+	 * - aktualisiert Bilder der Antennenausrichtungen
+	 * 
+	 * @param imgOrient	-> Bild der Antennenausrichtung
+	 * @param imgForm	-> Bild der Array-Form
+	 */
 	public void updatePicture(Image imgOrient, Image imgForm) {
 		img_ant.setImage(imgOrient);
 		img_form.setImage(imgForm);
 	}
 	
-	// Local Calls from Elements
 	@FXML
 	private void manageButton(ActionEvent e) { 
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Row": view.setForm(0); fplot.setForm(0); tf_AnzahlCol.setDisable(true); break;
-			case "Circle": view.setForm(1); fplot.setForm(1); tf_AnzahlCol.setDisable(true); break;
+			case "Reihe": view.setForm(0); fplot.setForm(0); tf_AnzahlCol.setDisable(true); break;
+			case "Kreis": view.setForm(1); fplot.setForm(1); tf_AnzahlCol.setDisable(true); break;
 			case "Matrix": view.setForm(2); fplot.setForm(2); tf_AnzahlCol.setDisable(false); break;
 			}
 		}
     }
 	
 	@FXML
-	protected void FXSetAnzahl() {
+	private void FXSetAnzahl() {
 		Integer x = util.getInt(tf_AnzahlRow, 1, 8);
 		Integer y = util.getInt(tf_AnzahlCol, 1, 8);
 		if (x != null && y != null) {
@@ -163,7 +173,7 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
-	protected void FXSetDirection() {
+	private void FXSetDirection() {
 		Integer data = util.getInt(tf_Richtung, -360, 360);
 		if (data != null) {
 			view.setDir(data);
@@ -172,7 +182,7 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
-	protected void FXSetDirHauptk() {
+	private void FXSetDirHauptk() {
 		Integer data = util.getInt(tf_RichtHauptkaeule, -360, 360);
 		if (data != null) {
 			view.setDirHauptk(data);
@@ -181,22 +191,22 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
-	protected void FXSetAmplitude() {
+	private void FXSetAmplitude() {
 		view.setAmp(util.getDouble(tf_Amplitude, 0.0, 100.0));	
 	}
 	
 	@FXML
-	protected void FXSetDLambda() {
+	private void FXSetDLambda() {
 		view.setDLambda(util.getDouble(tf_Lambda, 0.0, 100.0));	
 	}
 	
 	@FXML
-	protected void FXSetDist() {
+	private void FXSetDist() {
 		view.setDist(util.getDouble(tf_Reflector, 0.0, 10.0));	
 	}
 	
 	@FXML
-	protected void manageTab(ActionEvent e) {
+	private void manageTab(ActionEvent e) {
 		JFXButton btn = (JFXButton)e.getTarget();
 		// reset all backgrounds, bring panel to front
 		bt_tabAnt.setStyle("");
@@ -212,7 +222,7 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
-	protected void FXSetReflektor() {
+	private void FXSetReflektor() {
 		boolean visible = cb_reflektor.isSelected();
 		view.setReflektor(cb_reflektor.isSelected());
 		tf_Reflector.setVisible(visible);
@@ -220,12 +230,12 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
-	protected void FXSetAntVertikal() {
+	private void FXSetAntVertikal() {
 		view.setAntVertikal(cb_AntVert.isSelected());
 	}
 	
 	@FXML
-	protected void FXSetAdvanced() {
+	private void FXSetAdvanced() {
 		boolean visible = cb_advanced.isSelected();
 		txt_richtAnt.setVisible(visible);
 		hb_richtAnt.setVisible(visible);
@@ -239,24 +249,30 @@ public class Layout implements Initializable{
 	
 	// nur Plot aktualisieren
 	@FXML
-	protected void FXSetPercentage() {
+	private void FXSetPercentage() {
 		ampPlot.setPercentage((int) sl_percent.getValue());
 	}
 	
 	// Berechnungen aktualiseren
-	protected void FXCalculatePercentage() {
+	private void FXCalculatePercentage() {
 		view.setAmpArray(ampPlot.setPercentage(sl_percent.getValue()), sl_percent.getValue());
 	}
 
-	
+	/**
+	 * - aktualisiert alle Eingabefelder
+	 * 
+	 * @param data	-> Datentyp Eingabefelder
+	 */
 	public void updateInputs(SimantInputData data) {
 		// Form
 		switch (data.getForm()) {
-		case 0: cb_Form.setValue("Row"); tf_AnzahlCol.setDisable(true); break;
-		case 1: cb_Form.setValue("Circle"); tf_AnzahlCol.setDisable(true); break;
+		case 0: cb_Form.setValue("Reihe"); tf_AnzahlCol.setDisable(true); break;
+		case 1: cb_Form.setValue("Kreis"); tf_AnzahlCol.setDisable(true); break;
 		case 2: cb_Form.setValue("Matrix"); tf_AnzahlCol.setDisable(false); break;
 		}
 		view.setForm(data.getForm());
+		
+		sl_percent.setValue(data.getAmpPercent());
 		// quantity
 		tf_AnzahlRow.setText(""+data.getAmpArray().get(0).size());
 		tf_AnzahlCol.setText(""+data.getAmpArray().size());
@@ -278,10 +294,10 @@ public class Layout implements Initializable{
 		view.setDist(data.getDist());
 		
 		fplot.setForm(data.getForm());
-		fplot.setAntCount(data.getAmpArray().size(), data.getAmpArray().get(0).size());
+		fplot.setAntCount(data.getAmpArray().get(0).size(), data.getAmpArray().size());
 		fplot.setAngle(data.getDir());
+		fplot.setArrayDir(data.getDirHauptk());
 		
-		sl_percent.setValue(data.getAmpPercent());
 		ampPlot.setAntQuant(data.getAmpArray().get(0).size(), data.getAmpArray().size());
 		
 		cb_reflektor.setSelected(data.getReflektor());
@@ -293,9 +309,13 @@ public class Layout implements Initializable{
 	}
 	
 	
-	// Local Calls	
+	/**
+	 * - aktualisiert Daten für Plots
+	 * 
+	 * @param sData	-> gerechnete Daten aus Model
+	 */
 	public void drawCharts(SimantData sData) {
-		chart.setDataSet(sData.getWinkel(), sData.getAmp(), 40);
+		chart.setDataSet(sData.getWinkel(), sData.getAmp(), sData.getAmpLogReal());
 	}
 	
 }

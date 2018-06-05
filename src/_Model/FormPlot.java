@@ -22,29 +22,59 @@ public class FormPlot {
 	private int antennaCountX, antennaCountY;
 	private int angle, arrayDirection;
 	
-	
+	/**
+	 * - Übergibt Referenz auf Panel, um FormPlot darauf zu zeichnen
+	 * - erstellt Listener, welche Grössenänderungen des Panels detektieren
+	 * 
+	 * @param pane	-> Referenz des darauf zu zeichnenden Panels
+	 */
 	public void createForm(Pane pane) {
 		this.formPane = pane;
-		this.formPane.widthProperty().addListener((obs, oldVal, newVal) -> {	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) redraw();	});
-		this.formPane.heightProperty().addListener((obs, oldVal, newVal) -> {   if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 1) redraw();	});
+		this.formPane.widthProperty().addListener((obs, oldVal, newVal) -> {	if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) redraw();	});
+		this.formPane.heightProperty().addListener((obs, oldVal, newVal) -> {   if(Math.abs(oldVal.doubleValue() - newVal.doubleValue()) > 5) redraw();	});
 	}
 	
+	/**
+	 * - setzt Attribut mit zu zeichnender Form
+	 * - löst neuzeichnen aus
+	 * 
+	 * @param form	-> Array-Form
+	 */
 	public void setForm(int form) {
 		this.form = form;
 		redraw();
 	}
 	
+	/**
+	 * - setzt Attribut der Array-Grösse
+	 * - löst neuzeichnen aus
+	 * 
+	 * @param antCountX	-> Array-Grösse in X-Richtung
+	 * @param antCountY	-> Array-Grösse in Y-Richtung
+	 */
 	public void setAntCount(int antCountX, int antCountY) {
 		this.antennaCountX = antCountX;
 		this.antennaCountY = antCountY;
 		redraw();
 	}
 	
+	/**
+	 * - setzt Attribut mit Ausrichtung der Einzelantenne
+	 * - löst neuzeichnen aus
+	 * 
+	 * @param angle	-> Ausrichtung Einzelantenne
+	 */
 	public void setAngle(int angle) {
 		this.angle = angle;
 		redraw();
 	}
 	
+	/**
+	 * - setzt Attribut mit Ausrichtung der Hauptkäule
+	 * - löst neuzeichnen aus
+	 * 
+	 * @param angle	-> Ausrichtung Hauptkäule
+	 */
 	public void setArrayDir(int angle) {
 		this.arrayDirection = angle;
 		redraw();
