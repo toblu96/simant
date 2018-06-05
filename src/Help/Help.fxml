@@ -1,36 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Help.Help">
+<AnchorPane fx:id="ap_hintergrund" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Help.Help">
    <children>
-      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label layoutX="10.0" layoutY="343.0" prefHeight="135.0" prefWidth="464.0" text="Help" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Segoe UI Bold" size="96.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="610.0" prefHeight="135.0" prefWidth="464.0" text="Help" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Segoe UI Bold" size="96.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
+      <ScrollPane fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane>
+               <children>
+                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Antenne:">
+                           <font>
+                              <Font name="Segoe UI Bold" size="50.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <ImageView fx:id="img_1" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Java_Hilfe_1.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Text layoutX="30.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Layout:">
+                           <font>
+                              <Font name="Segoe UI Bold" size="50.0" />
+                           </font>
+                        </Text>
+                        <ImageView fx:id="img_2" layoutX="30.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Java_Hilfe_2.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="img_3" layoutX="30.0" layoutY="1527.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Java_Hilfe_3.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="img_4" layoutX="30.0" layoutY="2887.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Java_Hilfe_4.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Text layoutX="30.0" layoutY="1534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diagram:">
+                           <font>
+                              <Font name="Segoe UI Bold" size="50.0" />
+                           </font>
+                        </Text>
+                        <ImageView fx:id="img_5" layoutX="30.0" layoutY="4286.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Java_Hilfe_5.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Text layoutX="30.0" layoutY="5446.0" strokeType="OUTSIDE" strokeWidth="0.0" text="XML:">
+                           <font>
+                              <Font name="Segoe UI Bold" size="50.0" />
+                           </font>
+                        </Text>
+                        <ImageView fx:id="img_6" layoutX="30.0" layoutY="5460.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Java_Hilfe_6.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

@@ -11,23 +11,47 @@ public abstract class Characteristic {
 	
 	protected int an_direction, points;
 	
-	public Characteristic(int an_direction, int points) {
-		this.an_direction = an_direction;
-		this.points = points;
-	}
-	
+	/**
+	 * - löst eine Neuberechnung aus
+	 * 
+	 * @return	-> ArrayList mit Amplitudenwerten 
+	 */
 	public abstract ArrayList<Double> calculate();
+	
+	/**
+	 * - übergibt Eingabeparameter für Berechnungen
+	 * - setzt Attribute
+	 * 
+	 * @param an_direction	-> Ausrichtung der Einzelantenne
+	 * @param points	-> Anzahl zu rechnende Punkte
+	 */
 	public abstract void updateData(int an_direction, int points);
+	
+	/**
+	 * - liest den Info-Text für die View aus
+	 * 
+	 * @return	-> Info-Text der Antennencharakteristik
+	 */
 	public abstract String getText();
+	
+	/**
+	 * - liest das Bild für die Antennenausrichtung für die View aus
+	 * 
+	 * @param direction	-> Ausrichtung der Antenne (horizontal/ vertikal)
+	 * @return	-> Bild Antennenausrichtung
+	 */
 	public abstract Image getImageOrientation(boolean direction);
+	
+	/**
+	 * - liest das Bild für die Antennencharakteristik für die View aus
+	 * 
+	 * @return	-> Bild Antennencharakteristik
+	 */
 	public abstract Image getImageCharacterictic();
 }
 
 
 class Isotrop extends Characteristic {
-	public Isotrop(int an_direction, int points) {
-		super(an_direction, points);
-	}
 	
 	public void updateData(int an_direction, int points) {
 		this.an_direction = an_direction;
@@ -38,7 +62,7 @@ class Isotrop extends Characteristic {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
 		ArrayList<Complex> sumr = new ArrayList<Complex>();
 		ArrayList<Double> res = new ArrayList<Double>();
-		double richtd = Matlab.deg2rad((double)(an_direction));
+		double richtd = Math.toRadians((double)(an_direction));
 		double d_L = 0.5;
 		int n = 1;
 		double dd_ppd = 2.0*Math.PI*d_L;
@@ -100,9 +124,6 @@ class Isotrop extends Characteristic {
 
 
 class Dipol extends Characteristic {
-	public Dipol(int an_direction, int points) {
-		super(an_direction, points);
-	}
 	
 	public void updateData(int an_direction, int points) {
 		this.an_direction = an_direction;
@@ -113,7 +134,7 @@ class Dipol extends Characteristic {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
 		ArrayList<Complex> sumr = new ArrayList<Complex>();
 		ArrayList<Double> res = new ArrayList<Double>();
-		double richtd = Matlab.deg2rad((double)(an_direction));
+		double richtd = Math.toRadians((double)(an_direction));
 		double d_L = 0.5;
 		int n = 2;
 		double dd_ppd = 2.0*Math.PI*d_L;
@@ -174,9 +195,6 @@ class Dipol extends Characteristic {
 
 
 class Lambert extends Characteristic {
-	public Lambert(int an_direction, int points) {
-		super(an_direction, points);
-	}
 	
 	public void updateData(int an_direction,int points) {;
 		this.an_direction = an_direction;
@@ -187,7 +205,7 @@ class Lambert extends Characteristic {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
 		ArrayList<Complex> sumr = new ArrayList<Complex>();
 		ArrayList<Double> res = new ArrayList<Double>();
-		double richtd = Matlab.deg2rad((double)(an_direction));
+		double richtd = Math.toRadians((double)(an_direction));
 		double d_L = 0.1;
 		int v_F = 6;
 		int n = 13;
@@ -255,9 +273,6 @@ class Lambert extends Characteristic {
 
 
 class Yagi extends Characteristic {
-	public Yagi(int an_direction, int points) {
-		super(an_direction, points);
-	}
 	
 	public void updateData(int an_direction, int points) {
 
@@ -273,17 +288,17 @@ class Yagi extends Characteristic {
 		ArrayList<Double> res2 = new ArrayList<Double>();
 		ArrayList<Double> res12 = new ArrayList<Double>();
 		ArrayList<Double> res3 = new ArrayList<Double>();
-		double richtd = Matlab.deg2rad((double)(an_direction));
+		double richtd = Math.toRadians((double)(an_direction));
 		double d_L1 = 0.1;
 		double d_L2 = 0.5;
 		double d_L3= 0.2;
 		int n1 = 9;
 		int n2 = 7;
 		int n3 = 4;
-		double dd_ppd1 = 2.0*Math.PI*d_L1*Math.cos(Matlab.deg2rad(90));
-		double dd_ppd2 = 2.0*Math.PI*d_L2*Math.cos(Matlab.deg2rad(100));
+		double dd_ppd1 = 2.0*Math.PI*d_L1*Math.cos(Math.toRadians(90));
+		double dd_ppd2 = 2.0*Math.PI*d_L2*Math.cos(Math.toRadians(100));
 		double dd_ppd3 = 2.0*Math.PI*d_L3;
-		double richty = Matlab.deg2rad(-90);
+		double richty = Math.toRadians(-90);
 		
 		ArrayList<Double> pk1 = new ArrayList<Double>();
 		for (int i = 1; i <= n1; i++) {

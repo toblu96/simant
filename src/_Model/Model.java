@@ -27,14 +27,19 @@ public class Model {
 	ArrayList<Double> layout = new ArrayList<Double>();
 	ArrayList<Double> refl = new ArrayList<Double>();
 	
+	/**
+	 * - erzeugt Charakteristiken und Array-Formen
+	 * 
+	 * @param view	-> Referenz auf View für Publisher (MVC olé)
+	 */
 	public Model(MenuView view) {
 		this.view = view;
 		
 		// Antenna
-		charact[0] = new Lambert(0,points);
-		charact[1] = new Isotrop(0,points);
-		charact[2] = new Yagi(0,points);
-		charact[3] = new Dipol(0,points);
+		charact[0] = new Lambert();
+		charact[1] = new Isotrop();
+		charact[2] = new Yagi();
+		charact[3] = new Dipol();
 		
 		// Layout
 		form[0] = new Linear();
@@ -46,6 +51,12 @@ public class Model {
 		
 	}
 	
+	/**
+	 * - Errechnet Amplituden mit allen Eingabeparameter
+	 * - Sendet gerechnete Werte an die View
+	 * 
+	 * @param data	-> Eingabeparameter (SimantInputData)
+	 */
 	public void updateInputData(SimantInputData data) {
 		ArrayList<ArrayList<Double> > Amp = new ArrayList<ArrayList<Double> >();
 		
@@ -63,7 +74,7 @@ public class Model {
 		updateView(this.sData);
 	}
 	
-	public void updateView(SimantData data) {
+	private void updateView(SimantData data) {
 		SubmissionPublisher<SimantData> publisher = new SubmissionPublisher<>();
 		publisher.subscribe(view);
 		publisher.submit(data);

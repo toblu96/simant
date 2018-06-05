@@ -9,10 +9,8 @@ public class SimantData {
 	private ArrayList<Double> winkel = new ArrayList<>();
 	private ArrayList<Double> amplitude = new ArrayList<>();
 	private ArrayList<Double> amplitudeLog = new ArrayList<>();
-	private Double amplitudeLogReal; // Hallo Tobias
-	private Image imgOrientation = null;
-	private Image imgForm = null;
-	private Image imgCharac;
+	private Double amplitudeLogReal;
+	private Image imgOrientation, imgForm, imgCharac;
 	private String txCharac;
 	
 	public void setWinkel(ArrayList<Double> data) {

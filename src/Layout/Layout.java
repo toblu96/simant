@@ -1,18 +1,17 @@
 package Layout;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import org.controlsfx.control.PopOver;
 
 import com.jfoenix.controls.*;
 
 import _MenuView.MenuView;
 import _Model.AmplitudePlot;
 import _Model.FormPlot;
+import _Model.SimantData;
 import _Model.SimantInputData;
 import _Model.Utility;
+import _Model.tblCharts;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
@@ -20,7 +19,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
-import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,14 +29,12 @@ import javafx.scene.text.Text;
 public class Layout implements Initializable{
 	
 	private MenuView view;
-	
-	// Layouts & Screens
-	FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/Layout/Settings1.fxml"));
 		
 	private Utility util = new Utility();
 	
 	FormPlot fplot = new FormPlot();
 	AmplitudePlot ampPlot = new AmplitudePlot();
+	tblCharts chart = new tblCharts();
 	
 	
 	
@@ -47,7 +43,7 @@ public class Layout implements Initializable{
 	GridPane gp_root;
 	
 	@FXML
-	Pane pn_form, pn_amplitude;
+	Pane pn_form, pn_amplitude, pn_vorschau;
 	
 	@FXML
 	ColumnConstraints cc_MenuSettings;
@@ -56,13 +52,13 @@ public class Layout implements Initializable{
 	FontAwesomeIconView ToggleMenuIcon;
 	
 	@FXML
-	Text txt_amp, txt_dlambda, txt_richtAnt;
+	Text txt_amp, txt_dlambda, txt_richtAnt, txt_EinhRef;
 	
 	@FXML
-	HBox hb_amp, hb_richtAnt;
+	HBox hb_richtAnt, hb_Reflector;
 	
 	@FXML
-	VBox vb_ScrollPane;
+	VBox vb_ScrollPane, vb_Array;
 	
 	@FXML
 	JFXComboBox<String> cb_Form;
@@ -86,46 +82,28 @@ public class Layout implements Initializable{
 	ScrollPane sp_Einst;
 
 	ObservableList<String> formOptions = FXCollections.observableArrayList(
-		        "Row",
-		        "Circle",
+		        "Reihe",
+		        "Kreis",
 		        "Matrix"	);
 	
+	/**
+	 * - erzeugt Plots nach Initilisierung
+	 * - erstellt Combo-Box
+	 * - setzt cos^2 Plot
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
-		try {
-            // Load Layout
-			settingsLoader.setController(this);
-        	AnchorPane pane = (AnchorPane) settingsLoader.load();
-        	gp_root.add(pane, 2, 1, 1, 1);
-        	
-        	AnchorPane.setTopAnchor(pane, 0.0);
-        	AnchorPane.setBottomAnchor(pane, 0.0);
-        	AnchorPane.setLeftAnchor(pane, 0.0);
-        	AnchorPane.setRightAnchor(pane, 0.0);
-        	
-        	
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 		
-		// Settings Menu
-		if (cc_MenuSettings != null) {
-			cc_MenuSettings.setMinWidth(317);
-
-			bt_tabAnt.setStyle("-fx-background-color: white");
-		}
+		cc_MenuSettings.setMaxWidth(317);
+		bt_tabAnt.setStyle("-fx-background-color: #F0F0F0");
+		
 		// init ComboBox
-		if (cb_Form != null) {
-			cb_Form.setItems(formOptions);
-			cb_Form.getStyleClass().add("optionsComboBox");
-			cb_Form.setValue("Reihe");
-		}    
-	} 
-	
-	public void setParentView(MenuView view) {
-		this.view = view;
+		cb_Form.setItems(formOptions);
+		cb_Form.getStyleClass().add("optionsComboBox");
+		cb_Form.setValue("Reihe");   
 		
-		// hier weil initialize 2x ausgeführt wird.. wird noch geändert!!
+		chart.createLineChart(pn_vorschau);
 		fplot.createForm(pn_form);
 		ampPlot.initPane(pn_amplitude);
 		sl_percent.valueProperty().addListener((obs, oldVal, newVal) -> {		FXSetPercentage();	});
@@ -135,6 +113,15 @@ public class Layout implements Initializable{
 		    	FXCalculatePercentage();
 		    }
 		});
+	} 
+	
+	/**
+	 * - setzt Referenz der Hauptview in Attribut
+	 * 
+	 * @param view	-> Referenz auf HauptView
+	 */
+	public void setParentView(MenuView view) {
+		this.view = view;
 	}
 	
 	
@@ -146,45 +133,47 @@ public class Layout implements Initializable{
 	    	cc_MenuSettings.setMaxWidth(0);
 	    	ToggleMenuIcon.setIcon(FontAwesomeIcon.CARET_LEFT);
 		} else {
-			cc_MenuSettings.setMaxWidth(300);
+			cc_MenuSettings.setMaxWidth(317);
 			ToggleMenuIcon.setIcon(FontAwesomeIcon.CARET_RIGHT);
 		}
 	}
 	
+	/**
+	 * - aktualisiert Bilder der Antennenausrichtungen
+	 * 
+	 * @param imgOrient	-> Bild der Antennenausrichtung
+	 * @param imgForm	-> Bild der Array-Form
+	 */
 	public void updatePicture(Image imgOrient, Image imgForm) {
 		img_ant.setImage(imgOrient);
 		img_form.setImage(imgForm);
 	}
 	
-	// Local Calls from Elements
 	@FXML
 	private void manageButton(ActionEvent e) { 
 		
 		if (e.getSource().equals(cb_Form)) {
 			switch (cb_Form.getValue()) {
-			case "Row": view.setForm(0); fplot.setForm(0); tf_AnzahlCol.setDisable(true); break;
-			case "Circle": view.setForm(1); fplot.setForm(1); tf_AnzahlCol.setDisable(true); break;
+			case "Reihe": view.setForm(0); fplot.setForm(0); tf_AnzahlCol.setDisable(true); break;
+			case "Kreis": view.setForm(1); fplot.setForm(1); tf_AnzahlCol.setDisable(true); break;
 			case "Matrix": view.setForm(2); fplot.setForm(2); tf_AnzahlCol.setDisable(false); break;
 			}
-		}
-		if (e.getSource().equals(bt_unity)) {
-			unitsPopup(e);
 		}
     }
 	
 	@FXML
-	protected void FXSetAnzahl() {
-		Integer x = util.getInt(tf_AnzahlRow, 1, 10);
-		Integer y = util.getInt(tf_AnzahlCol, 1, 10);
+	private void FXSetAnzahl() {
+		Integer x = util.getInt(tf_AnzahlRow, 1, 8);
+		Integer y = util.getInt(tf_AnzahlCol, 1, 8);
 		if (x != null && y != null) {
 			view.setAmpArray(ampPlot.setAntQuant(x,y), sl_percent.getValue());
-			fplot.setAntCount(x);
+			fplot.setAntCount(x, y);
 		}
 				
 	}
 	
 	@FXML
-	protected void FXSetDirection() {
+	private void FXSetDirection() {
 		Integer data = util.getInt(tf_Richtung, -360, 360);
 		if (data != null) {
 			view.setDir(data);
@@ -193,83 +182,97 @@ public class Layout implements Initializable{
 	}
 	
 	@FXML
-	protected void FXSetDirHauptk() {
+	private void FXSetDirHauptk() {
 		Integer data = util.getInt(tf_RichtHauptkaeule, -360, 360);
 		if (data != null) {
 			view.setDirHauptk(data);
+			fplot.setArrayDir(data);
 		}
 	}
 	
 	@FXML
-	protected void FXSetAmplitude() {
-		view.setAmp(util.getDouble(tf_Amplitude, 0.0, 10.0));	
+	private void FXSetAmplitude() {
+		view.setAmp(util.getDouble(tf_Amplitude, 0.0, 100.0));	
 	}
 	
 	@FXML
-	protected void FXSetDLambda() {
-		view.setDLambda(util.getDouble(tf_Lambda, 0.0, 10.0));	
+	private void FXSetDLambda() {
+		view.setDLambda(util.getDouble(tf_Lambda, 0.0, 100.0));	
 	}
 	
 	@FXML
-	protected void FXSetDist() {
+	private void FXSetDist() {
 		view.setDist(util.getDouble(tf_Reflector, 0.0, 10.0));	
 	}
 	
 	@FXML
-	protected void manageTab(ActionEvent e) {
+	private void manageTab(ActionEvent e) {
 		JFXButton btn = (JFXButton)e.getTarget();
 		// reset all backgrounds, bring panel to front
 		bt_tabAnt.setStyle("");
 		bt_tab3D.setStyle("");
 		// set activated button background
-		btn.setStyle("-fx-background-color: white");	
+		btn.setStyle("-fx-background-color: #F0F0F0");
+		
+		if (btn.equals(bt_tabAnt)) {
+			vb_Array.toFront();
+		} else {
+			pn_vorschau.toFront();
+		}
 	}
 	
 	@FXML
-	protected void FXSetReflektor() {
+	private void FXSetReflektor() {
 		boolean visible = cb_reflektor.isSelected();
 		view.setReflektor(cb_reflektor.isSelected());
 		tf_Reflector.setVisible(visible);
+		txt_EinhRef.setVisible(visible);
 	}
 	
 	@FXML
-	protected void FXSetAntVertikal() {
+	private void FXSetAntVertikal() {
 		view.setAntVertikal(cb_AntVert.isSelected());
 	}
 	
 	@FXML
-	protected void FXSetAdvanced() {
+	private void FXSetAdvanced() {
 		boolean visible = cb_advanced.isSelected();
 		txt_richtAnt.setVisible(visible);
 		hb_richtAnt.setVisible(visible);
 		txt_dlambda.setVisible(visible);
 		tf_Lambda.setVisible(visible);
 		txt_amp.setVisible(visible);
-		hb_amp.setVisible(visible);
 		cb_reflektor.setVisible(visible);
-		cb_AntVert.setVisible(visible);
+		tf_Amplitude.setVisible(visible);
+		hb_Reflector.setVisible(visible);
 	}
 	
 	// nur Plot aktualisieren
 	@FXML
-	protected void FXSetPercentage() {
+	private void FXSetPercentage() {
 		ampPlot.setPercentage((int) sl_percent.getValue());
 	}
 	
 	// Berechnungen aktualiseren
-	protected void FXCalculatePercentage() {
+	private void FXCalculatePercentage() {
 		view.setAmpArray(ampPlot.setPercentage(sl_percent.getValue()), sl_percent.getValue());
 	}
 
-	
+	/**
+	 * - aktualisiert alle Eingabefelder
+	 * 
+	 * @param data	-> Datentyp Eingabefelder
+	 */
 	public void updateInputs(SimantInputData data) {
 		// Form
 		switch (data.getForm()) {
-		case 0: cb_Form.setValue("Row"); tf_AnzahlCol.setDisable(true); break;
-		case 1: cb_Form.setValue("Circle"); tf_AnzahlCol.setDisable(true); break;
+		case 0: cb_Form.setValue("Reihe"); tf_AnzahlCol.setDisable(true); break;
+		case 1: cb_Form.setValue("Kreis"); tf_AnzahlCol.setDisable(true); break;
 		case 2: cb_Form.setValue("Matrix"); tf_AnzahlCol.setDisable(false); break;
 		}
 		view.setForm(data.getForm());
+		
+		sl_percent.setValue(data.getAmpPercent());
 		// quantity
 		tf_AnzahlRow.setText(""+data.getAmpArray().get(0).size());
 		tf_AnzahlCol.setText(""+data.getAmpArray().size());
@@ -291,10 +294,10 @@ public class Layout implements Initializable{
 		view.setDist(data.getDist());
 		
 		fplot.setForm(data.getForm());
-		fplot.setAntCount(data.getAmpArray().size());
+		fplot.setAntCount(data.getAmpArray().get(0).size(), data.getAmpArray().size());
 		fplot.setAngle(data.getDir());
+		fplot.setArrayDir(data.getDirHauptk());
 		
-		sl_percent.setValue(data.getAmpPercent());
 		ampPlot.setAntQuant(data.getAmpArray().get(0).size(), data.getAmpArray().size());
 		
 		cb_reflektor.setSelected(data.getReflektor());
@@ -306,32 +309,13 @@ public class Layout implements Initializable{
 	}
 	
 	
-	// Local Calls
-	private void unitsPopup(ActionEvent e) {
-		JFXButton actionButton = (JFXButton)e.getTarget();
-		JFXButton bt1 = new JFXButton("mV");
-		JFXButton bt2 = new JFXButton("V");
-		JFXButton bt3 = new JFXButton("kV");
-		bt1.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 25px;-fx-font-weight: bold;");
-		bt2.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 25px;-fx-font-weight: bold;");
-		bt3.setStyle("-fx-background-color: #E4E4E4; -fx-font-size: 25px;-fx-font-weight: bold;");
-		bt2.setMinWidth(60);
-		bt1.setPadding(new Insets(10));
-		bt2.setPadding(new Insets(10));
-		bt3.setPadding(new Insets(10));
-		
-		HBox hBox = new HBox(bt1, bt2, bt3);
-		HBox.setMargin(bt1, new Insets(10,10,10,10));
-		HBox.setMargin(bt2, new Insets(10,10,10,10));
-		HBox.setMargin(bt3, new Insets(10,10,10,10));
-	    PopOver popOver = new PopOver(hBox);
-	    popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
-	    popOver.setTitle("Unity");
-	    bt1.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("mV");    });
-	    bt2.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("V");    });
-	    bt3.setOnAction(event -> { 	popOver.hide();   	actionButton.setText("kV");    });
-	    popOver.show(actionButton);
+	/**
+	 * - aktualisiert Daten für Plots
+	 * 
+	 * @param sData	-> gerechnete Daten aus Model
+	 */
+	public void drawCharts(SimantData sData) {
+		chart.setDataSet(sData.getWinkel(), sData.getAmp(), sData.getAmpLogReal());
 	}
-	
 	
 }

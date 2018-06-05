@@ -18,22 +18,28 @@ public class XML {
 	
 	// Local Elements declaration
 	@FXML JFXButton bt_export, bt_import;
-	
-	
-	public XML() {
-		
+
+	/**
+	 * - setzt Filter vom FileChooser
+	 * - erstellt lokales File
+	 */
+	public XML() {	
 		extFilter = new FileChooser.ExtensionFilter("SimAnt files (*.simant)", "*.simant");
 		fileChooser.getExtensionFilters().add(extFilter);
 		file = new File(".");
 	}
 	
+	/**
+	 * - setzt Referenz der Hauptview in Attribut
+	 * 
+	 * @param view	-> Referenz auf HauptView
+	 */
 	public void setParentView(MenuView view) {
 		this.view = view;
 	}
 	
-	
-	// Local Calls from Elements
-	@FXML protected void importFileChooser() {
+	@FXML 
+	private void importFileChooser() {
 		
 	    fileChooser.setTitle("Öffne Einstellungs Datei");
 	    
@@ -45,11 +51,12 @@ public class XML {
 	    
 	}
 	
-	@FXML protected void exportFileChooser() throws IOException {
+	@FXML 
+	private void exportFileChooser() throws IOException {
 		
 	    fileChooser.setTitle("Speichere Einstellungs Datei"); 
 
-    	// only if sucessful!
+    	// nur wenn gültiger Pfad vorhanden ist..!
 	    file = fileChooser.showSaveDialog(null);
 	    if (file != null) {
 	    	view.saveXML(file);
@@ -57,9 +64,4 @@ public class XML {
 		}
 	    
 	}
-	
-	
-	// Local Calls
-	
-	
 }

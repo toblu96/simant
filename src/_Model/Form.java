@@ -14,6 +14,16 @@ public abstract class Form {
 	protected double an_lambda, an_amplitude, rf_distance;
 	protected List<List<Double>> an_amp;
 	
+	/**
+	 * - liest neue Eingabeparameter ein
+	 * - speichert Atribute
+	 * 
+	 * @param an_lambda	-> dLambda
+	 * @param an_direction	-> Richtung Hauptkäule
+	 * @param an_amplitude	-> Amplitude
+	 * @param rf_distance	-> Distanz Reflektor
+	 * @param points	-> Anzahl zu rechnende Punkte
+	 */
 	public void updateData(double an_lambda, int an_direction, List<List<Double>> an_amplitude, double rf_distance, int points) {
 		this.an_amp = an_amplitude;
 		this.an_lambda = an_lambda;
@@ -22,7 +32,19 @@ public abstract class Form {
 		this.points = points;
 	}
 	
+	/**
+	 * - löst Neuberechnung aus
+	 * 
+	 * @return	-> ArrayList der berechneten Amplituden
+	 */
 	public abstract ArrayList<Double> calculate();
+	
+	/**
+	 * - liest Bild der Array-Form aus
+	 * 
+	 * @param reflector	-> Bild mit/ ohne Reflektor
+	 * @return	-> Bild
+	 */
 	public abstract Image getImage(boolean reflector);
 }
 
@@ -34,7 +56,7 @@ class Linear extends Form {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
 		ArrayList<Complex> sumr = new ArrayList<Complex>();
 		ArrayList<Double> res = new ArrayList<Double>();
-		double richtd = Matlab.deg2rad(an_direction);
+		double richtd = Math.toRadians(an_direction);
 		double d_L = an_lambda;
 		int n = an_amp.get(0).size();	// x achse des amp array
 		ArrayList<Double> ak = new ArrayList<>();
@@ -85,7 +107,7 @@ class Circle extends Form {
 		ArrayList<Double> psi_r = Matlab.linspace(0.0, 2*Math.PI, points);
 		ArrayList<Complex> sumr = new ArrayList<Complex>();
 		ArrayList<Double> res = new ArrayList<Double>();
-		double phase = Matlab.deg2rad((double)(an_direction));
+		double phase = Math.toRadians((double)(an_direction));
 		double d_L = an_lambda;
 		int n = an_amp.get(0).size();	// x achse des amp array
 
@@ -140,7 +162,7 @@ class Matrix extends Form {
 		ArrayList<Double> res1 = new ArrayList<Double>();
 		ArrayList<Double> res2 = new ArrayList<Double>();
 		List<List<Double>> ak = new ArrayList<>();
-		double richtd = Matlab.deg2rad((double)(an_direction));
+		double richtd = Math.toRadians((double)(an_direction));
 		double d_L = an_lambda;
 		
 		ak = an_amp;
@@ -217,7 +239,7 @@ class Reflector extends Form {
 		double h = rf_distance;
 		double d_L = an_lambda;
 		int n = an_amp.get(0).size();	// x achse des amp array
-		
+
 		for (int k = 1; k <= n; k++) {
 			for (int i = 0; i < points; i++) {
 				if (k==1) {
@@ -251,7 +273,7 @@ class Reflector extends Form {
 		}
 		
 		for (int i = 0; i < points; i++) {
-			res.add(res1.get(i).subtract(res2.get(i)).abs());
+			res.add(res1.get(i).add(res2.get(i)).abs());
 		}
 		
 		double maxVal = Collections.max(res);

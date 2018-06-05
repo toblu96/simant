@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import Layout.Layout;
-import Settings.Settings;
 import XML.XML;
 import _Controller.Controller;
 
@@ -49,27 +48,34 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	FXMLLoader diagramLoader = new FXMLLoader(Main.class.getResource("/Diagram/Diagram.fxml"));
 	FXMLLoader xmlLoader = new FXMLLoader(Main.class.getResource("/XML/XML.fxml"));
 	FXMLLoader helpLoader = new FXMLLoader(Main.class.getResource("/Help/Help.fxml"));
-	FXMLLoader settingsLoader = new FXMLLoader(Main.class.getResource("/Settings/Settings.fxml"));
 	private Antenna antenna;
 	private Layout layout;
 	private Diagram diagram;
 	private XML xml;
 	private Help help;
-	private Settings settings;
 	
 	
 	// Local Elements declaration
 	@FXML 
-	JFXButton btn_antenna, btn_layout, btn_diagram, btn_xml, btn_help, btn_settings;
-	private JFXButton[] arrButton = new JFXButton[6];
+	JFXButton btn_antenna, btn_layout, btn_diagram, btn_xml, btn_help;
+	private JFXButton[] arrButton = new JFXButton[5];
 	
 	@FXML
 	AnchorPane apn_Content;
-	private AnchorPane[] arrAnchPane = new AnchorPane[6];
+	private AnchorPane[] arrAnchPane = new AnchorPane[5];
 	
 	@FXML
 	ColumnConstraints menuPaneWidth;
 	
+	/**
+	 * erstellt neue Menu-Ansicht:
+	 * - lädt Layout aus FXML Datei
+	 * - setzt geladene FXML-Ansicht auf die Grundansicht (MenuView)
+	 * - streckt erstellte Ansicht auf volle mögliche Grösse des Grundpanels für die Menu-Punkte
+	 * 
+	 * @param viewLoader -> FXML Referenz auf Datei
+	 * @return -> AnchorPane Referenz der erstellten Menu-Ansicht
+	 */
 	private AnchorPane createStageSection(FXMLLoader viewLoader) {
         try {
             // Load Layout
@@ -87,6 +93,16 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		return null;
     }
 	
+	/**
+	 * - erstellt Eingabeparameter-Datentyp und initialisiert alle Eingabefelder mit Standartwerten
+	 * - erstellt alle Menuansichten mit "createStageSection" und weist zugehörige Buttons zu
+	 * - weist alle automatisch erstellten Controller-Referenzen den Attributen zu
+	 * - setzt Referenz der Menu-Ansichten auf übergeordnete View
+	 * - aktualisiert alle Eingabefelder mit initialisierten werden ("updateInputs")
+	 * 
+	 * @param arg0	-> not used
+	 * @param arg1	-> not used
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		inpData = new SimantInputData();
@@ -106,10 +122,8 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		arrButton[2] = btn_diagram;		arrAnchPane[2] = createStageSection(this.diagramLoader);
 		arrButton[3] = btn_xml;			arrAnchPane[3] = createStageSection(this.xmlLoader);
 		arrButton[4] = btn_help;		arrAnchPane[4] = createStageSection(this.helpLoader);
-		arrButton[5] = btn_settings;	arrAnchPane[5] = createStageSection(this.settingsLoader);
 		
-		arrAnchPane[1].toFront();
-		btn_layout.getStyleClass().add("menuButtonActive");
+		setBtnPanel(btn_layout);
 		
 		// get references from fxml		
 		this.antenna = this.antennaLoader.getController();
@@ -117,100 +131,174 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		this.diagram = this.diagramLoader.getController();
 		this.xml = this.xmlLoader.getController();
 		this.help = this.helpLoader.getController();
-		this.settings = this.settingsLoader.getController();
 		
 		this.antenna.setParentView(this);
 		this.layout.setParentView(this);
 		this.diagram.setParentView(this);
 		this.xml.setParentView(this);
 		this.help.setParentView(this);
-		this.settings.setParentView(this);
 		
-
 		updateInputs(inpData);
-//		this.controller.setInputData(this.inpData);
-		
 	}
 	
-	public double getAmpReal() {
-		return inpData.getAmp();
-	}
-	
-	
-	// Local Calls from Elements
+	/**
+	 * - wird von allen Menu-Buttons von FXML-Datei ausgeführt
+	 * - ruft "setBtnPanel(ActionEvent) auf
+	 * 
+	 * @param e	-> eingehende Action der Buttons
+	 */
 	public void manageButton(ActionEvent e) { 
-		this.setBtnPanel((JFXButton)e.getTarget());		
+		setBtnPanel((JFXButton)e.getTarget());		
     } 
 	
 	
 	
-	// Local Calls
+	/**
+	 * - setzt gewählten Antennentyp in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Antennen-Typ
+	 */
 	public void setAnt(Integer data) {
 		this.inpData.setAnt(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt gewählte Array-Form in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Array-Form
+	 */
 	public void setForm(Integer data) {
 		this.inpData.setForm(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt gewähltes d-Lambda in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> dLambda
+	 */
 	public void setDLambda(Double data) {
 		this.inpData.setDLambda(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt gewählte Antennenausrichtung (Einzelantenne) in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Ausrichtung Einzelantenne
+	 */
 	public void setDir(Integer data) {
 		this.inpData.setDir(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt gewählte Hauptkäulen-Ausrichtung in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Ausrichtung Hauptkäule
+	 */
 	public void setDirHauptk(Integer data) {
 		this.inpData.setDirHauptk(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt gewählte Amplitude in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Amplitude
+	 */
 	public void setAmp(Double data) {
 		this.inpData.setAmp(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt Array des gerechneten Amplitudenfaktor (cos^2) und den Slider-Wert in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Array mit Amplitudenfaktor (cos^2)
+	 * @param sliderPercent	-> Slider-Wert der cos^2-Stärke
+	 */
 	public void setAmpArray(List<List<Double>> data, Double sliderPercent) {
 		this.inpData.setAmpArray(data);
 		this.inpData.setAmpPercent(sliderPercent);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt angewählten Reflektor in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Reflektor angewählt
+	 */
 	public void setReflektor(boolean data) {
 		this.inpData.setReflektor(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt gewählte Distanz des Reflektors in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Distanz Reflektor
+	 */
 	public void setDist(Double data) {
 		this.inpData.setDist(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - setzt Einzelantennenausrichtung (Vertikal) in lokalen Datentyp
+	 * - übergibt Datentyp dem Controller
+	 * 
+	 * @param data	-> Antenne vertikal ausgerichtet
+	 */
 	public void setAntVertikal(boolean data) {
 		this.inpData.setAntVertikal(data);
 		controller.setInputData(inpData);
 	}
 	
+	/**
+	 * - übergibt Speicherpfad für XML-Datei dem Controller
+	 * 
+	 * @param file	-> Speicherpfad
+	 */
 	public void saveXML(File file) {
 		controller.exportData(file, this.inpData);
 	}
 	
+	/**
+	 * - übergibt Ladepfad von XML dem Controller
+	 * 
+	 * @param file	-> Ladepfad
+	 */
 	public void loadXML(File file) {
 		controller.importData(file);
 	}
 	
+	/**
+	 * - aktualisiert eingelesene Eingabeparameter von XML in allen View-Ansichten
+	 * 
+	 * @param data	-> Eingelesene Eingabeparameter (SimantInputData)
+	 */
 	public void updateInputs(SimantInputData data) {
 		layout.updateInputs(data);
 		antenna.updateInputs(data);
 	}
 	
-	
-	
+	/**
+	 * - stellt neu angewältes Panel in den Vordergrund
+	 * - färbt angewählten Menu-Button ein
+	 * 
+	 * @param btn	-> aktivierter Menu-Button
+	 */
 	public void setBtnPanel(JFXButton btn) {
 		
 		// reset all backgrounds, bring panel to front
@@ -225,17 +313,34 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 		btn.getStyleClass().add("menuButtonActive");		
 	}
 	
-
+	/**
+	 * - aktualisiert alle Anzeigefenster mit neu gerechneten Daten
+	 */
 	@Override
 	public void onComplete() {
-		Platform.runLater( () -> {  diagram.drawCharts(this.sData); this.layout.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm()); this.antenna.updateView(this.sData);});
+		Platform.runLater( () -> {  layout.drawCharts(sData); 
+									diagram.drawCharts(this.sData); 
+									diagram.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm());
+									layout.updatePicture(this.sData.getImgOrient(), this.sData.getImgForm()); 
+									antenna.updateView(this.sData);
+									});
 	}
 
+	/**
+	 * - gibt Fehlermeldung bei Übertragungsfehler aus
+	 * 
+	 * @param error
+	 */
 	@Override
 	public void onError(Throwable error) {
 		System.out.println(error);
 	}
 
+	/**
+	 * - speichert empfangene Daten in Attribut
+	 * 
+	 * @param item	-> gerechnete Daten von Model (SimantData)
+	 */
 	@Override
 	public void onNext(SimantData item) {
 		this.sData = item;
@@ -243,6 +348,11 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	    subscription.request(1);
 	}
 
+	/**
+	 * - startet Subscribe-Prozess
+	 * 
+	 * @param subscription
+	 */
 	@Override
 	public void onSubscribe(Subscription subscription) {
 		this.subscription = subscription;

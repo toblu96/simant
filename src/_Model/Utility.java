@@ -1,25 +1,59 @@
 package _Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.jfoenix.controls.JFXTextField;
-
 import javafx.stage.Screen;
 
 public class Utility {
 
 	private static final double height = Screen.getPrimary().getVisualBounds().getHeight(); // Screen resolution height
 	private static final double width = Screen.getPrimary().getVisualBounds().getWidth();	// Screen resolution width
-	
-	// get height percentage from screen resolution
+
+	/**
+	 * - rechnet prozentuale Höhe der Bildschirmauflösung
+	 * 
+	 * @param per	-> Prozent der Bildschirmhöhe
+	 * @return	-> Prozent in Pixel
+	 */
 	public double getScreenHeightPercentage(double per) {
 		return height / 100 * per;
 	}
 	
-	// get width percentage from screen resolution
+	/**
+	 * - rechnet prozentuale Breite der Bildschirmauflösung
+	 * 
+	 * @param per	-> Prozent der Bildschirmbreite
+	 * @return		-> Prozent in Pixel
+	 */
 	public double getScreenWidthPercentage(double per) {
 		return width / 100 * per;
 	}
 	
-	// only number input from text-field (double)
+	/**
+	 * - erzeugt aus ArrayList<String> eine ArrayList<Double>
+	 * 
+	 * @param list	-> zu wandelnde ArrayList
+	 * @return		-> ArrayList mit Double-Werten
+	 */
+	public static List<Double> getDoubleList(List<String> list) {
+		List<Double> temp = new ArrayList<>();
+		for(int i=0; i<list.size(); i++) {
+		    temp.add(Double.parseDouble(list.get(i)));
+		}
+		return temp;
+	}
+	
+	/**
+	 * - wandelt Textfield Eingabe in Double
+	 * - löscht unerlaubte Eingabewerte
+	 * - Begrenzt Eingabemöglichkeit (Meldung)
+	 * 
+	 * @param tf	-> Referenz auf JFXTextField
+	 * @param min	-> erlaubter Minimalwert
+	 * @param max	-> erlaubter Maximalwert
+	 * @return		-> Eingabewert in Double
+	 */
 	public double getDouble(JFXTextField tf, double min, double max) {
 		int caret = tf.getCaretPosition();
 		String text = tf.getText();
@@ -59,11 +93,21 @@ public class Utility {
 			res = 2.1%0;		// NaN
 		}
 		
-		if (res > max) {	tf.setText(""+max);	return max;	}
-		if (res < min) {	tf.setText(""+min); return min; }
+		if (res > max) {	tf.setText(""+max);	Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return max;	}
+		if (res < min) {	tf.setText(""+min); Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return min; }
 		return res;
 	}
 	
+	/**
+	 * - wandelt Textfield Eingabe in Integer
+	 * - löscht unerlaubte Eingabewerte
+	 * - Begrenzt Eingabemöglichkeit (Meldung)
+	 * 
+	 * @param tf	-> Referenz auf JFXTextField
+	 * @param min	-> erlaubter Minimalwert
+	 * @param max	-> erlaubter Maximalwert
+	 * @return		-> Eingabewert in Integer
+	 */
 	public Integer getInt(JFXTextField tf, Integer min, Integer max) {
 		int caret = tf.getCaretPosition();
 		String text = tf.getText();
@@ -77,8 +121,8 @@ public class Utility {
 		Integer res = 0;
 		try {
 			res = Integer.parseInt(text);
-			if (res > max) {	tf.setText(""+max);	tf.positionCaret(caret); return max;	}
-			if (res < min) {	tf.setText(""+min); tf.positionCaret(caret); return min; }
+			if (res > max) {	tf.setText(""+max);	tf.positionCaret(caret); Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return max;	}
+			if (res < min) {	tf.setText(""+min); tf.positionCaret(caret); Notification.info("Nur Werte zwischen " + min + " und " + max + " erlaubt"); return min; }
 		} catch (Exception e) {
 			res = null;
 		}
