@@ -58,12 +58,15 @@ public class Model {
 	 * @param data	-> Eingabeparameter (SimantInputData)
 	 */
 	public void updateInputData(SimantInputData data) {
-
+		ArrayList<ArrayList<Double> > Amp = new ArrayList<ArrayList<Double> >();
+		
 		// get Images
 		sData.setImgForm(form[data.getForm()].getImage(data.getReflektor()));	// set true if reflector!
 		sData.setImgOrient(charact[data.getAnt()].getImageOrientation(!data.getAntVertikal()));	// set false if antenna orientation vertical
-		sData.setAmp(calculateTopology(data).get(0));
-		sData.setAmpLog(calculateTopology(data).get(1));
+		
+		Amp.addAll(calculateTopology(data));
+		sData.setAmp(Amp.get(0));
+		sData.setAmpLog(Amp.get(1));
 		sData.setWinkel(this.winkel);
 		sData.setImgCharac(charact[data.getAnt()].getImageCharacterictic());
 		sData.setTxCharac(charact[data.getAnt()].getText());
