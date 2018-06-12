@@ -245,6 +245,8 @@ public class Layout implements Initializable{
 		cb_reflektor.setVisible(visible);
 		tf_Amplitude.setVisible(visible);
 		hb_Reflector.setVisible(visible);
+		
+		view.setAdvanced(visible);
 	}
 	
 	// nur Plot aktualisieren
@@ -302,6 +304,8 @@ public class Layout implements Initializable{
 		
 		cb_reflektor.setSelected(data.getReflektor());
 		cb_AntVert.setSelected(data.getAntVertikal());
+		
+		cb_advanced.setSelected(data.getAdvanced());
 		
 		// hide advanced mode if programm has started..
 		FXSetAdvanced();

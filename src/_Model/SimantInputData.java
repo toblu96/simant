@@ -8,7 +8,7 @@ public class SimantInputData {
 	// all Data
 	private Double dLambda, amplitude, ampPercent, distance;
 	private Integer direction, dirHauptkaeule, antenna, form;
-	private boolean reflektor, antVertikal;
+	private boolean reflektor, antVertikal, advanced;
 	List<List<Double>> ampArray = new ArrayList<>();
 	
 	public void setAnt(int data) {
@@ -97,6 +97,14 @@ public class SimantInputData {
 	
 	public boolean getAntVertikal() {
 		return this.antVertikal;
+	}
+	
+	public void setAdvanced(boolean data) {
+		this.advanced = data;
+	}
+	
+	public boolean getAdvanced() {
+		return this.advanced;
 	}
 	
 }

@@ -50,8 +50,10 @@ public class DataExport {
             writeElement(xmlStreamWriter, "reflDist", elementsMap);
             writeElement(xmlStreamWriter, "refl", elementsMap);
             writeElement(xmlStreamWriter, "antVert", elementsMap);
+            writeElement(xmlStreamWriter, "advanced", elementsMap);
+            
             // ampArray
-            for (int i = 0; i < elementsMap.size()-11; i++) {
+            for (int i = 0; i < elementsMap.size()-12; i++) {
             	writeElement(xmlStreamWriter, "ampArray"+i, elementsMap);
 			}
             
@@ -121,10 +123,12 @@ public class DataExport {
                     	this.antennaIndex = 9;
                     }else if(xmlStreamReader.getLocalName().equals("antVert")){
                     	this.antennaIndex = 10;
-                    } else {
+                    }else if(xmlStreamReader.getLocalName().equals("advanced")){
+                    	this.antennaIndex = 11;
+                    }else {
                     	for (int i = 0; i < 9; i++) {
 							if (xmlStreamReader.getLocalName().equals("ampArray"+i)) {
-								this.antennaIndex = 11+i;
+								this.antennaIndex = 12+i;
 							}
 						}
                     }
@@ -143,21 +147,23 @@ public class DataExport {
 					case 8:		data.setDist(Double.parseDouble(xmlStreamReader.getText())); break;
 					case 9:		data.setReflektor(Boolean.parseBoolean(xmlStreamReader.getText())); break;
 					case 10:	data.setAntVertikal(Boolean.parseBoolean(xmlStreamReader.getText())); break;
-					case 11:	List<Double> wordList1 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 11:	data.setAdvanced(Boolean.parseBoolean(xmlStreamReader.getText())); break;
+					
+					case 12:	List<Double> wordList1 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList1); break;
-					case 12:	List<Double> wordList2 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 13:	List<Double> wordList2 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList2); break;
-					case 13:	List<Double> wordList3 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 14:	List<Double> wordList3 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList3); break;
-					case 14:	List<Double> wordList4 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 15:	List<Double> wordList4 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList4); break;
-					case 15:	List<Double> wordList5 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 16:	List<Double> wordList5 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList5); break;
-					case 16:	List<Double> wordList6 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 17:	List<Double> wordList6 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList6); break;
-					case 17:	List<Double> wordList7 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 18:	List<Double> wordList7 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList7); break;
-					case 18:	List<Double> wordList8 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
+					case 19:	List<Double> wordList8 = Utility.getDoubleList(Arrays.asList(xmlStreamReader.getText().replace("[", "").replace("]", "").split(",")));
 								temp.add(wordList8); break;
 					}
                 	antennaIndex = 0;
@@ -209,6 +215,7 @@ public class DataExport {
         elementsMap.put("reflDist", ""+ 		data.getDist());
         elementsMap.put("refl", ""+ 			data.getReflektor());
         elementsMap.put("antVert", ""+ 			data.getAntVertikal());
+        elementsMap.put("advanced", ""+ 		data.getAdvanced());
         // loop through ampArray (Anzahl Kolonen)
         for (int i = 0; i < data.getAmpArray().size(); i++) {
         	elementsMap.put("ampArray"+i, ""+	data.getAmpArray().get(i));

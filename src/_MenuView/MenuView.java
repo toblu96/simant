@@ -266,6 +266,15 @@ public class MenuView implements Initializable, Subscriber<SimantData> {
 	}
 	
 	/**
+	 * - setzt den eingestellten Modus in den lokalen Datentyp
+	 * 
+	 * @param data	-> Modus Beginner / Advanced
+	 */
+	public void setAdvanced(boolean data) {
+		this.inpData.setAdvanced(data);
+	}
+	
+	/**
 	 * - übergibt Speicherpfad für XML-Datei dem Controller
 	 * 
 	 * @param file	-> Speicherpfad

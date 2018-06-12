@@ -93,7 +93,7 @@ public class AmplitudePlot {
 			if (this.antQuantX > 1) {
 				ampline.setLayoutX((ampPane.getWidth() - 80) / (this.antQuantX-1) * i + 40);
 			} else {
-				ampline.setLayoutX(40);
+				ampline.setLayoutX(ampPane.getWidth()/2);
 			}
 
 			ampline.setLayoutY(ampPane.getHeight() - 20);

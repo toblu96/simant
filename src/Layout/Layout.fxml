@@ -208,7 +208,7 @@
                                     </JFXTextField>
                                  </children>
                               </HBox>
-                              <Text layoutX="30.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Richtung Hauptkäule:">
+                              <Text layoutX="30.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Richtung Hauptkeule:">
                                  <font>
                                     <Font name="Segoe UI Bold" size="20.0" />
                                  </font>
@@ -252,7 +252,7 @@
                                     </Text>
                                  </children>
                               </HBox>
-                              <Text fx:id="txt_dlambda" layoutX="30.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="d / Lambda:">
+                              <Text fx:id="txt_dlambda" layoutX="30.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="d / λ (Antennen):">
                                  <font>
                                     <Font name="Segoe UI Bold" size="20.0" />
                                  </font>
@@ -293,9 +293,9 @@
                                           <Font name="Segoe UI Bold" size="20.0" />
                                        </font>
                                     </JFXTextField>
-                                    <Text fx:id="txt_EinhRef" strokeType="OUTSIDE" strokeWidth="0.0" text="m" translateY="8.0" wrappingWidth="21.533203125">
+                                    <Text fx:id="txt_EinhRef" strokeType="OUTSIDE" strokeWidth="0.0" text="d/λ" translateY="8.0" wrappingWidth="35.0">
                                        <font>
-                                          <Font name="Segoe UI Bold" size="25.0" />
+                                          <Font name="Segoe UI Bold" size="20.0" />
                                        </font>
                                     </Text>
                                  </children>

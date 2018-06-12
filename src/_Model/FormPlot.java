@@ -138,7 +138,7 @@ public class FormPlot {
 			if (this.antennaCountX > 1) {
 				imgView.setX((formPane.getWidth() - 80) / (this.antennaCountX-1) * i - offsetX + 40);
 			} else {
-				imgView.setX(- offsetX + 40);
+				imgView.setX(formPane.getWidth()/2 - offsetX);
 			}
 			imgView.setY(middleY - offsetY);
 			imgView.setRotate(-this.angle);
@@ -198,7 +198,7 @@ public class FormPlot {
 				if (this.antennaCountX > 1) {
 					imgView.setX((formPane.getWidth() - 80) / (this.antennaCountX-1) * i - offsetX + 40);
 				} else {
-					imgView.setX(- offsetX + 40);
+					imgView.setX(formPane.getWidth()/2 - offsetX);
 				}
 				imgView.setY(lineCoordY - offsetY);
 				imgView.setRotate(-this.angle);
